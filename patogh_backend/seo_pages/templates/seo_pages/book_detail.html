@@ -1,0 +1,65 @@
+{% extends "seo_pages/base.html" %}
+{% load static %}
+{% block og_image %}{% if book.cover %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ book.cover }}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">{% else %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'seo_pages/og-image.jpg' %}">{% endif %}{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ book.title|escapejs }}",
+  "image": "{% if book.cover %}{{ request.scheme }}://{{ request.get_host }}{{ book.cover }}{% endif %}",
+  "description": "{{ meta_description|escapejs }}",
+  "brand": { "@type": "Brand", "name": "پاتوق بوک" },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "IRR",
+    "price": "{{ book.final_price }}0",
+    "availability": "{% if book.stock > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
+  }
+}
+</script>
+{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'seo_pages:home' %}">خانه</a> /
+  <a href="{% url 'seo_pages:shop' %}">فروشگاه</a> /
+  <a href="{% url 'seo_pages:author_detail' book.author.slug %}">{{ book.author.name }}</a> /
+  {{ book.title }}
+</div>
+{% endblock %}
+{% block content %}
+<div class="book-detail">
+  <div class="cover-wrap">
+    {% if book.cover %}<img src="{{ book.cover }}" alt="جلد کتاب {{ book.title }}">{% endif %}
+  </div>
+  <div class="info">
+    <h1>{{ book.title }}</h1>
+    <div class="author-line">نویسنده: <a href="{% url 'seo_pages:author_detail' book.author.slug %}">{{ book.author.name }}</a></div>
+    <div class="price-row">
+      <span class="price">{{ book.final_price|floatformat:0 }} تومان</span>
+      {% if book.discount %}<span class="price old">{{ book.price|floatformat:0 }}</span> <span class="badge">{{ book.discount }}٪ تخفیف</span>{% endif %}
+    </div>
+    {% if book.description %}<p class="desc">{{ book.description|linebreaksbr }}</p>{% endif %}
+    <p style="font-size:13px;color:#8a7558;margin-bottom:20px;">
+      {% if book.stock > 0 %}موجود در انبار ({{ book.stock }} عدد){% else %}ناموجود{% endif %}
+      · دسته‌بندی: {{ book.category }}
+    </p>
+    <a class="btn" href="/app/#/book/{{ book.id }}">مشاهده و افزودن به سبد خرید ⟵</a>
+  </div>
+</div>
+
+{% if related %}
+<h2 style="margin-top:44px;">کتاب‌های مشابه</h2>
+<div class="book-grid">
+  {% for b in related %}
+  <a class="book-card" href="{% url 'seo_pages:book_detail' b.slug %}">
+    {% if b.cover %}<img class="cover" src="{{ b.cover }}" alt="جلد کتاب {{ b.title }}">{% endif %}
+    <b>{{ b.title }}</b>
+    <span class="author">{{ b.author.name }}</span>
+    <span class="price">{{ b.final_price|floatformat:0 }} تومان</span>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

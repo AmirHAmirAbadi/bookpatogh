@@ -1,0 +1,20 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / کارگاه‌ها</div>
+{% endblock %}
+{% block content %}
+<h1>کارگاه‌ها و محصولات آموزشی</h1>
+{% if books %}
+<div class="book-grid">
+  {% for b in books %}
+  <a class="book-card" href="{% url 'seo_pages:book_detail' b.slug %}">
+    {% if b.cover %}<img class="cover" src="{{ b.cover }}" alt="{{ b.title }}">{% endif %}
+    <b>{{ b.title }}</b>
+    <span class="price">{{ b.final_price|floatformat:0 }} تومان</span>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty-note">فعلاً کارگاهی ثبت نشده است.</p>
+{% endif %}
+{% endblock %}

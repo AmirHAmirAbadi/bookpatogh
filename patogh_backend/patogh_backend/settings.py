@@ -7,6 +7,18 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# --- LOAD .env FILE -----------------------------------------------------
+# Without this, the values in the .env file are never actually read by
+# Django (os.environ only sees real OS environment variables), which meant
+# DEBUG defaulted to False and SECRET_KEY stayed at the insecure placeholder,
+# causing the RuntimeError below and preventing the server from starting.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(BASE_DIR / '.env')
+except ImportError:
+    # python-dotenv not installed; fall back to real environment variables.
+    pass
+
 
 def env_bool(name, default=False):
     val = os.environ.get(name)
@@ -56,6 +68,13 @@ if not DEBUG:
     SECURE_REFERRER_POLICY = 'same-origin'
     X_FRAME_OPTIONS = 'DENY'
 
+    # اگر پشت یک ریورس‌پروکسی (nginx و ...) که SSL را در همان‌جا terminate
+    # می‌کند اجرا می‌شود، بدون این خط، Django فکر می‌کند اتصال همیشه http است
+    # (چون خودِ درخواستِ داخلی به gunicorn/uWSGI رمزنگاری‌نشده است) و در
+    # نتیجه canonical/og:url و آدرس‌های sitemap.xml را با http:// می‌سازد
+    # نه https:// — که برای سئو مشکل‌ساز است (URL نامعتبر/غیرقانونی از نگاه گوگل).
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # --- APPS ---------------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,10 +95,15 @@ INSTALLED_APPS = [
     'inquiries',
     'orders',
     'accounts',
+    'advertising',
+    'media_library',
+    'ai_assistant',
+    'seo_pages',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,6 +158,35 @@ USE_TZ = True
 
 # --- STATIC FILES ---------------------------------------------------------
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
+}
+
+# --- MEDIA (user-uploaded) FILES -------------------------------------------
+# Book cover images are still stored as base64 strings inside the `images`
+# JSONField (unchanged), but real uploaded files — PDFs and podcast audio —
+# are saved here on disk and served from MEDIA_URL. In production, put a real
+# web server (nginx, etc.) in front of this path, or swap to S3/object storage.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# --- AI ASSISTANT (Grok / Gemini) ------------------------------------------
+# Used by the admin-panel "دستیار هوش مصنوعی" chat tab (ai_assistant app).
+# Switch providers with AI_PROVIDER=gemini|grok in .env (default: gemini —
+# it has a genuinely free API tier, so the admin panel won't hit paid limits
+# for normal SEO/blog-writing usage). You only need to set the API key for
+# whichever provider you actually pick.
+AI_PROVIDER = os.environ.get('AI_PROVIDER', 'gemini')
+
+# Gemini: get a key from https://aistudio.google.com/app/apikey
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash')
+
+# Grok (xAI): get a key from https://console.x.ai (API Keys page)
+XAI_API_KEY = os.environ.get('XAI_API_KEY', '')
+XAI_MODEL = os.environ.get('XAI_MODEL', 'grok-4.3')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

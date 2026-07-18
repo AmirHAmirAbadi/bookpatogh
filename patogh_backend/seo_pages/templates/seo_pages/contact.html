@@ -1,0 +1,57 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / تماس با ما</div>
+{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "تماس با پاتوق بوک",
+  "url": "{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}",
+  "mainEntity": {
+    "@type": "BookStore",
+    "name": "پاتوق بوک",
+    "telephone": "{{ phone_e164 }}",
+    "email": "{{ email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ address }}",
+      "addressLocality": "نور",
+      "addressRegion": "مازندران",
+      "addressCountry": "IR"
+    }
+  }
+}
+</script>
+{% endblock %}
+{% block content %}
+<h1>تماس با ما</h1>
+<p style="max-width:640px;line-height:2;">
+  برای خرید کتاب در نور، سفارش حضوری، یا هر سؤالی درباره‌ی کتاب‌های پاتوق بوک،
+  از راه‌های زیر با ما در تماس باشید:
+</p>
+<div class="info-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 26px;">
+  <div class="info-card"><b>آدرس</b>{{ address }}</div>
+  <div class="info-card"><b>تلفن</b><a href="tel:{{ phone_e164 }}">{{ phone_display }}</a></div>
+  <div class="info-card"><b>ایمیل</b><a href="mailto:{{ email }}">{{ email }}</a></div>
+  <div class="info-card"><b>ساعات کاری</b>{{ hours }}</div>
+  <div class="info-card"><b>تحویل در محل</b>امکان تحویل حضوری در محل فروشگاه</div>
+</div>
+<iframe src="{{ maps_embed_src }}" width="100%" height="320" style="border:0;border-radius:10px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="نقشه فروشگاه پاتوق بوک در نور"></iframe>
+<p style="margin-top:10px;"><a href="{{ maps_link }}" target="_blank" rel="noopener">مسیریابی در Google Maps ⟵</a></p>
+
+<h2 style="margin-top:36px;">پشتیبانی رشت و گیلان</h2>
+<p style="max-width:640px;line-height:2;">
+  علاوه بر فروشگاه نور، تیم پشتیبانی و توسعه‌ی پاتوق بوک در <strong>رشت</strong> هم
+  مستقر است و به مشتریان <strong>رشت و استان گیلان</strong> از طریق همین شماره تماس
+  و ایمیل پاسخ‌گوست. سفارش‌ها برای رشت و گیلان هم مثل بقیه‌ی نقاط کشور با پیک/پست
+  ارسال می‌شود.
+</p>
+
+<h2 style="margin-top:36px;">ارسال پیام</h2>
+<p style="max-width:640px;line-height:2;">
+  فرم ارسال پیام در بخش فروشگاهی سایت است تا پیام‌ها مستقیم توی پنل مدیریت ثبت شوند:
+</p>
+<p><a class="btn" href="/app/#/contact">رفتن به فرم تماس ⟵</a></p>
+{% endblock %}

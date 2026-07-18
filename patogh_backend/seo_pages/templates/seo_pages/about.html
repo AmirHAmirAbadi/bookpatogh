@@ -1,0 +1,42 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / درباره ما</div>
+{% endblock %}
+{% block content %}
+<h1>داستان پاتوق بوک</h1>
+<p style="max-width:680px;line-height:2;">
+  پاتوق بوک یک فروشگاه اینترنتی خرید کتاب است که در اوایل سال ۱۴۰۴ با هدف ساده‌تر کردن
+  دسترسی کتاب‌دوستان ایرانی به آثار ارزشمند ادبیات فارسی و جهان و ترویج فرهنگ کتاب‌خوانی،
+  توسط پروفسور احمد امیرآبادی‌زاده و تیم‌شان راه‌اندازی شد. در پاتوق بوک می‌توانید رمان،
+  ادبیات کلاسیک، شعر، تاریخ و بسیاری از دسته‌های دیگر را با قیمت مناسب، توضیحات کامل و
+  ارسال سریع به سراسر ایران خریداری کنید.
+</p>
+<p style="max-width:680px;line-height:2;">
+  علاوه بر فروشگاه اینترنتی، پاتوق بوک یک <strong>کتاب‌فروشی حضوری در شهر نور</strong>
+  (استان مازندران) هم دارد؛ اگر ساکن نور یا اطراف آن هستید، می‌توانید حضوری هم برای
+  <strong>خرید کتاب در نور</strong> به فروشگاه سر بزنید و کتاب‌ها را از نزدیک ببینید.
+</p>
+<div class="stat-row" style="display:flex;gap:28px;flex-wrap:wrap;margin:28px 0;">
+  <div class="stat"><b style="font-size:22px;color:var(--leather);display:block;">۲۰۰۰+</b><span>کتاب</span></div>
+  <div class="stat"><b style="font-size:22px;color:var(--leather);display:block;">۱</b><span>سال تجربه</span></div>
+  <div class="stat"><b style="font-size:22px;color:var(--leather);display:block;">۲۰۰۰+</b><span>مشتری راضی</span></div>
+</div>
+
+<p style="max-width:680px;line-height:2;">
+  علاوه بر فروشگاه نور، تیم پشتیبانی و توسعه‌ی پاتوق بوک در <strong>رشت</strong> هم
+  فعالیت می‌کند و به سفارش‌ها و سؤالات مشتریان <strong>رشت و گیلان</strong> از
+  طریق همان شماره تماس و ایمیل سایت رسیدگی می‌کند.
+</p>
+
+<h2 style="margin-top:36px;">شعبه‌ی نور</h2>
+<div class="info-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 26px;">
+  <div class="info-card"><b>آدرس</b>{{ address }}</div>
+  <div class="info-card"><b>تلفن</b><a href="tel:{{ phone_e164 }}">{{ phone_display }}</a></div>
+  <div class="info-card"><b>ایمیل</b><a href="mailto:{{ email }}">{{ email }}</a></div>
+  <div class="info-card"><b>ساعات کاری</b>{{ hours }}</div>
+</div>
+<iframe src="{{ maps_embed_src }}" width="100%" height="320" style="border:0;border-radius:10px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="نقشه فروشگاه پاتوق بوک در نور"></iframe>
+<p style="margin-top:28px;">
+  <a class="btn" href="{% url 'seo_pages:contact' %}">اطلاعات تماس و ارسال پیام ⟵</a>
+</p>
+{% endblock %}

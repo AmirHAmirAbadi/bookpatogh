@@ -1,0 +1,30 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / پادکست و PDF</div>
+{% endblock %}
+{% block content %}
+<h1>کتابخانه‌ی رسانه — پی‌دی‌اف و پادکست رایگان</h1>
+
+<h2>پی‌دی‌اف‌ها</h2>
+{% if pdfs %}
+{% for p in pdfs %}
+<div class="pdf-card">
+  <h3>{{ p.emoji }} {{ p.title }}</h3>
+  {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+  <a class="btn" href="/app/#/library">دانلود از فروشگاه ⟵</a>
+</div>
+{% endfor %}
+{% else %}<p class="empty-note">فعلاً پی‌دی‌افی منتشر نشده است.</p>{% endif %}
+
+<h2 style="margin-top:36px;">پادکست‌ها</h2>
+{% if podcasts %}
+{% for pc in podcasts %}
+<div class="podcast-card">
+  <h3>{{ pc.emoji }} {{ pc.title }}</h3>
+  {% if pc.description %}<p>{{ pc.description }}</p>{% endif %}
+  <p style="font-size:12.5px;color:#8a7558;">{{ pc.episodes.count }} قسمت</p>
+  <a class="btn" href="/app/#/library">گوش دادن در فروشگاه ⟵</a>
+</div>
+{% endfor %}
+{% else %}<p class="empty-note">فعلاً پادکستی منتشر نشده است.</p>{% endif %}
+{% endblock %}

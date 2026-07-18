@@ -6,7 +6,7 @@ from .models import Author, Book
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'name', 'bio']
+        fields = ['id', 'name', 'bio', 'slug']
 
 
 class AuthorNameField(serializers.SlugRelatedField):
@@ -34,7 +34,23 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = [
             'id', 'title', 'author', 'price', 'discount', 'category',
-            'category2', 'stock', 'emoji', 'images', 'cover', 'featured',
-            'description', 'final_price', 'created_at', 'updated_at',
+            'category2', 'workshop', 'stock', 'emoji', 'images', 'cover', 'featured',
+            'description', 'final_price', 'created_at', 'updated_at', 'slug',
         ]
         read_only_fields = ['created_at', 'updated_at']
+
+    def _absolute(self, url):
+        if not url:
+            return url
+        if url.startswith('http://') or url.startswith('https://'):
+            return url
+        request = self.context.get('request')
+        return request.build_absolute_uri(url) if request else url
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if data.get('images'):
+            data['images'] = [self._absolute(u) for u in data['images']]
+        if data.get('cover'):
+            data['cover'] = self._absolute(data['cover'])
+        return data

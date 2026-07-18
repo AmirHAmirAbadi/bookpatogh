@@ -1,0 +1,19 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / وبلاگ</div>
+{% endblock %}
+{% block content %}
+<h1>وبلاگ پاتوق بوک</h1>
+{% if posts %}
+{% for p in posts %}
+<div class="blog-card">
+  <h3><a href="{% url 'seo_pages:blog_detail' p.slug %}">{{ p.title }}</a></h3>
+  <div class="meta">{{ p.created_at|date:"Y/m/d" }}</div>
+  <p>{{ p.content|striptags|truncatewords:35 }}</p>
+  <a href="{% url 'seo_pages:blog_detail' p.slug %}">ادامه‌ی مطلب ⟵</a>
+</div>
+{% endfor %}
+{% else %}
+<p class="empty-note">فعلاً مطلبی منتشر نشده است.</p>
+{% endif %}
+{% endblock %}

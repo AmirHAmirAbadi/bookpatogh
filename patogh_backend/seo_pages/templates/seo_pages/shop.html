@@ -1,0 +1,32 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / فروشگاه</div>
+{% endblock %}
+{% block content %}
+<h1>{% if active_category %}کتاب‌های دسته‌ی «{{ active_category }}»{% else %}فروشگاه کتاب{% endif %}</h1>
+<p class="desc">برای خرید نهایی و مدیریت سبد خرید، از <a href="/app/#/shop">فروشگاه تعاملی</a> استفاده کنید.</p>
+
+<div class="category-filter">
+  <a href="{% url 'seo_pages:shop' %}" class="{% if not active_category %}active{% endif %}">همه</a>
+  {% for c in categories %}
+  <a href="?category={{ c|urlencode }}" class="{% if c == active_category %}active{% endif %}">{{ c }}</a>
+  {% endfor %}
+</div>
+
+{% if books %}
+<div class="book-grid">
+  {% for b in books %}
+  <a class="book-card" href="{% url 'seo_pages:book_detail' b.slug %}">
+    {% if b.cover %}<img class="cover" src="{{ b.cover }}" alt="جلد کتاب {{ b.title }}">{% endif %}
+    {% if b.discount %}<span class="badge">{{ b.discount }}٪ تخفیف</span>{% endif %}
+    <b>{{ b.title }}</b>
+    <span class="author">{{ b.author.name }}</span>
+    <span class="price">{{ b.final_price|floatformat:0 }} تومان</span>
+    {% if b.discount %}<span class="price old">{{ b.price|floatformat:0 }}</span>{% endif %}
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty-note">در این دسته کتابی پیدا نشد.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "seo_pages/base.html" %}
+{% block content %}
+<h1>پاتوق بوک — فروشگاه اینترنتی خرید کتاب</h1>
+<p class="desc">رمان، ادبیات کلاسیک، شعر، تاریخ و کتاب‌های تخفیف‌دار با قیمت مناسب و ارسال سریع به سراسر ایران.
+برای خرید و مشاهده‌ی سبد خرید و ثبت سفارش، وارد <a href="/app/#/shop">فروشگاه تعاملی</a> شوید.</p>
+
+<h2>کتاب‌های پیشنهادی</h2>
+{% if featured %}
+<div class="book-grid">
+  {% for b in featured %}
+  <a class="book-card" href="{% url 'seo_pages:book_detail' b.slug %}">
+    {% if b.cover %}<img class="cover" src="{{ b.cover }}" alt="جلد کتاب {{ b.title }}">{% endif %}
+    <b>{{ b.title }}</b>
+    <span class="author">{{ b.author.name }}</span>
+    <span class="price">{{ b.final_price|floatformat:0 }} تومان</span>
+    {% if b.discount %}<span class="price old">{{ b.price|floatformat:0 }}</span>{% endif %}
+  </a>
+  {% endfor %}
+</div>
+{% endif %}
+
+<h2 style="margin-top:36px;">تازه‌ترین کتاب‌ها</h2>
+<div class="book-grid">
+  {% for b in latest %}
+  <a class="book-card" href="{% url 'seo_pages:book_detail' b.slug %}">
+    {% if b.cover %}<img class="cover" src="{{ b.cover }}" alt="جلد کتاب {{ b.title }}">{% endif %}
+    <b>{{ b.title }}</b>
+    <span class="author">{{ b.author.name }}</span>
+    <span class="price">{{ b.final_price|floatformat:0 }} تومان</span>
+  </a>
+  {% endfor %}
+</div>
+
+{% if posts %}
+<h2 style="margin-top:36px;">آخرین مطالب وبلاگ</h2>
+{% for p in posts %}
+<div class="blog-card">
+  <h3><a href="{% url 'seo_pages:blog_detail' p.slug %}">{{ p.title }}</a></h3>
+  <div class="meta">{{ p.created_at|date:"Y/m/d" }}</div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

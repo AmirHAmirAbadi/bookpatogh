@@ -1,0 +1,28 @@
+{% extends "seo_pages/base.html" %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title|escapejs }}",
+  "datePublished": "{{ post.created_at|date:'c' }}",
+  "author": { "@type": "Organization", "name": "پاتوق بوک" },
+  "publisher": { "@type": "Organization", "name": "پاتوق بوک" },
+  "mainEntityOfPage": "{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
+}
+</script>
+{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'seo_pages:home' %}">خانه</a> /
+  <a href="{% url 'seo_pages:blog_list' %}">وبلاگ</a> /
+  {{ post.title }}
+</div>
+{% endblock %}
+{% block content %}
+<article dir="{{ post.direction }}">
+  <h1>{{ post.title }}</h1>
+  <div class="post-meta">{{ post.created_at|date:"Y/m/d" }}</div>
+  <div class="post-content">{{ post.content|linebreaksbr }}</div>
+</article>
+{% endblock %}

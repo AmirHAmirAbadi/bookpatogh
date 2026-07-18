@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 from patogh_backend.idgen import generate_id
 
@@ -15,6 +16,8 @@ class Post(models.Model):
     direction = models.CharField('جهت نوشتار', max_length=3, choices=DIRECTION_CHOICES, default='rtl')
     published = models.BooleanField('منتشر شده', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    # آدرس خوانا برای صفحه‌ی سئوی این پست.
+    slug = models.SlugField('نامک (Slug)', max_length=350, unique=True, allow_unicode=True, blank=True, editable=False)
 
     class Meta:
         verbose_name = 'پست وبلاگ'
@@ -23,6 +26,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = slugify(self.title, allow_unicode=True) or 'پست'
+            self.slug = f'{base}-{self.id}'
+        super().save(*args, **kwargs)
 
 
 class Comment(models.Model):

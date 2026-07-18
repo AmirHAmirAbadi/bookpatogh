@@ -1,0 +1,139 @@
+{% load static %}<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>{{ meta_title }}</title>
+<meta name="description" content="{{ meta_description }}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:site_name" content="پاتوق بوک">
+<meta property="og:title" content="{{ meta_title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}">
+{% block og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'seo_pages/og-image.jpg' %}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">{% endblock %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ meta_title }}">
+<meta name="twitter:description" content="{{ meta_description }}">
+{% block twitter_image %}<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'seo_pages/og-image.jpg' %}">{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- فاوآیکون -->
+<link rel="icon" type="image/svg+xml" href="{% static 'seo_pages/favicon.svg' %}">
+<link rel="alternate icon" href="{% static 'seo_pages/favicon.svg' %}">
+
+<!--
+  کد تایید گوگل سرچ کنسول (Google Search Console):
+  بعد از ثبت دامنه patoghebook.ir در https://search.google.com/search-console
+  روش «تگ HTML» را انتخاب کن، مقدار content زیر خط را با کدی که گوگل می‌دهد
+  پر کن و کامنت را بردار.
+  <meta name="google-site-verification" content="کد-تایید-اینجا" />
+-->
+
+<!--
+  گوگل آنالیتیکس ۴ (اختیاری ولی توصیه‌شده): یک Measurement ID از
+  https://analytics.google.com بگیر (چیزی شبیه G-XXXXXXXXXX) و دو خط پایین
+  را از حالت کامنت خارج کن و آیدی را جایگزین کن.
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Markazi+Text:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'seo_pages/style.css' %}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BookStore",
+  "name": "پاتوق بوک",
+  "url": "{{ request.scheme }}://{{ request.get_host }}/",
+  "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'seo_pages/logo-512.png' %}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'seo_pages/og-image.jpg' %}",
+  "email": "info@patoghebook.ir",
+  "telephone": "+989120760116",
+  "priceRange": "$",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      "opens": "09:00",
+      "closes": "21:00"
+    }
+  ],
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=%D9%86%D9%88%D8%B1%20%D8%AE%DB%8C%D8%A7%D8%A8%D8%A7%D9%86%20%D9%86%DB%8C%D9%85%D8%A7%20%D9%86%D8%A8%D8%B4%20%D9%86%DB%8C%D9%84%D9%88%D9%81%D8%B1%20%DB%B4%DB%B3",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "خیابان نیما، نبش نیلوفر ۴۳",
+    "addressLocality": "نور",
+    "addressRegion": "مازندران",
+    "addressCountry": "IR"
+  },
+  "sameAs": ["https://eitaa.com/BOOKNET43"],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "telephone": "+989120760116",
+      "email": "info@patoghebook.ir",
+      "areaServed": ["Noor", "Rasht", "Mazandaran", "Gilan", "IR"],
+      "availableLanguage": ["Persian"]
+    }
+  ]
+}
+</script>
+{% block structured_data %}{% endblock %}
+</head>
+<body>
+<header>
+  <div class="wrap header-inner">
+    <a class="logo" href="{% url 'seo_pages:home' %}">
+      <div class="lg-icon">📕</div>
+      <div class="lg-text">پاتوق بوک<span>کتاب‌فروشی</span></div>
+    </a>
+    <a class="app-cta" href="/app/#/shop">ورود به فروشگاه و خرید ⟵</a>
+  </div>
+  <nav class="wrap">
+    <a href="{% url 'seo_pages:home' %}">صفحه اصلی</a>
+    <a href="{% url 'seo_pages:shop' %}">فروشگاه</a>
+    <a href="{% url 'seo_pages:authors_list' %}">نویسندگان</a>
+    <a href="{% url 'seo_pages:workshops' %}">کارگاه‌ها</a>
+    <a href="{% url 'seo_pages:library' %}">پادکست و PDF</a>
+    <a href="{% url 'seo_pages:blog_list' %}">وبلاگ</a>
+    <a href="{% url 'seo_pages:about' %}">درباره ما</a>
+    <a href="{% url 'seo_pages:contact' %}">تماس با ما</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  {% block breadcrumbs %}{% endblock %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">پاتوق بوک</div>
+      <p style="max-width:260px;">فروشگاه پاتوق بوک، همراه شما در دنیای کتاب و مطالعه.</p>
+    </div>
+    <div>
+      <h4>دسترسی سریع</h4>
+      <p><a href="{% url 'seo_pages:shop' %}">فروشگاه</a></p>
+      <p><a href="{% url 'seo_pages:blog_list' %}">وبلاگ</a></p>
+      <p><a href="{% url 'seo_pages:about' %}">درباره ما</a></p>
+      <p><a href="{% url 'seo_pages:contact' %}">تماس با ما</a></p>
+    </div>
+    <div>
+      <h4>تماس</h4>
+      <p>نور، خیابان نیما، نبش نیلوفر ۴۳</p>
+      <p><a href="tel:+989120760116">۰۹۱۲۰۷۶۰۱۱۶</a></p>
+      <p><a href="mailto:info@patoghebook.ir">info@patoghebook.ir</a></p>
+    </div>
+  </div>
+  <div class="wrap copyright">
+    <span>© تمامی حقوق برای فروشگاه پاتوق بوک محفوظ است.</span>
+    <a class="eitaa-link" href="https://eitaa.com/BOOKNET43" target="_blank" rel="noopener">برای عضویت در کانال کلیک کنید</a>
+  </div>
+</footer>
+</body>
+</html>

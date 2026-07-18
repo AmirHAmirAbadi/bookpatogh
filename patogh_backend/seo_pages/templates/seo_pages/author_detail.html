@@ -1,0 +1,38 @@
+{% extends "seo_pages/base.html" %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ author.name|escapejs }}",
+  "description": "{{ meta_description|escapejs }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
+}
+</script>
+{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'seo_pages:home' %}">خانه</a> /
+  <a href="{% url 'seo_pages:authors_list' %}">نویسندگان</a> /
+  {{ author.name }}
+</div>
+{% endblock %}
+{% block content %}
+<h1>{{ author.name }}</h1>
+{% if author.bio %}<p class="desc">{{ author.bio|linebreaksbr }}</p>{% endif %}
+
+<h2>کتاب‌های {{ author.name }}</h2>
+{% if books %}
+<div class="book-grid">
+  {% for b in books %}
+  <a class="book-card" href="{% url 'seo_pages:book_detail' b.slug %}">
+    {% if b.cover %}<img class="cover" src="{{ b.cover }}" alt="جلد کتاب {{ b.title }}">{% endif %}
+    <b>{{ b.title }}</b>
+    <span class="price">{{ b.final_price|floatformat:0 }} تومان</span>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty-note">فعلاً کتابی از این نویسنده ثبت نشده است.</p>
+{% endif %}
+{% endblock %}

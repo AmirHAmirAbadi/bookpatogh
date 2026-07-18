@@ -1,0 +1,18 @@
+{% extends "seo_pages/base.html" %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'seo_pages:home' %}">خانه</a> / نویسندگان</div>
+{% endblock %}
+{% block content %}
+<h1>نویسندگان</h1>
+<div class="author-grid">
+  {% for a in authors %}
+  <a class="author-card" href="{% url 'seo_pages:author_detail' a.slug %}">
+    <div class="author-avatar">{{ a.name|slice:":1" }}</div>
+    <div>
+      <b>{{ a.name }}</b>
+      <div style="font-size:12.5px;color:#8a7558;">{{ a.books.count }} کتاب</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}
