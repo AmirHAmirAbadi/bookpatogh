@@ -57,6 +57,15 @@ if not DEBUG and SECRET_KEY == 'django-insecure-dev-only-key-do-not-use-in-produ
 
 ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
 
+# --- ADMIN PANEL URL ---------------------------------------------------
+# آدرس پیش‌فرض پنل ادمین جنگو (/admin/) خیلی شناخته‌شده است و اولین چیزی است
+# که هر اسکنر/بات خودکار امتحان می‌کند. این مقدار را می‌توان از .env عوض کرد
+# (ADMIN_URL_PATH=چیزی-دلخواه)؛ پیش‌فرض یک مسیر تصادفی و سخت‌حدس‌زدنی است.
+# نکته: این فقط «پنهان‌کاری» (obscurity) است، نه جایگزین امنیت واقعی — ورود
+# به پنل همچنان با یوزرنیم/رمز و throttle محافظت می‌شود؛ فقط پیدا کردنِ خودِ
+# صفحه‌ی ورود برای بات‌های خودکار سخت‌تر می‌شود.
+ADMIN_URL_PATH = os.environ.get('ADMIN_URL_PATH', 'panel-8f2q7k1z').strip('/') + '/'
+
 # --- PRODUCTION HARDENING (no-ops locally, active once DEBUG=False) ----
 if not DEBUG:
     SECURE_SSL_REDIRECT = env_bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
@@ -126,6 +135,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'seo_pages.context_processors.store_info',
             ],
         },
     },
@@ -216,6 +226,11 @@ REST_FRAMEWORK = {
         'anon': '100/minute',
         'user': '300/minute',
         'login': '10/minute',
+        # شروع پرداخت (start-payment) و برگشت از بانک (callback) هر دو به سرور
+        # سامان درخواست می‌زنند؛ این نرخ از حلقه‌زدن/سواستفاده روی این دو
+        # endpoint جلوگیری می‌کند، بدون این‌که برای یک مشتری واقعی که چند بار
+        # تلاش می‌کند مزاحمتی ایجاد کند.
+        'payment': '30/minute',
     },
 }
 

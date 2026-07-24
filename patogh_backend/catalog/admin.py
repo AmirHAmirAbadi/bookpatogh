@@ -5,7 +5,9 @@ from django.conf import settings
 from django.contrib import admin
 from django.core.files.storage import default_storage
 from django.utils.crypto import get_random_string
-from django.utils.html import format_html
+from django.utils.html import format_html_join
+
+from media_library.validators import IMAGE_EXTENSION_VALIDATOR, validate_image_size
 
 from .models import Author, Book
 
@@ -42,6 +44,13 @@ class BookAdminForm(forms.ModelForm):
         required=False,
         label='آپلود عکس جدید',
         help_text='یک یا چند عکس انتخاب کن؛ به تصاویر فعلی این کتاب اضافه می‌شوند.',
+        # SECURITY: without this, save_model() below took the extension
+        # straight from whatever filename the browser sent (os.path.splitext)
+        # and wrote the file into MEDIA_ROOT/book_covers/ with that same
+        # extension, unchecked — an admin could upload a .html/.svg/.php file
+        # that a misconfigured web server might later execute or that a
+        # browser would render (rather than download) if opened directly.
+        validators=[IMAGE_EXTENSION_VALIDATOR, validate_image_size],
     )
     clear_existing_images = forms.BooleanField(
         required=False,
@@ -73,13 +82,24 @@ class BookAdmin(admin.ModelAdmin):
     ]
 
     def current_images_preview(self, obj):
+        # SECURITY: this used to build the whole <img> markup as one plain
+        # f-string (with `url` interpolated raw) and then hand it to
+        # format_html() with no placeholder args. format_html() only escapes
+        # values passed as *arguments* — called this way it just marks the
+        # whole pre-built string safe, identical to mark_safe(), so any
+        # quote/HTML character inside an image URL would break out of the
+        # attribute and inject arbitrary markup/script into the admin page
+        # (stored XSS, since `images` can contain manually-typed URLs — see
+        # the raw JSON Textarea widget above). Building the tag through
+        # format_html's own "{}"-placeholder substitution (one call per
+        # image) makes each url go through Django's normal auto-escaping.
         if not obj or not obj.pk or not obj.images:
             return 'هنوز عکسی ثبت نشده.'
-        tags = ''.join(
-            f'<img src="{url}" style="height:90px;margin:4px;border:1px solid #ccc;border-radius:6px;">'
-            for url in obj.images
+        return format_html_join(
+            '',
+            '<img src="{}" style="height:90px;margin:4px;border:1px solid #ccc;border-radius:6px;">',
+            ((url,) for url in obj.images),
         )
-        return format_html(tags)
     current_images_preview.short_description = 'عکس‌های فعلی'
 
     def save_model(self, request, obj, form, change):

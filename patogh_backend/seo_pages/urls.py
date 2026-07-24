@@ -7,6 +7,7 @@ app_name = 'seo_pages'
 urlpatterns = [
     path('', views.home, name='home'),
     path('shop/', views.shop, name='shop'),
+    path('shop/category/<str:category_slug>/', views.shop_category, name='shop_category'),
     path('book/<str:slug>/', views.book_detail, name='book_detail'),
     path('authors/', views.authors_list, name='authors_list'),
     path('author/<str:slug>/', views.author_detail, name='author_detail'),

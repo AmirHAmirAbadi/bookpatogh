@@ -105,7 +105,7 @@ async function saveOrder(order){
   const payload = {
     customer_name: order.customer_name, phone: order.phone,
     postal_code: order.postal_code, address: order.address,
-    gateway: 'zarinpal', // آی‌دی درگاه، نه برچسب فارسی‌اش
+    gateway: 'sep', // آی‌دی درگاه، نه برچسب فارسی‌اش
     total: order.total,
     items: order.items.map(i=>({id: i.id, title: i.title, price: i.price, emoji: i.emoji, qty: i.qty})),
   };

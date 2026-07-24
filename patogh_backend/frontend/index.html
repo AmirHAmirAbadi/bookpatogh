@@ -12,377 +12,405 @@
 <meta property="og:site_name" content="پاتوق بوک">
 <meta property="og:title" content="پاتوق بوک | فروشگاه اینترنتی خرید کتاب">
 <meta property="og:description" content="خرید آنلاین کتاب‌های رمان، تاریخ، شعر و ادبیات کلاسیک با قیمت مناسب و ارسال سریع به سراسر ایران.">
+<meta property="og:image" content="/static/seo_pages/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/static/seo_pages/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/static/seo_pages/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/seo_pages/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/seo_pages/favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/seo_pages/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/seo_pages/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Markazi+Text:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#163320;
-    --paper:#f4faf6;
-    --paper-dim:#e7f5ec;
-    --leather:#1f8a4c;
-    --leather-dark:#13653a;
-    --gold:#34a85f;
-    --gold-light:#7fd19c;
-    --cream:#ffffff;
-    --line:#d8ecdf;
-    --amber:#d79a2c;
-    --amber-dark:#a8721a;
-    --amber-light:#f3c876;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:'Vazirmatn',sans-serif;background:var(--paper);color:var(--ink);}
-  h1,h2,h3,.display{font-family:'Markazi Text','Vazirmatn',serif;}
-  a{color:inherit;text-decoration:none;}
-  button{font-family:inherit;cursor:pointer;border:none;}
-  img{max-width:100%;display:block;}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-  main #app > *{animation:fadeUp .5s cubic-bezier(.2,.8,.2,1) both;}
-  @media (prefers-reduced-motion: reduce){
-    main #app > *{animation:none;}
-    .req-card,.req-avatar,.req-card-head .req-who,.status-badge,.req-message,.req-card-actions{animation:none;}
-  }
+:root{
+  --ink:#163320;
+  --paper:#f4faf6;
+  --paper-dim:#e7f5ec;
+  --leather:#1f8a4c;
+  --leather-dark:#13653a;
+  --gold:#34a85f;
+  --gold-light:#7fd19c;
+  --cream:#ffffff;
+  --line:#d8ecdf;
+  --amber:#d79a2c;
+  --amber-dark:#a8721a;
+  --amber-light:#f3c876;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Vazirmatn',sans-serif;background:var(--paper);color:var(--ink);}
+h1,h2,h3,.display{font-family:'Markazi Text','Vazirmatn',serif;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;}
+img{max-width:100%;display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+main #app > *{animation:fadeUp .5s cubic-bezier(.2,.8,.2,1) both;}
+@media (prefers-reduced-motion: reduce){
+  main #app > *{animation:none;}
+  .req-card,.req-avatar,.req-card-head .req-who,.status-badge,.req-message,.req-card-actions{animation:none;}
+}
 
-  /* HEADER */
-  .promo-strip{background:var(--leather);color:#fff;font-size:13px;text-align:center;padding:8px 16px;display:flex;justify-content:center;gap:10px;align-items:center;}
-  .promo-strip a{text-decoration:underline;font-weight:600;color:#fff;}
-  header{background:rgba(255,255,255,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--ink);position:sticky;top:12px;z-index:50;width:calc(100% - 32px);max-width:980px;margin:12px auto 0;border-radius:20px;border:1px solid var(--line);box-shadow:0 6px 18px rgba(20,60,40,.08);}
-  .header-wave{height:1px;background:var(--line);}
-  .header-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 22px;gap:16px;}
-  .logo{font-family:'Markazi Text',serif;font-size:19px;font-weight:700;color:var(--leather);display:flex;align-items:center;gap:7px;}
-  .logo .lg-icon{width:28px;height:28px;border-radius:50%;background:linear-gradient(145deg,var(--leather),var(--leather-dark));color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;box-shadow:0 2px 6px rgba(19,101,58,.35);}
-  .logo .lg-text{display:flex;flex-direction:column;line-height:1.15;}
-  .logo span{font-size:10px;font-family:'Vazirmatn';color:#8a7558;font-weight:400;}
-  nav{max-width:860px;margin:0 auto;display:flex;gap:1px;align-items:center;padding:2px 24px 8px;}
-  nav a{padding:5px 9px;font-size:12px;border-radius:11px;transition:.2s;font-weight:500;color:#5a6e62;display:flex;align-items:center;gap:5px;}
-  nav a .ic{width:13px;height:13px;border:1.1px solid currentColor;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;}
-  nav a:hover,nav a.active{background:var(--paper-dim);color:var(--leather);}
-  nav a.active{color:var(--leather);font-weight:700;}
-  .header-tools{display:flex;align-items:center;gap:12px;}
-  .search-box{display:flex;align-items:center;gap:8px;background:var(--paper-dim);border-radius:999px;padding:7px 16px;flex:1;max-width:260px;margin:0 8px;position:relative;}
-  .search-box input{border:none;background:transparent;padding:0;font-size:12.5px;width:100%;}
-  .search-box input:focus{outline:none;}
-  .search-suggest{position:absolute;top:calc(100% + 8px);right:0;left:0;background:var(--cream);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.1);overflow:hidden;z-index:60;}
-  .search-suggest .ss-item{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--line);}
-  .search-suggest .ss-item:last-child{border-bottom:none;}
-  .search-suggest .ss-item:hover{background:var(--paper-dim);}
-  .search-suggest .ss-cover{width:26px;height:34px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0;}
-  .search-suggest .ss-info b{display:block;font-size:13px;}
-  .search-suggest .ss-info span{font-size:11px;color:#8a7558;}
-  .search-suggest .ss-empty{padding:14px;font-size:13px;color:#8a7558;text-align:center;}
-  .search-suggest .ss-all{padding:10px 14px;font-size:13px;font-weight:700;color:var(--leather);text-align:center;cursor:pointer;}
-  .search-suggest .ss-all:hover{background:var(--paper-dim);}
-  .search-sep{width:1px;height:16px;background:var(--line);}
-  .search-cat{font-size:11px;color:#5a6e62;white-space:nowrap;flex-shrink:0;background:none;border:none;padding:0;font-family:inherit;cursor:pointer;}
-  .search-cat-wrap{position:relative;flex-shrink:0;}
-  .search-cat-menu{position:absolute;top:calc(100% + 8px);left:0;background:var(--cream);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 22px rgba(0,0,0,.12);overflow:hidden;z-index:65;min-width:96px;}
-  .search-cat-item{padding:9px 14px;font-size:12.5px;cursor:pointer;color:var(--ink);}
-  .search-cat-item:hover{background:var(--paper-dim);}
-  .search-cat-item.active{color:var(--leather);font-weight:700;}
-  .pill-btn{display:flex;align-items:center;gap:6px;background:var(--paper-dim);border-radius:999px;padding:5px 12px 5px 5px;font-size:12px;font-weight:600;color:var(--ink);position:relative;}
-  .ic-circle{width:22px;height:22px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
-  .icon-btn{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);flex-shrink:0;position:relative;}
-  .cart-count{position:absolute;top:-4px;left:-4px;background:var(--leather);color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 3px;}
-  .modal-overlay{position:fixed;inset:0;background:rgba(20,40,30,.45);z-index:300;display:flex;justify-content:flex-end;}
-  .modal-overlay.center{justify-content:center;align-items:center;}
-  .modal-panel{background:var(--cream);width:360px;max-width:92vw;height:100%;padding:24px;overflow-y:auto;box-shadow:-8px 0 20px rgba(0,0,0,.08);}
-  .modal-overlay.center .modal-panel{height:auto;border-radius:18px;max-height:90vh;}
-  .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-  .modal-head h3{margin:0;color:var(--leather-dark);}
-  .modal-close{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);font-size:16px;}
-  .cart-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
-  .cart-item .ci-cover{width:46px;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0;}
-  .cart-item .ci-info{flex:1;}
-  .cart-item .ci-info b{font-size:14px;display:block;}
-  .cart-item .ci-info span{font-size:12px;color:#8a7558;}
-  .qty-row{display:flex;align-items:center;gap:8px;margin-top:6px;}
-  .qty-row button{width:24px;height:24px;border-radius:50%;background:var(--paper-dim);font-size:13px;}
-  .ci-remove{font-size:12px;color:#a33;margin-right:auto;}
-  .cart-total{display:flex;justify-content:space-between;font-weight:700;margin:18px 0;font-size:16px;color:var(--leather-dark);}
-  .tabs-row{display:flex;gap:4px;background:var(--paper-dim);padding:4px;border-radius:12px;margin-bottom:18px;}
-  .tabs-row button{flex:1;padding:9px;border-radius:9px;font-size:14px;font-weight:600;background:transparent;}
-  .tabs-row button.active{background:var(--cream);color:var(--leather);}
-  .auth-form{display:flex;flex-direction:column;gap:12px;}
-  .checkout-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;}
-  @media(max-width:760px){.checkout-grid{grid-template-columns:1fr;}}
-  .checkout-card{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px;}
-  .checkout-card h3{margin:0 0 14px;color:var(--leather-dark);font-size:17px;}
-  .gateway-grid{display:grid;grid-template-columns:1fr;gap:12px;}
-  .gateway-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;text-align:center;transition:.15s;}
-  .gateway-card:hover{border-color:var(--gold-light);}
-  .gateway-card.selected{border-color:var(--leather);background:var(--paper-dim);}
-  .gateway-card .gw-icon{font-size:22px;margin-bottom:6px;}
-  .gateway-card span{font-size:13px;font-weight:600;}
-  .sum-row{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:#4a3a2a;}
-  .sum-row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;font-weight:700;font-size:17px;color:var(--leather-dark);}
-  .success-box{text-align:center;padding:60px 20px;}
-  .success-box .ic{width:74px;height:74px;border-radius:50%;background:var(--paper-dim);color:var(--leather);font-size:34px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
-  .author-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;}
-  .author-card{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:16px;transition:.2s;}
-  .author-card:hover{border-color:var(--leather);box-shadow:0 0 14px rgba(31,138,76,.2);transform:translateY(-2px);}
-  .author-avatar{width:48px;height:48px;border-radius:50%;color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .author-info b{display:block;font-size:15px;}
-  .author-info span{font-size:12.5px;color:#8a7558;}
-  .search-active{display:flex;align-items:center;gap:10px;background:var(--paper-dim);border-radius:10px;padding:10px 16px;font-size:13px;margin-bottom:18px;}
-  .search-active span{color:#a33;cursor:pointer;font-weight:600;margin-right:auto;}
-  .nav-toggle{display:none;background:none;color:var(--leather);font-size:24px;}
+/* HEADER */
+.promo-strip{background:var(--leather);color:#fff;font-size:13px;text-align:center;padding:8px 16px;display:flex;justify-content:center;gap:10px;align-items:center;}
+.promo-strip a{text-decoration:underline;font-weight:600;color:#fff;}
+header{background:rgba(255,255,255,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--ink);position:sticky;top:12px;z-index:50;width:calc(100% - 32px);max-width:980px;margin:12px auto 0;border-radius:20px;border:1px solid var(--line);box-shadow:0 6px 18px rgba(20,60,40,.08);}
+.header-wave{height:1px;background:var(--line);}
+.header-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 22px;gap:16px;}
+.logo{font-family:'Markazi Text',serif;font-size:19px;font-weight:700;color:var(--leather);display:flex;align-items:center;gap:7px;}
+.logo .lg-icon{width:28px;height:28px;border-radius:50%;background:linear-gradient(145deg,var(--leather),var(--leather-dark));color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;box-shadow:0 2px 6px rgba(19,101,58,.35);}
+.logo .lg-text{display:flex;flex-direction:column;line-height:1.15;}
+.logo span{font-size:10px;font-family:'Vazirmatn';color:#8a7558;font-weight:400;}
+nav{max-width:860px;margin:0 auto;display:flex;gap:1px;align-items:center;padding:2px 24px 8px;}
+nav a{padding:5px 9px;font-size:12px;border-radius:11px;transition:.2s;font-weight:500;color:#5a6e62;display:flex;align-items:center;gap:5px;}
+nav a .ic{width:13px;height:13px;border:1.1px solid currentColor;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;}
+nav a:hover,nav a.active{background:var(--paper-dim);color:var(--leather);}
+nav a.active{color:var(--leather);font-weight:700;}
+.header-tools{display:flex;align-items:center;gap:12px;}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--paper-dim);border-radius:999px;padding:7px 16px;flex:1;max-width:260px;margin:0 8px;position:relative;}
+.search-box input{border:none;background:transparent;padding:0;font-size:12.5px;width:100%;}
+.search-box input:focus{outline:none;}
+.search-suggest{position:absolute;top:calc(100% + 8px);right:0;left:0;background:var(--cream);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.1);overflow:hidden;z-index:60;}
+.search-suggest .ss-item{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--line);}
+.search-suggest .ss-item:last-child{border-bottom:none;}
+.search-suggest .ss-item:hover{background:var(--paper-dim);}
+.search-suggest .ss-cover{width:26px;height:34px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0;}
+.search-suggest .ss-info b{display:block;font-size:13px;}
+.search-suggest .ss-info span{font-size:11px;color:#8a7558;}
+.search-suggest .ss-empty{padding:14px;font-size:13px;color:#8a7558;text-align:center;}
+.search-suggest .ss-all{padding:10px 14px;font-size:13px;font-weight:700;color:var(--leather);text-align:center;cursor:pointer;}
+.search-suggest .ss-all:hover{background:var(--paper-dim);}
+.search-sep{width:1px;height:16px;background:var(--line);}
+.search-cat{font-size:11px;color:#5a6e62;white-space:nowrap;flex-shrink:0;background:none;border:none;padding:0;font-family:inherit;cursor:pointer;}
+.search-cat-wrap{position:relative;flex-shrink:0;}
+.search-cat-menu{position:absolute;top:calc(100% + 8px);left:0;background:var(--cream);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 22px rgba(0,0,0,.12);overflow:hidden;z-index:65;min-width:96px;}
+.search-cat-item{padding:9px 14px;font-size:12.5px;cursor:pointer;color:var(--ink);}
+.search-cat-item:hover{background:var(--paper-dim);}
+.search-cat-item.active{color:var(--leather);font-weight:700;}
+.pill-btn{display:flex;align-items:center;gap:6px;background:var(--paper-dim);border-radius:999px;padding:5px 12px 5px 5px;font-size:12px;font-weight:600;color:var(--ink);position:relative;}
+.ic-circle{width:22px;height:22px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.icon-btn{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);flex-shrink:0;position:relative;}
+.cart-count{position:absolute;top:-4px;left:-4px;background:var(--leather);color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(20,40,30,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:300;display:flex;justify-content:flex-end;animation:overlayIn .3s ease both;}
+.modal-overlay.center{justify-content:center;align-items:center;}
+@keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
+.modal-panel{background:var(--cream);width:360px;max-width:92vw;height:100%;padding:24px;overflow-y:auto;box-shadow:-8px 0 20px rgba(0,0,0,.08);position:relative;isolation:isolate;animation:modalSlideIn .4s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes modalSlideIn{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+.modal-overlay.center .modal-panel{height:auto;border-radius:18px;max-height:90vh;animation:modalPopIn .38s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes modalPopIn{from{opacity:0;transform:scale(.94) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-panel::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(120deg,var(--amber-light),var(--amber),var(--amber-dark),var(--amber-light));background-size:250% 250%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:cardGlow 5s linear infinite;opacity:.9;z-index:2;}
+.modal-panel::after{content:'';position:absolute;inset:-56px;z-index:-1;border-radius:inherit;background:radial-gradient(circle at 50% 18%,rgba(255,225,160,.6),rgba(243,200,118,.32) 38%,transparent 68%),radial-gradient(circle at 50% 85%,rgba(168,114,26,.28),transparent 62%);filter:blur(28px);animation:haloPulse 3.6s ease-in-out infinite,haloRotate 10s linear infinite;pointer-events:none;}
+@keyframes haloRotate{0%{transform:rotate(0deg) scale(1);}50%{transform:rotate(180deg) scale(1.06);}100%{transform:rotate(360deg) scale(1);}}
+@keyframes haloPulse{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:.95;transform:scale(1.15);}}
+.modal-spotlight{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;opacity:0;transition:opacity .35s ease;background:radial-gradient(circle 240px at var(--mx,50%) var(--my,15%),rgba(255,230,170,.4),transparent 72%);mix-blend-mode:soft-light;}
+.modal-panel:hover .modal-spotlight{opacity:1;}
+.modal-panel > *{position:relative;z-index:1;}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.modal-head h3{margin:0;color:var(--leather-dark);}
+.modal-close{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);font-size:16px;transition:background .2s,box-shadow .2s,transform .2s;}
+.modal-close:hover{background:var(--amber-light);box-shadow:0 0 0 4px rgba(243,200,118,.35);transform:rotate(90deg);}
+.cart-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+.cart-item .ci-cover{width:46px;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0;}
+.cart-item .ci-info{flex:1;}
+.cart-item .ci-info b{font-size:14px;display:block;}
+.cart-item .ci-info span{font-size:12px;color:#8a7558;}
+.qty-row{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.qty-row button{width:24px;height:24px;border-radius:50%;background:var(--paper-dim);font-size:13px;}
+.ci-remove{font-size:12px;color:#a33;margin-right:auto;}
+.cart-total{display:flex;justify-content:space-between;font-weight:700;margin:18px 0;font-size:16px;color:var(--leather-dark);}
+.tabs-row{display:flex;gap:4px;background:var(--paper-dim);padding:4px;border-radius:12px;margin-bottom:18px;}
+.tabs-row button{flex:1;padding:9px;border-radius:9px;font-size:14px;font-weight:600;background:transparent;}
+.tabs-row button.active{background:var(--cream);color:var(--leather);}
+.auth-form{display:flex;flex-direction:column;gap:12px;}
+.checkout-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;}
+@media(max-width:760px){.checkout-grid{grid-template-columns:1fr;}}
+.checkout-card{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px;}
+.checkout-card h3{margin:0 0 14px;color:var(--leather-dark);font-size:17px;}
+.gateway-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.gateway-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;text-align:center;transition:.15s;}
+.gateway-card:hover{border-color:var(--gold-light);}
+.gateway-card.selected{border-color:var(--leather);background:var(--paper-dim);}
+.gateway-card .gw-icon{font-size:22px;margin-bottom:6px;}
+.gateway-card span{font-size:13px;font-weight:600;}
+.sum-row{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:#4a3a2a;}
+.sum-row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;font-weight:700;font-size:17px;color:var(--leather-dark);}
+.success-box{text-align:center;padding:60px 20px;}
+.success-box .ic{width:74px;height:74px;border-radius:50%;background:var(--paper-dim);color:var(--leather);font-size:34px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.author-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;}
+.author-card{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:16px;transition:.2s;}
+.author-card:hover{border-color:var(--leather);box-shadow:0 0 14px rgba(31,138,76,.2);transform:translateY(-2px);}
+.author-avatar{width:48px;height:48px;border-radius:50%;color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.author-info b{display:block;font-size:15px;}
+.author-info span{font-size:12.5px;color:#8a7558;}
+.search-active{display:flex;align-items:center;gap:10px;background:var(--paper-dim);border-radius:10px;padding:10px 16px;font-size:13px;margin-bottom:18px;}
+.search-active span{color:#a33;cursor:pointer;font-weight:600;margin-right:auto;}
+.nav-toggle{display:none;background:none;color:var(--leather);font-size:24px;}
 
-  main{min-height:60vh;}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
-  footer{background:var(--cream);color:var(--ink);padding:36px 24px 20px;margin-top:60px;border-top:1px solid var(--line);border-radius:32px 32px 0 0;}
-  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;}
-  footer h4{color:var(--leather);margin:0 0 10px;font-family:'Vazirmatn';font-size:15px;}
-  footer p,footer a{font-size:14px;opacity:.75;line-height:2;}
-  .copyright{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:24px;padding-top:16px;font-size:13px;opacity:.85;}
-  .eitaa-link{display:flex;align-items:center;justify-content:center;padding:10px 20px;border-radius:24px;background:linear-gradient(135deg,var(--leather),var(--leather-dark));color:#fff;font-size:13px;font-weight:700;flex-shrink:0;transition:.2s;box-shadow:0 4px 12px rgba(19,101,58,.25);}
-  .eitaa-link:hover{background:var(--leather-dark);}
+main{min-height:60vh;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+footer{background:var(--cream);color:var(--ink);padding:36px 24px 20px;margin-top:60px;border-top:1px solid var(--line);border-radius:32px 32px 0 0;}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+footer h4{color:var(--leather);margin:0 0 10px;font-family:'Vazirmatn';font-size:15px;}
+footer p,footer a{font-size:14px;opacity:.75;line-height:2;}
+.copyright{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:24px;padding-top:16px;font-size:13px;opacity:.85;}
+.eitaa-link{display:flex;align-items:center;justify-content:center;padding:10px 20px;border-radius:24px;background:linear-gradient(135deg,var(--leather),var(--leather-dark));color:#fff;font-size:13px;font-weight:700;flex-shrink:0;transition:.2s;box-shadow:0 4px 12px rgba(19,101,58,.25);}
+.eitaa-link:hover{background:var(--leather-dark);}
 
-  /* HERO */
-  .hero-card{background:radial-gradient(circle at 88% -10%,rgba(215,154,44,.16),transparent 55%),radial-gradient(circle at -10% 110%,rgba(31,138,76,.12),transparent 50%),var(--paper-dim);border-radius:24px;padding:46px 40px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden;}
-  .hero-text{flex:1;min-width:260px;position:relative;z-index:1;}
-  .eyebrow{display:inline-flex;align-items:center;gap:6px;}
-  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);}
-  .hero-card h1{font-size:40px;line-height:1.32;margin:0 0 14px;color:var(--leather-dark);letter-spacing:-.3px;}
-  .hero-card p{font-size:15px;color:#3a5a48;max-width:440px;margin-bottom:22px;line-height:1.9;}
-  .spines{display:flex;gap:6px;height:120px;flex:1;min-width:200px;align-items:flex-end;justify-content:center;filter:drop-shadow(0 10px 14px rgba(19,101,58,.22));}
-  .spine{width:24px;border-radius:6px 6px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:10px;font-size:13px;transition:transform .25s;}
-  .spine:hover{transform:translateY(-6px);}
-  .trust-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:36px;}
-  .trust-item{flex:1;min-width:120px;text-align:center;font-size:12.5px;font-weight:600;color:#3a5a48;display:flex;flex-direction:column;align-items:center;gap:8px;}
-  .trust-item span{font-size:22px;width:44px;height:44px;border-radius:50%;background:var(--paper-dim);display:flex;align-items:center;justify-content:center;}
-  .btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:transform .18s,box-shadow .18s,background .18s;}
-  .btn-gold{background:linear-gradient(135deg,var(--amber-light),var(--amber));color:#4a2f00;box-shadow:0 6px 16px -4px rgba(168,114,26,.45);}
-  .btn-gold:hover{background:linear-gradient(135deg,var(--amber),var(--amber-dark));transform:translateY(-2px);box-shadow:0 10px 20px -6px rgba(168,114,26,.55);}
-  .btn-outline{border:1.5px solid var(--leather);color:var(--leather-dark);margin-right:10px;background:transparent;}
-  .btn-outline:hover{background:var(--paper-dim);transform:translateY(-2px);}
+/* WARM GLOW — soft, static patch of warm light (like sunlight/candlelight on
+   a page), used sparingly inside a few sections. No motion at all, so it
+   costs nothing on scroll/battery and needs no prefers-reduced-motion
+   handling (there is nothing to reduce). Replaces the old always-on,
+   cursor-chasing "golden halo" system that used to run a requestAnimationFrame
+   loop and 14 drifting/pulsing orbs on every single page of the site. */
+.warm-glow{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(243,200,118,.32) 0%,rgba(215,154,44,.14) 45%,transparent 75%);filter:blur(26px);z-index:0;}
+.halo-field{position:relative;}
+.halo-field > .grid,.halo-field > .book-grid{position:relative;z-index:1;}
 
-  section{padding:54px 0;}
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;border-bottom:2px solid var(--line);padding-bottom:14px;position:relative;}
-  .section-head h2{font-size:30px;margin:0;color:var(--leather);position:relative;padding-right:16px;}
-  .section-head h2::before{content:'';position:absolute;right:0;top:6px;bottom:6px;width:5px;border-radius:3px;background:linear-gradient(180deg,var(--amber-light),var(--amber-dark));}
-  .section-head a{color:var(--leather);font-size:14px;font-weight:600;border-bottom:1px solid var(--leather);transition:.2s;}
-  .section-head a:hover{color:var(--amber-dark);border-color:var(--amber-dark);}
+/* HERO */
+.hero-card{background:radial-gradient(circle at 88% -10%,rgba(215,154,44,.16),transparent 55%),radial-gradient(circle at -10% 110%,rgba(31,138,76,.12),transparent 50%),var(--paper-dim);border-radius:24px;padding:46px 40px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden;}
+.hero-text{flex:1;min-width:260px;position:relative;z-index:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);}
+.hero-card h1{font-size:40px;line-height:1.32;margin:0 0 14px;color:var(--leather-dark);letter-spacing:-.3px;}
+.hero-card p{font-size:15px;color:#3a5a48;max-width:440px;margin-bottom:22px;line-height:1.9;}
+.spines{display:flex;gap:6px;height:120px;flex:1;min-width:200px;align-items:flex-end;justify-content:center;filter:drop-shadow(0 10px 14px rgba(19,101,58,.22));position:relative;z-index:1;}
+.spine{width:24px;border-radius:6px 6px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:10px;font-size:13px;transition:transform .25s;}
+.spine:hover{transform:translateY(-6px);}
+.trust-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:36px;}
+.trust-item{flex:1;min-width:120px;text-align:center;font-size:12.5px;font-weight:600;color:#3a5a48;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.trust-item span{font-size:22px;width:44px;height:44px;border-radius:50%;background:var(--paper-dim);display:flex;align-items:center;justify-content:center;}
+.btn{display:inline-block;padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;transition:transform .18s,box-shadow .18s,background .18s;}
+.btn-gold{background:linear-gradient(135deg,var(--amber-light),var(--amber));color:#4a2f00;box-shadow:0 6px 16px -4px rgba(168,114,26,.45);}
+.btn-gold:hover{background:linear-gradient(135deg,var(--amber),var(--amber-dark));transform:translateY(-2px);box-shadow:0 10px 20px -6px rgba(168,114,26,.55);}
+.btn-outline{border:1.5px solid var(--leather);color:var(--leather-dark);margin-right:10px;background:transparent;}
+.btn-outline:hover{background:var(--paper-dim);transform:translateY(-2px);}
 
-  /* BOOK GRID */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px;}
-  .card{background:var(--cream);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s;position:relative;}
-  .card:hover{transform:translateY(-5px);box-shadow:0 14px 26px -8px rgba(19,101,58,.28);border-color:transparent;}
-  .card::before{content:'';position:absolute;inset:0;border-radius:14px;padding:2px;background:linear-gradient(120deg,var(--amber-light),var(--leather),var(--amber));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s;background-size:200% 200%;pointer-events:none;}
-  .card:hover::before{opacity:1;animation:cardGlow 2.5s linear infinite;}
-  @keyframes cardGlow{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
-  .cover{height:230px;display:flex;align-items:center;justify-content:center;font-size:42px;color:var(--cream);position:relative;}
-  .badge{position:absolute;top:0;left:14px;background:linear-gradient(160deg,var(--amber-light),var(--amber) 55%,var(--amber-dark));color:#4a3200;font-size:12px;font-weight:700;padding:7px 10px 12px;border-radius:0 0 3px 3px;z-index:5;box-shadow:0 3px 8px rgba(0,0,0,.18);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);}
-  .stock-toggle{font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;transition:.15s;}
-  .stock-toggle.in{background:#e3f6ea;color:var(--leather-dark);}
-  .stock-toggle.out{background:#fbe9e9;color:#a33;}
-  .stock-toggle:hover{filter:brightness(.95);transform:translateY(-1px);}
-  .out-of-stock-overlay{position:absolute;inset:0;background:rgba(20,30,25,.55);display:flex;align-items:center;justify-content:center;z-index:6;border-radius:inherit;}
-  .out-of-stock-overlay span{background:#a33;color:#fff;font-size:13px;font-weight:700;padding:8px 20px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.3);transform:rotate(-6deg);}
-  .card.is-out img{filter:grayscale(.5) brightness(.85);}
-  .card-body{padding:14px;}
-  .card-body h3{margin:0 0 4px;font-size:16px;font-family:'Vazirmatn';font-weight:600;}
-  .card-body .author{font-size:13px;color:#8a7558;margin-bottom:10px;}
-  .price-row{display:flex;align-items:center;gap:8px;}
-  .price{font-weight:700;color:var(--amber-dark);font-size:16px;}
-  .old-price{font-size:13px;color:#a89878;text-decoration:line-through;}
-  .add-btn{margin-top:10px;width:100%;background:var(--leather);color:var(--cream);padding:9px;border-radius:10px;font-size:14px;font-weight:600;transition:.2s;}
-  .add-btn:hover{background:var(--leather-dark);box-shadow:0 4px 12px rgba(19,101,58,.35);}
-  .book-detail{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;}
-  @media(max-width:760px){.book-detail{grid-template-columns:1fr;}}
-  .bd-cover{background:var(--paper-dim);border-radius:20px;height:420px;display:flex;align-items:center;justify-content:center;font-size:110px;overflow:hidden;position:relative;}
-  .bd-cover img{width:100%;height:100%;object-fit:cover;}
-  .bd-crumb{font-size:13px;color:#8a7558;margin-bottom:16px;}
-  .bd-crumb a{color:var(--leather);font-weight:600;}
-  .bd-title{font-size:26px;color:var(--leather-dark);margin:0 0 8px;}
-  .bd-author{font-size:14px;color:#8a7558;margin-bottom:16px;}
-  .bd-author a{color:var(--leather);font-weight:600;}
-  .bd-price-box{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;}
-  .bd-price-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-  .bd-price-row .price{font-size:24px;font-weight:700;color:var(--amber-dark);}
-  .bd-qty{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-  .bd-qty button{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);font-size:16px;}
-  .bd-feature-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
-  .bd-feature{background:var(--paper-dim);border-radius:10px;padding:10px 14px;font-size:13px;}
-  .bd-feature b{display:block;color:var(--leather);font-size:12px;margin-bottom:2px;}
-  .bd-thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
-  .bd-thumb{width:56px;height:70px;border-radius:8px;overflow:hidden;border:2px solid var(--line);cursor:pointer;flex-shrink:0;}
-  .bd-thumb img{width:100%;height:100%;object-fit:cover;}
-  .bd-thumb.active{border-color:var(--leather);}
+section{padding:54px 0;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;border-bottom:2px solid var(--line);padding-bottom:14px;position:relative;}
+.section-head h2{font-size:30px;margin:0;color:var(--leather);position:relative;padding-right:16px;}
+.section-head h2::before{content:'';position:absolute;right:0;top:6px;bottom:6px;width:5px;border-radius:3px;background:linear-gradient(180deg,var(--amber-light),var(--amber-dark));}
+.section-head a{color:var(--leather);font-size:14px;font-weight:600;border-bottom:1px solid var(--leather);transition:.2s;}
+.section-head a:hover{color:var(--amber-dark);border-color:var(--amber-dark);}
 
-  .empty{padding:50px 0;text-align:center;color:#8a7558;}
+/* BOOK GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px;}
+.card{background:var(--cream);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s;position:relative;}
+.card:hover{transform:translateY(-5px);box-shadow:0 14px 26px -8px rgba(19,101,58,.28);border-color:transparent;}
+.card::before{content:'';position:absolute;inset:0;border-radius:14px;padding:2px;background:linear-gradient(120deg,var(--amber-light),var(--leather),var(--amber));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s;background-size:200% 200%;pointer-events:none;}
+.card:hover::before{opacity:1;animation:cardGlow 2.5s linear infinite;}
+@keyframes cardGlow{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+.cover{height:230px;display:flex;align-items:center;justify-content:center;font-size:42px;color:var(--cream);position:relative;}
+.badge{position:absolute;top:0;left:14px;background:linear-gradient(160deg,var(--amber-light),var(--amber) 55%,var(--amber-dark));color:#4a3200;font-size:12px;font-weight:700;padding:7px 10px 12px;border-radius:0 0 3px 3px;z-index:5;box-shadow:0 3px 8px rgba(0,0,0,.18);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);}
+.stock-toggle{font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;transition:.15s;}
+.stock-toggle.in{background:#e3f6ea;color:var(--leather-dark);}
+.stock-toggle.out{background:#fbe9e9;color:#a33;}
+.stock-toggle:hover{filter:brightness(.95);transform:translateY(-1px);}
+.out-of-stock-overlay{position:absolute;inset:0;background:rgba(20,30,25,.55);display:flex;align-items:center;justify-content:center;z-index:6;border-radius:inherit;}
+.out-of-stock-overlay span{background:#a33;color:#fff;font-size:13px;font-weight:700;padding:8px 20px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.3);transform:rotate(-6deg);}
+.card.is-out img{filter:grayscale(.5) brightness(.85);}
+.card-body{padding:14px;}
+.card-body h3{margin:0 0 4px;font-size:16px;font-family:'Vazirmatn';font-weight:600;}
+.card-body .author{font-size:13px;color:#8a7558;margin-bottom:10px;}
+.price-row{display:flex;align-items:center;gap:8px;}
+.price{font-weight:700;color:var(--amber-dark);font-size:16px;}
+.old-price{font-size:13px;color:#a89878;text-decoration:line-through;}
+.add-btn{margin-top:10px;width:100%;background:var(--leather);color:var(--cream);padding:9px;border-radius:10px;font-size:14px;font-weight:600;transition:.2s;}
+.add-btn:hover{background:var(--leather-dark);box-shadow:0 4px 12px rgba(19,101,58,.35);}
+.book-detail{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;}
+@media(max-width:760px){.book-detail{grid-template-columns:1fr;}}
+.bd-cover{background:var(--paper-dim);border-radius:20px;height:420px;display:flex;align-items:center;justify-content:center;font-size:110px;overflow:hidden;position:relative;}
+.bd-cover img{width:100%;height:100%;object-fit:cover;}
+.bd-crumb{font-size:13px;color:#8a7558;margin-bottom:16px;}
+.bd-crumb a{color:var(--leather);font-weight:600;}
+.bd-title{font-size:26px;color:var(--leather-dark);margin:0 0 8px;}
+.bd-author{font-size:14px;color:#8a7558;margin-bottom:16px;}
+.bd-author a{color:var(--leather);font-weight:600;}
+.bd-price-box{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;}
+.bd-price-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.bd-price-row .price{font-size:24px;font-weight:700;color:var(--amber-dark);}
+.bd-qty{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.bd-qty button{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);font-size:16px;}
+.bd-feature-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.bd-feature{background:var(--paper-dim);border-radius:10px;padding:10px 14px;font-size:13px;}
+.bd-feature b{display:block;color:var(--leather);font-size:12px;margin-bottom:2px;}
+.bd-thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.bd-thumb{width:56px;height:70px;border-radius:8px;overflow:hidden;border:2px solid var(--line);cursor:pointer;flex-shrink:0;}
+.bd-thumb img{width:100%;height:100%;object-fit:cover;}
+.bd-thumb.active{border-color:var(--leather);}
 
-  /* CATEGORY FILTER */
-  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
-  .filters button{padding:8px 18px;border:1px solid var(--line);border-radius:20px;background:var(--cream);font-size:14px;transition:.2s;}
-  .filters button:hover{border-color:var(--amber);color:var(--amber-dark);}
-  .filters button.active{background:var(--leather);color:var(--cream);border-color:var(--leather);}
-  .filters button.active:hover{color:var(--cream);}
+.empty{padding:50px 0;text-align:center;color:#8a7558;}
 
-  /* BLOG */
-  .blog-list{display:grid;gap:22px;}
-  .post{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;}
-  .post[style*="cursor:pointer"]:hover{border-color:var(--amber-light);box-shadow:0 10px 22px -10px rgba(19,101,58,.3);transform:translateY(-2px);}
-  .post .date{color:var(--amber-dark);font-size:13px;font-weight:600;margin-bottom:6px;}
-  .post h3{margin:0 0 10px;font-size:22px;color:var(--leather);}
-  .post p{line-height:1.9;color:#4a3a2a;margin:0;}
-  .post-cover{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:14px;}
-  .post-body{line-height:2;color:#4a3a2a;}
-  .post-body img{border-radius:10px;margin:14px 0;max-width:100%;}
-  .post-body h1,.post-body h2,.post-body h3{color:var(--leather-dark);margin:16px 0 8px;}
+/* CATEGORY FILTER */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+.filters button{padding:8px 18px;border:1px solid var(--line);border-radius:20px;background:var(--cream);font-size:14px;transition:.2s;}
+.filters button:hover{border-color:var(--amber);color:var(--amber-dark);}
+.filters button.active{background:var(--leather);color:var(--cream);border-color:var(--leather);}
+.filters button.active:hover{color:var(--cream);}
 
-  /* ABOUT */
-  .about-hero{display:flex;gap:40px;align-items:center;flex-wrap:wrap;}
-  .about-hero .ph{flex:1;min-width:240px;height:280px;background:var(--leather);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-size:60px;}
-  .about-hero .tx{flex:1.3;min-width:280px;}
-  .about-hero p{line-height:2;color:#4a3a2a;font-size:16px;}
-  .stat-row{display:flex;gap:30px;margin-top:24px;flex-wrap:wrap;}
-  .stat{text-align:center;}
-  .stat b{display:block;font-size:30px;color:var(--leather);font-family:'Markazi Text';}
-  .stat span{font-size:13px;color:#8a7558;}
+/* BLOG */
+.blog-list{display:grid;gap:22px;}
+.post{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;}
+.post[style*="cursor:pointer"]:hover{border-color:var(--amber-light);box-shadow:0 10px 22px -10px rgba(19,101,58,.3);transform:translateY(-2px);}
+.post .date{color:var(--amber-dark);font-size:13px;font-weight:600;margin-bottom:6px;}
+.post h3{margin:0 0 10px;font-size:22px;color:var(--leather);}
+.post p{line-height:1.9;color:#4a3a2a;margin:0;}
+.post-cover{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:14px;}
+.post-body{line-height:2;color:#4a3a2a;}
+.post-body img{border-radius:10px;margin:14px 0;max-width:100%;}
+.post-body h1,.post-body h2,.post-body h3{color:var(--leather-dark);margin:16px 0 8px;}
 
-  /* CONTACT */
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
-  @media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
-  .info-card{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:14px;}
-  .info-card b{display:block;color:var(--leather);margin-bottom:4px;}
-  form.contact{display:flex;flex-direction:column;gap:14px;}
-  input,textarea,select{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;background:var(--cream);font-size:14px;}
-  textarea{min-height:120px;resize:vertical;}
-  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--leather);color:var(--cream);padding:13px 26px;border-radius:14px;font-size:14px;z-index:200;opacity:0;pointer-events:none;transition:.3s;}
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+/* ABOUT */
+.about-hero{display:flex;gap:40px;align-items:center;flex-wrap:wrap;}
+.about-hero .ph{flex:1;min-width:240px;height:280px;background:var(--leather);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);font-size:60px;}
+.about-hero .tx{flex:1.3;min-width:280px;}
+.about-hero p{line-height:2;color:#4a3a2a;font-size:16px;}
+.stat-row{display:flex;gap:30px;margin-top:24px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat b{display:block;font-size:30px;color:var(--leather);font-family:'Markazi Text';}
+.stat span{font-size:13px;color:#8a7558;}
 
-  /* ADMIN */
-  .admin-shell{display:flex;min-height:70vh;}
-  .admin-side{width:200px;background:var(--leather-dark);color:var(--cream);padding:24px 0;flex-shrink:0;}
-  .admin-side a{display:block;padding:12px 24px;font-size:14px;opacity:.8;}
-  .admin-side a:hover,.admin-side a.active{opacity:1;background:rgba(255,255,255,.08);color:var(--gold-light);}
-  .admin-main{flex:1;padding:28px;}
-  .admin-login{max-width:360px;margin:60px auto;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:30px;}
-  .admin-login h2{margin-top:0;}
-  table{width:100%;border-collapse:collapse;background:var(--cream);}
-  th,td{padding:11px 12px;text-align:right;font-size:14px;border-bottom:1px solid var(--line);}
-  th{color:#8a7558;font-weight:600;font-size:13px;}
-  .row-actions button{font-size:12px;padding:5px 10px;border-radius:8px;margin-left:4px;}
-  .req-preview{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;color:var(--leather-dark);display:inline-block;transition:transform .15s,color .15s;}
-  .req-preview:hover{text-decoration:underline;color:var(--leather);transform:translateX(-3px);}
-  .edit-btn{background:var(--gold);color:var(--leather-dark);}
-  .del-btn{background:#a33;color:#fff;}
-  .admin-form{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:24px;}
-  .admin-form .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .admin-form label{font-size:13px;color:#8a7558;display:block;margin-bottom:4px;}
-  .req-card{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:26px;max-width:640px;box-shadow:0 6px 20px rgba(20,60,40,.06);animation:reqCardIn .45s cubic-bezier(.2,.8,.2,1) both;transition:box-shadow .25s,transform .25s;}
-  .req-card:hover{box-shadow:0 12px 28px rgba(20,60,40,.12);transform:translateY(-2px);}
-  @keyframes reqCardIn{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
-  @keyframes popIn{from{opacity:0;transform:scale(.5) rotate(-10deg);}to{opacity:1;transform:scale(1) rotate(0);}}
-  @keyframes slideFade{from{opacity:0;transform:translateX(10px);}to{opacity:1;transform:translateX(0);}}
-  .req-card-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
-  .req-avatar{width:52px;height:52px;border-radius:50%;color:#fff;font-size:19px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) .1s both;}
-  .req-card-head .req-who{flex:1;min-width:0;animation:slideFade .45s ease .18s both;}
-  .req-card-head b{display:block;font-size:16px;}
-  .req-card-head .req-date{font-size:12.5px;color:#8a7558;}
-  .status-badge{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;white-space:nowrap;flex-shrink:0;animation:popIn .45s cubic-bezier(.34,1.56,.64,1) .26s both;}
-  .status-pending{background:#fbeecb;color:var(--amber-dark);}
-  .status-reviewed{background:var(--paper-dim);color:var(--leather-dark);}
-  .status-rejected{background:#fbe9e9;color:#a33;}
-  .req-message{position:relative;background:var(--paper-dim);border-radius:14px;padding:22px 24px;font-size:15px;line-height:2.1;white-space:pre-wrap;color:#2c3f33;animation:slideFade .5s ease .3s both;transition:background .2s;}
-  .req-message:hover{background:#dff2e6;}
-  .req-message::before{content:'“';position:absolute;top:-6px;right:14px;font-size:46px;color:var(--gold-light);font-family:Georgia,serif;opacity:.8;}
-  .req-card-actions{display:flex;justify-content:flex-end;margin-top:22px;animation:slideFade .45s ease .4s both;}
-  .req-card-actions .del-btn{display:flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;transition:transform .15s,box-shadow .15s,background .15s;}
-  .req-card-actions .del-btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(163,51,51,.35);background:#8f2626;}
-  .req-card-actions .del-btn:active{transform:translateY(0) scale(.97);}
-  .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--leather);background:var(--paper-dim);padding:8px 16px;border-radius:10px;margin-bottom:18px;transition:.15s;}
-  .back-link:hover{background:var(--gold-light);color:#fff;}
-  .field{margin-bottom:12px;}
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+@media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
+.info-card{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:14px;}
+.info-card b{display:block;color:var(--leather);margin-bottom:4px;}
+form.contact{display:flex;flex-direction:column;gap:14px;}
+input,textarea,select{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;background:var(--cream);font-size:14px;}
+textarea{min-height:120px;resize:vertical;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--leather);color:var(--cream);padding:13px 26px;border-radius:14px;font-size:14px;z-index:200;opacity:0;pointer-events:none;transition:.3s;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
 
-  /* RICH TEXT EDITOR (blog admin) */
-  .rte-wrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--cream);}
-  .rte-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:8px;background:var(--paper-dim);border-bottom:1px solid var(--line);}
-  .rte-btn{width:32px;height:32px;border-radius:7px;background:var(--cream);border:1px solid transparent;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);transition:.15s;}
-  .rte-btn:hover{border-color:var(--amber);color:var(--amber-dark);}
-  .rte-btn.active{background:var(--leather);color:#fff;}
-  .rte-sep{width:1px;background:var(--line);margin:4px 3px;}
-  .rte-select{height:32px;border-radius:7px;border:1px solid var(--line);background:var(--cream);font-size:12.5px;padding:0 6px;font-family:inherit;}
-  .rte-color{width:32px;height:32px;border-radius:7px;border:1px solid var(--line);padding:2px;background:var(--cream);cursor:pointer;}
-  .rte-swatches{display:flex;gap:3px;align-items:center;padding:0 4px;}
-  .rte-swatch{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;flex-shrink:0;}
-  .rte-swatch:hover{transform:scale(1.15);}
-  .rte-editor{min-height:220px;max-height:460px;overflow-y:auto;padding:16px;font-size:14.5px;line-height:1.9;outline:none;}
-  .rte-editor:empty::before{content:attr(data-placeholder);color:#a89878;}
-  .rte-editor img{max-width:100%;border-radius:8px;margin:8px 0;display:block;}
-  .rte-imgfile{display:none;}
-  .save-btn{background:var(--leather);color:var(--cream);padding:10px 22px;border-radius:10px;font-weight:600;}
-  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
-  .logout-btn{font-size:13px;color:#a33;border:1px solid #a33;padding:6px 14px;border-radius:10px;}
+/* ADMIN */
+.admin-shell{display:flex;min-height:70vh;}
+.admin-side{width:200px;background:var(--leather-dark);color:var(--cream);padding:24px 0;flex-shrink:0;}
+.admin-side a{display:block;padding:12px 24px;font-size:14px;opacity:.8;}
+.admin-side a:hover,.admin-side a.active{opacity:1;background:rgba(255,255,255,.08);color:var(--gold-light);}
+.admin-main{flex:1;padding:28px;}
+.admin-login{max-width:360px;margin:60px auto;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:30px;}
+.admin-login h2{margin-top:0;}
+table{width:100%;border-collapse:collapse;background:var(--cream);}
+th,td{padding:11px 12px;text-align:right;font-size:14px;border-bottom:1px solid var(--line);}
+th{color:#8a7558;font-weight:600;font-size:13px;}
+.row-actions button{font-size:12px;padding:5px 10px;border-radius:8px;margin-left:4px;}
+.req-preview{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;color:var(--leather-dark);display:inline-block;transition:transform .15s,color .15s;}
+.req-preview:hover{text-decoration:underline;color:var(--leather);transform:translateX(-3px);}
+.edit-btn{background:var(--gold);color:var(--leather-dark);}
+.del-btn{background:#a33;color:#fff;}
+.admin-form{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:24px;}
+.admin-form .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.admin-form label{font-size:13px;color:#8a7558;display:block;margin-bottom:4px;}
+.req-card{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:26px;max-width:640px;box-shadow:0 6px 20px rgba(20,60,40,.06);animation:reqCardIn .45s cubic-bezier(.2,.8,.2,1) both;transition:box-shadow .25s,transform .25s;}
+.req-card:hover{box-shadow:0 12px 28px rgba(20,60,40,.12);transform:translateY(-2px);}
+@keyframes reqCardIn{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes popIn{from{opacity:0;transform:scale(.5) rotate(-10deg);}to{opacity:1;transform:scale(1) rotate(0);}}
+@keyframes slideFade{from{opacity:0;transform:translateX(10px);}to{opacity:1;transform:translateX(0);}}
+.req-card-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.req-avatar{width:52px;height:52px;border-radius:50%;color:#fff;font-size:19px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) .1s both;}
+.req-card-head .req-who{flex:1;min-width:0;animation:slideFade .45s ease .18s both;}
+.req-card-head b{display:block;font-size:16px;}
+.req-card-head .req-date{font-size:12.5px;color:#8a7558;}
+.status-badge{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;white-space:nowrap;flex-shrink:0;animation:popIn .45s cubic-bezier(.34,1.56,.64,1) .26s both;}
+.status-pending{background:#fbeecb;color:var(--amber-dark);}
+.status-reviewed{background:var(--paper-dim);color:var(--leather-dark);}
+.status-rejected{background:#fbe9e9;color:#a33;}
+.req-message{position:relative;background:var(--paper-dim);border-radius:14px;padding:22px 24px;font-size:15px;line-height:2.1;white-space:pre-wrap;color:#2c3f33;animation:slideFade .5s ease .3s both;transition:background .2s;}
+.req-message:hover{background:#dff2e6;}
+.req-message::before{content:'“';position:absolute;top:-6px;right:14px;font-size:46px;color:var(--gold-light);font-family:Georgia,serif;opacity:.8;}
+.req-card-actions{display:flex;justify-content:flex-end;margin-top:22px;animation:slideFade .45s ease .4s both;}
+.req-card-actions .del-btn{display:flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;transition:transform .15s,box-shadow .15s,background .15s;}
+.req-card-actions .del-btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(163,51,51,.35);background:#8f2626;}
+.req-card-actions .del-btn:active{transform:translateY(0) scale(.97);}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--leather);background:var(--paper-dim);padding:8px 16px;border-radius:10px;margin-bottom:18px;transition:.15s;}
+.back-link:hover{background:var(--gold-light);color:#fff;}
+.field{margin-bottom:12px;}
 
-  /* AI ASSISTANT CHAT */
-  .assistant-shell{display:flex;flex-direction:column;height:70vh;background:var(--cream);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
-  .assistant-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;}
-  .assistant-msg{max-width:75%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.9;white-space:pre-wrap;}
-  .assistant-msg.user{align-self:flex-start;background:var(--leather);color:#fff;border-bottom-left-radius:4px;}
-  .assistant-msg.bot{align-self:flex-end;background:var(--paper-dim);color:var(--ink);border-bottom-right-radius:4px;}
-  .assistant-msg.typing{align-self:flex-end;background:var(--paper-dim);color:#8a7558;font-style:italic;}
-  .assistant-input-row{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);background:var(--cream);}
-  .assistant-input-row textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-family:inherit;font-size:14px;min-height:44px;max-height:120px;}
-  .assistant-input-row textarea:focus{outline:none;border-color:var(--leather);}
-  .assistant-send-btn{background:var(--leather);color:#fff;padding:0 20px;border-radius:10px;font-weight:600;}
-  .assistant-send-btn:disabled{opacity:.5;cursor:not-allowed;}
-  .assistant-empty{margin:auto;text-align:center;color:#8a7558;font-size:13.5px;padding:0 30px;}
+/* RICH TEXT EDITOR (blog admin) */
+.rte-wrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--cream);}
+.rte-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:8px;background:var(--paper-dim);border-bottom:1px solid var(--line);}
+.rte-btn{width:32px;height:32px;border-radius:7px;background:var(--cream);border:1px solid transparent;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);transition:.15s;}
+.rte-btn:hover{border-color:var(--amber);color:var(--amber-dark);}
+.rte-btn.active{background:var(--leather);color:#fff;}
+.rte-sep{width:1px;background:var(--line);margin:4px 3px;}
+.rte-select{height:32px;border-radius:7px;border:1px solid var(--line);background:var(--cream);font-size:12.5px;padding:0 6px;font-family:inherit;}
+.rte-color{width:32px;height:32px;border-radius:7px;border:1px solid var(--line);padding:2px;background:var(--cream);cursor:pointer;}
+.rte-swatches{display:flex;gap:3px;align-items:center;padding:0 4px;}
+.rte-swatch{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;flex-shrink:0;}
+.rte-swatch:hover{transform:scale(1.15);}
+.rte-editor{min-height:220px;max-height:460px;overflow-y:auto;padding:16px;font-size:14.5px;line-height:1.9;outline:none;}
+.rte-editor:empty::before{content:attr(data-placeholder);color:#a89878;}
+.rte-editor img{max-width:100%;border-radius:8px;margin:8px 0;display:block;}
+.rte-imgfile{display:none;}
+.save-btn{background:var(--leather);color:var(--cream);padding:10px 22px;border-radius:10px;font-weight:600;}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.logout-btn{font-size:13px;color:#a33;border:1px solid #a33;padding:6px 14px;border-radius:10px;}
 
-  /* SEO ASSIST */
-  .seo-btn{background:var(--amber);color:#fff;padding:10px 18px;border-radius:10px;font-weight:600;margin-right:8px;}
-  .seo-btn:disabled{opacity:.6;cursor:not-allowed;}
-  .seo-result{background:var(--paper-dim);border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:16px;display:flex;flex-direction:column;gap:14px;}
-  .seo-result h4{margin:0 0 6px;color:var(--leather-dark);font-size:13px;}
-  .seo-field{background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13.5px;line-height:1.8;}
-  .seo-tags{display:flex;flex-wrap:wrap;gap:6px;}
-  .seo-tag{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12.5px;color:var(--leather-dark);}
-  .seo-apply-btn{align-self:flex-start;background:var(--leather);color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;margin-top:8px;}
+/* AI ASSISTANT CHAT */
+.assistant-shell{display:flex;flex-direction:column;height:70vh;background:var(--cream);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.assistant-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;}
+.assistant-msg{max-width:75%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.9;white-space:pre-wrap;}
+.assistant-msg.user{align-self:flex-start;background:var(--leather);color:#fff;border-bottom-left-radius:4px;}
+.assistant-msg.bot{align-self:flex-end;background:var(--paper-dim);color:var(--ink);border-bottom-right-radius:4px;}
+.assistant-msg.typing{align-self:flex-end;background:var(--paper-dim);color:#8a7558;font-style:italic;}
+.assistant-input-row{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);background:var(--cream);}
+.assistant-input-row textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-family:inherit;font-size:14px;min-height:44px;max-height:120px;}
+.assistant-input-row textarea:focus{outline:none;border-color:var(--leather);}
+.assistant-send-btn{background:var(--leather);color:#fff;padding:0 20px;border-radius:10px;font-weight:600;}
+.assistant-send-btn:disabled{opacity:.5;cursor:not-allowed;}
+.assistant-empty{margin:auto;text-align:center;color:#8a7558;font-size:13.5px;padding:0 30px;}
 
-  .mobile-search-btn{display:none;}
+/* SEO ASSIST */
+.seo-btn{background:var(--amber);color:#fff;padding:10px 18px;border-radius:10px;font-weight:600;margin-right:8px;}
+.seo-btn:disabled{opacity:.6;cursor:not-allowed;}
+.seo-result{background:var(--paper-dim);border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:16px;display:flex;flex-direction:column;gap:14px;}
+.seo-result h4{margin:0 0 6px;color:var(--leather-dark);font-size:13px;}
+.seo-field{background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13.5px;line-height:1.8;}
+.seo-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.seo-tag{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12.5px;color:var(--leather-dark);}
+.seo-apply-btn{align-self:flex-start;background:var(--leather);color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;margin-top:8px;}
 
-  /* SIDE AD SLOTS — نامرئی و بدون فضا مگر وقتی ادمین از پنل مدیریت برایش عکس/ویدیو تنظیم کند */
-  .side-ad-slot{position:fixed;top:50%;transform:translateY(-50%);width:150px;max-height:70vh;z-index:40;display:none;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(20,60,40,.18);}
-  .side-ad-slot.has-media{display:block;}
-  .side-ad-slot img,.side-ad-slot video{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px;}
-  .side-ad-slot-link{display:block;width:100%;height:100%;}
-  .side-ad-left{left:14px;}
-  .side-ad-right{right:14px;}
-  @media(max-width:1360px){
-    .side-ad-slot{display:none !important;}
-  }
+.mobile-search-btn{display:none;}
 
-  @media(max-width:900px){
-    .header-inner{position:relative;}
-    .search-box{display:none;position:absolute;top:100%;right:0;left:0;margin:0;max-width:none;border-radius:0;padding:14px 24px;background:var(--cream);border-top:1px solid var(--line);box-shadow:0 8px 14px rgba(0,0,0,.06);z-index:55;}
-    .search-box.mobile-open{display:flex;}
-    .mobile-search-btn{display:flex;}
-  }
-  @media(max-width:760px){
-    nav{display:none;position:absolute;top:100%;right:0;left:0;background:var(--cream);border-top:1px solid var(--line);flex-direction:column;padding:10px;box-shadow:0 8px 14px rgba(0,0,0,.08);}
-    nav.open{display:flex;}
-    nav a{justify-content:flex-start;}
-    .nav-toggle{display:block;}
-    .hero-card h1{font-size:28px;}
-    .hero-card{padding:30px 22px;}
-    .admin-shell{flex-direction:column;}
-    .admin-side{width:100%;display:flex;overflow-x:auto;padding:10px;}
-    .admin-form .grid2{grid-template-columns:1fr;}
-    .header-inner{padding:12px 16px;}
-    .pill-label{display:none;}
-    .pill-btn{padding:0;width:38px;height:38px;justify-content:center;border-radius:50%;}
-    .hero-card .btn{display:block;width:100%;margin:0 0 10px;text-align:center;}
-    .hero-card .btn-outline{margin-right:0;}
-    .modal-panel{width:100%;max-width:100vw;border-radius:18px 18px 0 0;}
-    .modal-overlay{align-items:flex-end;}
-    .modal-overlay.center{align-items:center;}
-  }
-  @media(max-width:480px){
-    .gateway-grid{grid-template-columns:1fr;}
-    .checkout-card{padding:16px;}
-    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
-  }
+/* SIDE AD SLOTS — نامرئی و بدون فضا مگر وقتی ادمین از پنل مدیریت برایش عکس/ویدیو تنظیم کند.
+   left/top/width/height به‌صورت inline (از pos_x/pos_y/width/height هر تبلیغ) تنظیم می‌شوند
+   تا ادمین بتواند هرکدام را جدا از پنل مدیریت بکشد/بزرگ‌کوچک کند. */
+.side-ad-slot{position:fixed;max-height:90vh;z-index:40;display:none;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(20,60,40,.18);}
+.side-ad-slot.has-media{display:block;}
+.side-ad-slot img,.side-ad-slot video{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px;}
+.side-ad-slot-link{display:block;width:100%;height:100%;}
+@media(max-width:1360px){
+  .side-ad-slot{display:none !important;}
+}
+
+@media(max-width:900px){
+  .header-inner{position:relative;}
+  .search-box{display:none;position:absolute;top:100%;right:0;left:0;margin:0;max-width:none;border-radius:0;padding:14px 24px;background:var(--cream);border-top:1px solid var(--line);box-shadow:0 8px 14px rgba(0,0,0,.06);z-index:55;}
+  .search-box.mobile-open{display:flex;}
+  .mobile-search-btn{display:flex;}
+}
+@media(max-width:760px){
+  nav{display:none;position:absolute;top:100%;right:0;left:0;background:var(--cream);border-top:1px solid var(--line);flex-direction:column;padding:10px;box-shadow:0 8px 14px rgba(0,0,0,.08);}
+  nav.open{display:flex;}
+  nav a{justify-content:flex-start;}
+  .nav-toggle{display:block;}
+  .hero-card h1{font-size:28px;}
+  .hero-card{padding:30px 22px;}
+  .admin-shell{flex-direction:column;}
+  .admin-side{width:100%;display:flex;overflow-x:auto;padding:10px;}
+  .admin-form .grid2{grid-template-columns:1fr;}
+  .header-inner{padding:12px 16px;}
+  .pill-label{display:none;}
+  .pill-btn{padding:0;width:38px;height:38px;justify-content:center;border-radius:50%;}
+  .hero-card .btn{display:block;width:100%;margin:0 0 10px;text-align:center;}
+  .hero-card .btn-outline{margin-right:0;}
+  .modal-panel{width:100%;max-width:100vw;border-radius:18px 18px 0 0;}
+  .modal-overlay{align-items:flex-end;}
+  .modal-overlay.center{align-items:center;}
+}
+@media(max-width:480px){
+  .gateway-grid{grid-template-columns:1fr;}
+  .checkout-card{padding:16px;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+}
 </style>
 </head>
 <body>
@@ -394,7 +422,7 @@
         پاتوق بوک
         <span>کتاب‌فروشی</span>
       </div>
-      <div class="lg-icon">📕</div>
+      <div class="lg-icon">📖</div>
     </div>
     <div class="search-box" id="searchBox">
       <span style="color:#8a7558;">⌕</span>
@@ -427,8 +455,7 @@
   </nav>
 </header>
 
-<div class="side-ad-slot side-ad-left" id="adSlotLeft"></div>
-<div class="side-ad-slot side-ad-right" id="adSlotRight"></div>
+<div id="adSlotsContainer"></div>
 
 <main id="app"></main>
 
@@ -476,7 +503,7 @@ function authHeaders(extra){
 }
 async function apiFetch(path, options={}){
   const res = await fetch(API_BASE+path, Object.assign({}, options, {
-    headers: authHeaders(options.headers),
+        headers: authHeaders(options.headers),
   }));
   if(!res.ok){
     const body = await res.json().catch(()=>({}));
@@ -511,12 +538,12 @@ function lsSet(key, val){ try{ localStorage.setItem('patough_'+key, JSON.stringi
 
 async function loadData(){
   const [books, posts, authors, ads, pdfs, podcasts] = await Promise.all([
-    apiFetch('/books/'),
-    apiFetch('/posts/'),
-    apiFetch('/authors/'),
-    apiFetch('/ads/').catch(()=>[]),
-    apiFetch('/pdfs/').catch(()=>[]),
-    apiFetch('/podcasts/').catch(()=>[]),
+      apiFetch('/books/'),
+      apiFetch('/posts/'),
+      apiFetch('/authors/'),
+      apiFetch('/ads/').catch(()=>[]),
+      apiFetch('/pdfs/').catch(()=>[]),
+      apiFetch('/podcasts/').catch(()=>[]),
   ]);
   DATA.books = books;
   DATA.posts = posts;
@@ -541,8 +568,8 @@ async function saveBook(book){
   };
   const isNew = !DATA.books.some(b=>b.id===book.id);
   const saved = isNew
-    ? await apiFetch('/books/', {method:'POST', body: JSON.stringify(payload)})
-    : await apiFetch(`/books/${book.id}/`, {method:'PUT', body: JSON.stringify(payload)});
+  ? await apiFetch('/books/', {method:'POST', body: JSON.stringify(payload)})
+  : await apiFetch(`/books/${book.id}/`, {method:'PUT', body: JSON.stringify(payload)});
   Object.assign(book, saved); // مهم: id واقعی ساخته‌شده توسط سرور را برگردان
 }
 async function deleteBookRemote(id){
@@ -552,8 +579,8 @@ async function savePost(post){
   const payload = {title: post.title, content: post.content, direction: post.direction||'rtl', published: post.published!==false};
   const isNew = !DATA.posts.some(p=>p.id===post.id);
   const saved = isNew
-    ? await apiFetch('/posts/', {method:'POST', body: JSON.stringify(payload)})
-    : await apiFetch(`/posts/${post.id}/`, {method:'PUT', body: JSON.stringify(payload)});
+  ? await apiFetch('/posts/', {method:'POST', body: JSON.stringify(payload)})
+  : await apiFetch(`/posts/${post.id}/`, {method:'PUT', body: JSON.stringify(payload)});
   Object.assign(post, saved);
 }
 async function deletePostRemote(id){
@@ -563,8 +590,8 @@ async function saveAuthor(author){
   const payload = {name: author.name, bio: author.bio||''};
   const isNew = !DATA.authors.some(a=>a.id===author.id);
   const saved = isNew
-    ? await apiFetch('/authors/', {method:'POST', body: JSON.stringify(payload)})
-    : await apiFetch(`/authors/${author.id}/`, {method:'PUT', body: JSON.stringify(payload)});
+  ? await apiFetch('/authors/', {method:'POST', body: JSON.stringify(payload)})
+  : await apiFetch(`/authors/${author.id}/`, {method:'PUT', body: JSON.stringify(payload)});
   Object.assign(author, saved);
 }
 async function deleteAuthorRemote(id){
@@ -574,11 +601,12 @@ async function saveAd(ad){
   const payload = {
     page: ad.page, position: ad.position, media_type: ad.media_type,
     media: ad.media||'', link_url: ad.link_url||'', active: ad.active!==false,
+    pos_x: ad.pos_x, pos_y: ad.pos_y, width: ad.width, height: ad.height,
   };
   const isNew = !ad.id;
   const saved = isNew
-    ? await apiFetch('/ads/', {method:'POST', body: JSON.stringify(payload)})
-    : await apiFetch(`/ads/${ad.id}/`, {method:'PUT', body: JSON.stringify(payload)});
+  ? await apiFetch('/ads/', {method:'POST', body: JSON.stringify(payload)})
+  : await apiFetch(`/ads/${ad.id}/`, {method:'PUT', body: JSON.stringify(payload)});
   Object.assign(ad, saved);
   return ad;
 }
@@ -590,9 +618,9 @@ async function deleteAdRemote(id){
 async function apiUpload(path, formData, method='POST'){
   const token = authToken();
   const res = await fetch(API_BASE+path, {
-    method,
-    headers: token ? {'Authorization':'Token '+token} : {},
-    body: formData,
+      method,
+      headers: token ? {'Authorization':'Token '+token} : {},
+      body: formData,
   });
   if(!res.ok){
     const body = await res.json().catch(()=>({}));
@@ -611,8 +639,8 @@ async function savePDF(pdf, file, coverFile){
   if(coverFile) fd.append('cover_image', coverFile);
   const isNew = !pdf.id;
   const saved = isNew
-    ? await apiUpload('/pdfs/', fd, 'POST')
-    : await apiUpload(`/pdfs/${pdf.id}/`, fd, 'PATCH');
+  ? await apiUpload('/pdfs/', fd, 'POST')
+  : await apiUpload(`/pdfs/${pdf.id}/`, fd, 'PATCH');
   Object.assign(pdf, saved);
 }
 async function deletePDFRemote(id){
@@ -626,8 +654,8 @@ async function savePodcast(podcast, coverFile){
   if(coverFile) fd.append('cover_image', coverFile);
   const isNew = !podcast.id;
   const saved = isNew
-    ? await apiUpload('/podcasts/', fd, 'POST')
-    : await apiUpload(`/podcasts/${podcast.id}/`, fd, 'PATCH');
+  ? await apiUpload('/podcasts/', fd, 'POST')
+  : await apiUpload(`/podcasts/${podcast.id}/`, fd, 'PATCH');
   Object.assign(podcast, saved);
 }
 async function deletePodcastRemote(id){
@@ -641,8 +669,8 @@ async function saveEpisode(ep, file){
   if(file) fd.append('audio_file', file);
   const isNew = !ep.id;
   const saved = isNew
-    ? await apiUpload('/podcast-episodes/', fd, 'POST')
-    : await apiUpload(`/podcast-episodes/${ep.id}/`, fd, 'PATCH');
+  ? await apiUpload('/podcast-episodes/', fd, 'POST')
+  : await apiUpload(`/podcast-episodes/${ep.id}/`, fd, 'PATCH');
   Object.assign(ep, saved);
 }
 async function deleteEpisodeRemote(id){
@@ -652,8 +680,8 @@ async function saveRequest(req){
   // ثبت درخواست جدید برای همه باز است (نیاز به ورود ندارد)
   const isNew = !DATA.requests.some(r=>r.id===req.id);
   const saved = isNew
-    ? await apiFetch('/requests/', {method:'POST', body: JSON.stringify({name:req.name, text:req.text})})
-    : await apiFetch(`/requests/${req.id}/`, {method:'PUT', body: JSON.stringify({name:req.name, text:req.text, status:req.status})});
+  ? await apiFetch('/requests/', {method:'POST', body: JSON.stringify({name:req.name, text:req.text})})
+  : await apiFetch(`/requests/${req.id}/`, {method:'PUT', body: JSON.stringify({name:req.name, text:req.text, status:req.status})});
   Object.assign(req, saved);
 }
 async function deleteOrderRemote(id){
@@ -673,11 +701,11 @@ function stockLine(book, reserved){
 /* escape any string before injecting into innerHTML to prevent XSS */
 function esc(str){
   return String(str==null?'':str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#39;');
+  .replace(/&/g,'&amp;')
+  .replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;')
+  .replace(/'/g,'&#39;');
 }
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -686,26 +714,33 @@ function showToast(msg){
 }
 function uid(){ return 'id' + Math.random().toString(36).slice(2,9); }
 
-/* ---------- SIDE AD SLOTS (چپ/راست) ----------
-   نامرئی هستند مگر این‌که از پنل مدیریت برایشان عکس یا فیلم بی‌صدا تنظیم شده باشد. */
+/* ---------- SIDE AD SLOTS ----------
+   نامرئی هستند مگر این‌که از پنل مدیریت برایشان عکس یا فیلم بی‌صدا تنظیم شده باشد.
+   هر صفحه می‌تواند هر تعداد تبلیغ داشته باشد؛ برای هر کدام یک باکس جداگانه
+   با موقعیت/اندازه‌ی خودش ساخته می‌شود. */
 const AD_PAGES = { '/':'home', '/shop':'shop', '/authors':'authors', '/contact':'contact', '/checkout':'checkout' };
 function renderAdSlots(pageKey){
-  ['left','right'].forEach(pos=>{
-    const slot = document.getElementById(pos==='left' ? 'adSlotLeft' : 'adSlotRight');
-    if(!slot) return;
-    const ad = pageKey ? (DATA.ads||[]).find(a=>a.page===pageKey && a.position===pos && a.active!==false && a.media) : null;
-    if(!ad){
-      slot.classList.remove('has-media');
-      slot.innerHTML = '';
-      return;
-    }
-    const mediaTag = ad.media_type==='video'
-      ? `<video src="${ad.media}" autoplay muted loop playsinline></video>`
-      : `<img src="${ad.media}" alt="">`;
-    slot.innerHTML = ad.link_url
+  const container = document.getElementById('adSlotsContainer');
+  if(!container) return;
+  container.innerHTML = '';
+  if(!pageKey) return;
+  const ads = (DATA.ads||[]).filter(a=>a.page===pageKey && a.active!==false && a.media);
+  ads.forEach(ad=>{
+      const slot = document.createElement('div');
+      slot.className = 'side-ad-slot has-media';
+      const mediaTag = ad.media_type==='video'
+      ? `<video src="${esc(ad.media)}" autoplay muted loop playsinline></video>`
+      : `<img src="${esc(ad.media)}" alt="">`;
+      slot.innerHTML = ad.link_url
       ? `<a class="side-ad-slot-link" href="${esc(ad.link_url)}" target="_blank" rel="noopener">${mediaTag}</a>`
       : mediaTag;
-    slot.classList.add('has-media');
+      // موقعیت و اندازه را از خودِ تبلیغ می‌خوانیم (از پنل مدیریت انتخاب/تنظیم
+      // شده)؛ pos_x/pos_y درصدِ عرض/ارتفاع صفحه‌اند، width/height پیکسل.
+      slot.style.left = (ad.pos_x!=null ? ad.pos_x : 1) + '%';
+      slot.style.top = (ad.pos_y!=null ? ad.pos_y : 42) + '%';
+      slot.style.width = (ad.width || 150) + 'px';
+      slot.style.height = (ad.height || 300) + 'px';
+      container.appendChild(slot);
   });
 }
 
@@ -713,9 +748,9 @@ function renderAdSlots(pageKey){
 function navigate(){
   const hash = location.hash.replace('#','') || '/';
   document.querySelectorAll('nav a').forEach(a=>{
-    const route = a.getAttribute('data-route');
-    const isActive = a.getAttribute('href')==='#'+hash || (route==='/authors' && hash.startsWith('/author/')) || (route==='/shop' && hash.startsWith('/book/'));
-    a.classList.toggle('active', isActive);
+      const route = a.getAttribute('data-route');
+      const isActive = a.getAttribute('href')==='#'+hash || (route==='/authors' && hash.startsWith('/author/')) || (route==='/shop' && hash.startsWith('/book/'));
+      a.classList.toggle('active', isActive);
   });
   document.getElementById('mainNav').classList.remove('open');
   const sb = document.getElementById('searchBox');
@@ -737,6 +772,7 @@ function navigate(){
   if(hash==='/contact') return renderContact(app);
   if(hash==='/requests') return renderRequests(app);
   if(hash==='/checkout') return renderCheckout(app);
+  if(hash.startsWith('/payment-result')) return renderPaymentResult(app, hash);
   app.innerHTML = '<div class="wrap"><p style="padding:60px 0;">صفحه پیدا نشد.</p></div>';
 }
 window.addEventListener('hashchange', navigate);
@@ -753,8 +789,8 @@ function bookCard(b){
   const img = primaryImage(b);
   const outOfStock = (b.stock !== undefined ? b.stock <= 0 : b.in_stock === false);
   const coverImg = img
-    ? `<img src="${img}" alt="جلد کتاب ${esc(b.title)} اثر ${esc(b.author)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0;">`
-    : `<span style="font-size:38px;">${b.emoji||'📚'}</span>`;
+  ? `<img src="${img}" alt="جلد کتاب ${esc(b.title)} اثر ${esc(b.author)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0;">`
+  : `<span style="font-size:38px;">${b.emoji||'📚'}</span>`;
   return `<div class="card ${outOfStock?'is-out':''}" style="cursor:pointer;" onclick="location.hash='#/book/${b.id}'">
     ${b.discount>0?`<span class="badge">${b.discount}% تخفیف</span>`:''}
     ${b.category2?`<span class="badge" style="${b.discount>0?'top:34px;':''}background:linear-gradient(160deg,#8fa79a,#5a6e62 60%,#3f4f47);color:#fff;">دسته ۲</span>`:''}
@@ -770,8 +806,8 @@ function bookCard(b){
         ${b.discount>0?`<span class="old-price">${fmt(b.price)}</span>`:''}
       </div>
       ${outOfStock
-        ? `<button class="add-btn" disabled style="opacity:.5;cursor:not-allowed;">ناموجود</button>`
-        : `<button class="add-btn" onclick="event.stopPropagation();addToCart('${b.id}')">افزودن به سبد خرید</button>`}
+    ? `<button class="add-btn" disabled style="opacity:.5;cursor:not-allowed;">ناموجود</button>`
+    : `<button class="add-btn" onclick="event.stopPropagation();addToCart('${b.id}')">افزودن به سبد خرید</button>`}
     </div>
   </div>`;
 }
@@ -780,18 +816,18 @@ function hashStr(s){ let h=0; for(let i=0;i<s.length;i++) h = (h*31 + s.charCode
 /* normalize Persian/Arabic text for fuzzier matching */
 function normalizeFa(str){
   return (str||'')
-    .toString()
-    .toLowerCase()
-    .replace(/[يى]/g,'ی')
-    .replace(/ك/g,'ک')
-    .replace(/[ۀة]/g,'ه')
-    .replace(/[إأآا]/g,'ا')
-    .replace(/ؤ/g,'و')
-    .replace(/ئ/g,'ی')
-    .replace(/[\u064B-\u065F\u0670]/g,'') // remove diacritics
-    .replace(/[‌\u200c]/g,' ') // zero-width non-joiner -> space
-    .replace(/\s+/g,' ')
-    .trim();
+  .toString()
+  .toLowerCase()
+  .replace(/[يى]/g,'ی')
+  .replace(/ك/g,'ک')
+  .replace(/[ۀة]/g,'ه')
+  .replace(/[إأآا]/g,'ا')
+  .replace(/ؤ/g,'و')
+  .replace(/ئ/g,'ی')
+  .replace(/[\u064B-\u065F\u0670]/g,'') // remove diacritics
+  .replace(/[‌\u200c]/g,' ') // zero-width non-joiner -> space
+  .replace(/\s+/g,' ')
+  .trim();
 }
 function matchesQuery(book, rawQuery){
   const q = normalizeFa(rawQuery);
@@ -808,6 +844,9 @@ function renderHome(app){
   app.innerHTML = `
   <section class="wrap" style="padding-top:30px;padding-bottom:0;">
     <div class="hero-card">
+      <div class="warm-glow" style="width:180px;height:180px;top:-40px;left:10%;"></div>
+      <div class="warm-glow" style="width:120px;height:120px;bottom:-30px;right:18%;"></div>
+      <div class="warm-glow" style="width:90px;height:90px;top:30%;left:42%;"></div>
       <div class="hero-text">
         <div class="eyebrow">فروشگاه پاتوق بوک</div>
         <h1>هر کتاب، آغاز یک سفر تازه</h1>
@@ -818,8 +857,10 @@ function renderHome(app){
       <div class="spines">${spines}</div>
     </div>
   </section>
-  <section class="wrap">
-    <div class="section-head"><h2>پیشنهاد ویژه</h2><a href="#/shop">مشاهده همه</a></div>
+  <section class="wrap halo-field">
+    <div class="warm-glow" style="width:150px;height:150px;top:-20px;right:6%;"></div>
+    <div class="warm-glow" style="width:110px;height:110px;bottom:10px;left:8%;"></div>
+    <div class="section-head" style="position:relative;z-index:1;"><h2>پیشنهاد ویژه</h2><a href="#/shop">مشاهده همه</a></div>
     <div class="grid">${featured.length?featured.map(bookCard).join(''):'<div class="empty">فعلاً پیشنهاد ویژه‌ای ثبت نشده است.</div>'}</div>
   </section>
   <section class="wrap" style="padding-top:0;padding-bottom:0;">
@@ -846,20 +887,23 @@ let searchQuery = '';
 function renderShop(app){
   const cats = ['همه', 'تخفیف خورده‌ها', ...new Set(DATA.books.map(b=>b.category))];
   let list = activeCategory==='همه' ? DATA.books
-    : activeCategory==='تخفیف خورده‌ها' ? DATA.books.filter(b=>b.discount>0)
-    : DATA.books.filter(b=>b.category===activeCategory);
+  : activeCategory==='تخفیف خورده‌ها' ? DATA.books.filter(b=>b.discount>0)
+  : DATA.books.filter(b=>b.category===activeCategory);
   if(searchQuery.trim()){
     list = list.filter(b=> matchesQuery(b, searchQuery));
   }
   app.innerHTML = `
-  <section class="wrap" style="padding-top:40px;">
-    <div class="section-head"><h2>فروشگاه کتاب</h2></div>
-    ${searchQuery.trim()?`<div class="search-active">نتایج جستجو برای «${esc(searchQuery)}» <span onclick="clearSearch()">حذف فیلتر ✕</span></div>`:''}
-    <div class="filters">${cats.map(c=>`<button class="${c===activeCategory?'active':''}" data-cat="${esc(c)}">${c==='تخفیف خورده‌ها'?'🔥 ':''}${esc(c)}</button>`).join('')}</div>
+  <section class="wrap halo-field" style="padding-top:40px;">
+    <div class="warm-glow" style="width:160px;height:160px;top:-10px;left:4%;"></div>
+    <div class="warm-glow" style="width:130px;height:130px;top:40%;right:2%;"></div>
+    <div class="warm-glow" style="width:100px;height:100px;bottom:-10px;left:38%;"></div>
+    <div class="section-head" style="position:relative;z-index:1;"><h2>فروشگاه کتاب</h2></div>
+    ${searchQuery.trim()?`<div class="search-active" style="position:relative;z-index:1;">نتایج جستجو برای «${esc(searchQuery)}» <span onclick="clearSearch()">حذف فیلتر ✕</span></div>`:''}
+    <div class="filters" style="position:relative;z-index:1;">${cats.map(c=>`<button class="${c===activeCategory?'active':''}" data-cat="${esc(c)}">${c==='تخفیف خورده‌ها'?'🔥 ':''}${esc(c)}</button>`).join('')}</div>
     <div class="grid" id="shopGrid">${list.length?list.map(bookCard).join(''):'<div class="empty">کتابی با این مشخصات یافت نشد.</div>'}</div>
   </section>`;
   app.querySelectorAll('.filters button').forEach(btn=>{
-    btn.onclick = ()=>{ activeCategory = btn.dataset.cat; renderShop(app); };
+      btn.onclick = ()=>{ activeCategory = btn.dataset.cat; renderShop(app); };
   });
 }
 function clearSearch(){
@@ -882,8 +926,8 @@ function renderBookDetail(app, id){
   const color = spineColors[Math.abs(hashStr(b.id))%spineColors.length];
   const images = (b.images && b.images.length) ? b.images : (b.cover ? [b.cover] : []);
   const mainImg = images[0]
-    ? `<img src="${images[0]}" id="bdMainImg" alt="جلد کتاب ${esc(b.title)} اثر ${esc(b.author)}">`
-    : `<span style="color:#fff;" id="bdMainImg">${b.emoji||'📚'}</span>`;
+  ? `<img src="${images[0]}" id="bdMainImg" alt="جلد کتاب ${esc(b.title)} اثر ${esc(b.author)}">`
+  : `<span style="color:#fff;" id="bdMainImg">${b.emoji||'📚'}</span>`;
   const related = DATA.books.filter(x=>x.id!==b.id && x.author===b.author).slice(0,4);
   const outOfStock = (b.stock !== undefined ? b.stock <= 0 : b.in_stock === false);
   const cartItem = CART.find(c=>c.id===b.id);
@@ -918,8 +962,8 @@ function renderBookDetail(app, id){
           </div>`}
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             ${outOfStock
-              ? `<button class="add-btn" disabled style="opacity:.5;cursor:not-allowed;flex:1;">ناموجود</button>`
-              : `<button class="add-btn" id="bdAddBtn" style="flex:1;">افزودن به سبد خرید</button>`}
+    ? `<button class="add-btn" disabled style="opacity:.5;cursor:not-allowed;flex:1;">ناموجود</button>`
+    : `<button class="add-btn" id="bdAddBtn" style="flex:1;">افزودن به سبد خرید</button>`}
             ${inCartQty>0 ? `<button class="add-btn" id="bdRemoveBtn" style="flex:1;background:#a33;">حذف از سبد خرید</button>` : ''}
           </div>
           ${inCartQty>0?`<div style="font-size:12.5px;color:#8a7558;margin-top:8px;">${inCartQty.toLocaleString('fa-IR')} عدد از این کتاب هم‌اکنون در سبد خرید شماست.</div>`:''}
@@ -938,12 +982,12 @@ function renderBookDetail(app, id){
     <div class="grid">${related.map(bookCard).join('')}</div>` : ''}
   </section>`;
   app.querySelectorAll('.bd-thumb').forEach(t=>{
-    t.onclick = ()=>{
-      const idx = Number(t.dataset.img);
-      document.getElementById('bdMainImg').src = images[idx];
-      app.querySelectorAll('.bd-thumb').forEach(x=>x.classList.remove('active'));
-      t.classList.add('active');
-    };
+      t.onclick = ()=>{
+        const idx = Number(t.dataset.img);
+        document.getElementById('bdMainImg').src = images[idx];
+        app.querySelectorAll('.bd-thumb').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+      };
   });
   if(!outOfStock){
     document.getElementById('bdMinus').onclick = ()=>{
@@ -1049,8 +1093,8 @@ function pdfCard(p){
   return `<div class="card" style="cursor:pointer;" onclick="downloadPdf('${p.id}')">
     <span class="badge" style="background:linear-gradient(160deg,#8fa79a,#5a6e62 60%,#3f4f47);color:#fff;">رایگان</span>
     <div class="cover" style="background:var(--leather);overflow:hidden;">${p.cover_image
-      ? `<img src="${p.cover_image}" alt="${esc(p.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
-      : `<span style="font-size:42px;">${esc(p.emoji||'📄')}</span>`}</div>
+    ? `<img src="${p.cover_image}" alt="${esc(p.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+    : `<span style="font-size:42px;">${esc(p.emoji||'📄')}</span>`}</div>
     <div class="card-body">
       <h3>${esc(p.title)}</h3>
       <div class="author">${p.description?esc(p.description.slice(0,60))+(p.description.length>60?'…':''):'فایل PDF رایگان'}</div>
@@ -1063,8 +1107,8 @@ function podcastCard(p){
   return `<div class="card" style="cursor:pointer;" onclick="location.hash='#/podcast/${p.id}'">
     <span class="badge" style="background:linear-gradient(160deg,#8fa79a,#5a6e62 60%,#3f4f47);color:#fff;">رایگان</span>
     <div class="cover" style="background:var(--leather);overflow:hidden;">${p.cover_image
-      ? `<img src="${p.cover_image}" alt="${esc(p.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
-      : `<span style="font-size:42px;">${esc(p.emoji||'🎙️')}</span>`}</div>
+    ? `<img src="${p.cover_image}" alt="${esc(p.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+    : `<span style="font-size:42px;">${esc(p.emoji||'🎙️')}</span>`}</div>
     <div class="card-body">
       <h3>${esc(p.title)}</h3>
       <div class="author">${count.toLocaleString('fa-IR')} قسمت</div>
@@ -1133,29 +1177,44 @@ function sanitizeHtml(html){
   tmp.innerHTML = html||'';
   const walk = (node)=>{
     [...node.childNodes].forEach(child=>{
-      if(child.nodeType===1){
-        if(!allowedTags.has(child.tagName)){
-          child.replaceWith(...child.childNodes);
-          return;
-        }
-        [...child.attributes].forEach(attr=>{
-          const name = attr.name.toLowerCase();
-          const keepFor = { 'A':['href','target','rel'], 'IMG':['src','alt'], 'SPAN':['style'], 'DIV':['style'], 'P':['style'], 'FONT':['color'] };
-          const allowedAttrs = keepFor[child.tagName] || [];
-          if(name.startsWith('on') || !allowedAttrs.includes(name)){
-            child.removeAttribute(attr.name);
-          } else if(name==='href' && /^\s*javascript:/i.test(attr.value)){
-            child.removeAttribute(attr.name);
-          } else if(name==='style'){
-            // فقط رنگ و ضخامت فونت از استایل درون‌خطی مجاز است
-            const safe = attr.value.split(';').filter(rule=>/^\s*(color|font-weight|text-decoration|background-color)\s*:/i.test(rule)).join(';');
-            child.setAttribute('style', safe);
+        if(child.nodeType===1){
+          if(!allowedTags.has(child.tagName)){
+            child.replaceWith(...child.childNodes);
+            return;
           }
-        });
-        walk(child);
-      } else if(child.nodeType===8){
-        child.remove();
-      }
+          [...child.attributes].forEach(attr=>{
+              const name = attr.name.toLowerCase();
+              const keepFor = { 'A':['href','target','rel'], 'IMG':['src','alt'], 'SPAN':['style'], 'DIV':['style'], 'P':['style'], 'FONT':['color'] };
+              const allowedAttrs = keepFor[child.tagName] || [];
+              if(name.startsWith('on') || !allowedAttrs.includes(name)){
+                child.removeAttribute(attr.name);
+              } else if(name==='href' && !/^(https?:|mailto:|tel:|#|\/)/i.test(attr.value.trim())){
+                // SECURITY: قبلاً فقط پیشوند javascript: مسدود می‌شد؛ اسکیم‌های
+                // دیگری مثل data: یا vbscript: هم می‌توانستند از این فیلتر رد
+                // شوند. حالا فقط لیست سفید (http/https/mailto/tel/لینک داخلی)
+                // مجاز است و هر چیز دیگری (از جمله href خالی) حذف می‌شود.
+                child.removeAttribute(attr.name);
+              } else if(name==='src' && child.tagName==='IMG' && !/^(https?:|data:image\/)/i.test(attr.value.trim())){
+                // SECURITY: src تصویر هم باید یا آدرس واقعی باشد یا data URI
+                // که صراحتاً از نوع image/* است — نه data:text/html یا هر
+                // اسکیم دیگری.
+                child.removeAttribute(attr.name);
+              } else if(name==='style'){
+                // فقط رنگ و ضخامت فونت از استایل درون‌خطی مجاز است
+                const safe = attr.value.split(';').filter(rule=>/^\s*(color|font-weight|text-decoration|background-color)\s*:/i.test(rule)).join(';');
+                child.setAttribute('style', safe);
+              }
+          });
+          if(child.tagName==='A' && child.getAttribute('target')==='_blank'){
+            // امنیت: لینکی که در تب جدید باز می‌شود باید noopener/noreferrer
+            // داشته باشد وگرنه صفحه‌ی مقصد به window.opener همین سایت دسترسی
+            // دارد (reverse tabnabbing).
+            child.setAttribute('rel', 'noopener noreferrer');
+          }
+          walk(child);
+        } else if(child.nodeType===8){
+          child.remove();
+        }
     });
   };
   walk(tmp);
@@ -1207,9 +1266,9 @@ async function renderBlogPost(app, id){
       </div>
     </div>
   </section>`;
-
+  
   await loadAndRenderComments(id);
-
+  
   document.getElementById('submitCommentBtn').onclick = async ()=>{
     const name = document.getElementById('c-name').value.trim();
     const content = document.getElementById('c-content').value.trim();
@@ -1235,8 +1294,8 @@ async function loadAndRenderComments(postId){
     return;
   }
   box.innerHTML = comments.length===0
-    ? '<p style="color:#8a7558;font-size:13px;">هنوز دیدگاهی ثبت نشده؛ اولین نفر باش!</p>'
-    : comments.map(c=>`
+  ? '<p style="color:#8a7558;font-size:13px;">هنوز دیدگاهی ثبت نشده؛ اولین نفر باش!</p>'
+  : comments.map(c=>`
       <div style="border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px;background:var(--cream);">
         <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">
           <b style="color:var(--leather);">${esc(c.name||'کاربر مهمان')}</b>
@@ -1275,7 +1334,7 @@ function renderContact(app){
         <div class="info-card"><b>آدرس</b>نور، خیابان نیما، نبش نیلوفر ۴۳</div>
         <div class="info-card"><b>تلفن</b>۰۹۱۲۰۷۶۰۱۱۶</div>
         <div class="info-card"><b>ایمیل</b>info@patoghebook.ir</div>
-        <div class="info-card"><b>ساعات کاری</b>شنبه تا پنج‌شنبه، ۹ تا ۲۱ — جمعه‌ها تعطیل</div>
+        <div class="info-card"><b>ساعات کاری</b>شنبه تا پنج‌شنبه، ۹ تا ۲۰</div>
         <div class="info-card"><b>تحویل در محل</b>امکان تحویل حضوری در محل فروشگاه</div>
       </div>
       <form class="contact" id="contactForm">
@@ -1381,15 +1440,15 @@ function renderCheckout(app){
     </div>
   </section>`;
   app.querySelectorAll('[data-gw]').forEach(card=>{
-    card.onclick = ()=>{ selectedGateway = card.dataset.gw; renderCheckout(app); };
+      card.onclick = ()=>{ selectedGateway = card.dataset.gw; renderCheckout(app); };
   });
   const phoneInput = document.getElementById('coPhone');
   phoneInput.addEventListener('input', ()=>{
-    phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+      phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
   });
   const postalInput = document.getElementById('coPostal');
   postalInput.addEventListener('input', ()=>{
-    postalInput.value = postalInput.value.replace(/[^0-9]/g, '');
+      postalInput.value = postalInput.value.replace(/[^0-9]/g, '');
   });
   document.getElementById('payBtn').onclick = ()=>{
     const name = document.getElementById('coName').value.trim();
@@ -1413,50 +1472,113 @@ async function saveOrder(order){
   const saved = await apiFetch('/orders/', {method:'POST', body: JSON.stringify(payload)});
   return saved;
 }
+async function goToZarinpalPayment(orderId){
+  // مرحله‌ی «PaymentRequest» را از سرور خودمان می‌گیرد (که مبلغ را از روی
+  // سفارشِ واقعی و امن سرور می‌سازد، نه از چیزی که مرورگر بفرستد)، بعد
+  // مرورگر را به صفحه‌ی پرداخت زرین‌پال هدایت می‌کند.
+  try{
+    const res = await apiFetch(`/orders/${encodeURIComponent(orderId)}/start-payment/`, {method:'POST'});
+    window.location.href = res.start_pay_url;
+    return true;
+  }catch(e){
+    showToast(e.message || 'خطا در اتصال به درگاه پرداخت');
+    return false;
+  }
+}
 async function renderCheckoutSuccess(app, total, customer){
   const gw = gateways.find(g=>g.id===selectedGateway);
-  let orderNo;
+  let saved;
   try{
-    const saved = await saveOrder({
-      customer_name: customer.name,
-      phone: customer.phone,
-      postal_code: customer.postal,
-      address: customer.address,
-      items: CART,
-      total: total,
-      gateway: gw.id,
+    saved = await saveOrder({
+        customer_name: customer.name,
+        phone: customer.phone,
+        postal_code: customer.postal,
+        address: customer.address,
+        items: CART,
+        total: total,
+        gateway: gw.id,
     });
-    orderNo = saved.id; // شماره سفارش واقعی که سرور ساخته (مثل PB482913)
   }catch(e){
     showToast(e.message || 'خطا در ثبت سفارش، لطفاً دوباره تلاش کنید');
     return;
   }
+  const orderNo = saved.id; // شماره سفارش واقعی که سرور ساخته (مثل PB482913)
   // آیا در این سفارش محصول کارگاهی هم بوده؟ (باید قبل از خالی‌کردن سبد بررسی شود)
   const hasWorkshopItem = CART.some(item=>{
-    const book = DATA.books.find(b=>b.id===item.id);
-    return book && book.workshop;
+      const book = DATA.books.find(b=>b.id===item.id);
+      return book && book.workshop;
   });
   // موجودی کتاب‌های خریداری‌شده را همین‌جا (بدون نیاز به رفرش صفحه) کم کن
   // تا اگر موجودی تمام شده باشد، بلافاصله «ناموجود» نمایش داده شود.
   CART.forEach(item=>{
-    const book = DATA.books.find(b=>b.id===item.id);
-    if(book && book.stock !== undefined){
-      book.stock = Math.max(0, book.stock - item.qty);
-    }
+      const book = DATA.books.find(b=>b.id===item.id);
+      if(book && book.stock !== undefined){
+        book.stock = Math.max(0, book.stock - item.qty);
+      }
   });
   CART = [];
   updateCartBadge();
   app.innerHTML = `
   <section class="wrap">
     <div class="success-box">
-      <div class="ic">✓</div>
-      <h2 style="color:var(--leather-dark);">پرداخت با موفقیت انجام شد</h2>
-      <p style="color:#4a3a2a;">سفارش شما از طریق درگاه ${gw.label} به مبلغ ${fmt(total)} تومان ثبت شد.</p>
+      <div class="ic">⏳</div>
+      <h2 style="color:var(--leather-dark);">در حال انتقال به درگاه پرداخت زرین‌پال...</h2>
       <p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${orderNo}</p>
       ${hasWorkshopItem?`<p style="background:var(--paper-dim);color:var(--leather-dark);font-weight:600;border-radius:12px;padding:14px 18px;margin:18px auto 0;max-width:460px;">همکاران ما تا چند ساعت آینده با شما تماس می‌گیرند.</p>`:''}
-      <a href="#/shop" class="btn btn-gold" style="background:var(--leather);color:#fff;margin-top:18px;">بازگشت به فروشگاه</a>
     </div>
   </section>`;
+  const ok = await goToZarinpalPayment(orderNo);
+  if(ok) return; // مرورگر همین الان در حال رفتن به صفحه‌ی زرین‌پال است
+  // اگر اتصال به درگاه با خطا مواجه شد (مثلاً هنوز از «اتصال» تنظیم نشده)،
+  // سفارش قبلاً ثبت شده؛ فقط راه دوباره‌تلاش‌کردن را نشان بده.
+  app.innerHTML = `
+  <section class="wrap">
+    <div class="success-box">
+      <div class="ic">✓</div>
+      <h2 style="color:var(--leather-dark);">سفارش شما ثبت شد</h2>
+      <p style="color:#4a3a2a;">سفارش شما به مبلغ ${fmt(total)} تومان ثبت شد، اما اتصال به درگاه پرداخت با خطا مواجه شد.</p>
+      <p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${orderNo}</p>
+      <button class="btn btn-gold" id="retryPayBtn" style="background:var(--leather);color:#fff;margin-top:14px;">تلاش دوباره برای پرداخت</button><br>
+      <a href="#/shop" class="btn btn-gold" style="background:var(--paper-dim);color:var(--ink);margin-top:10px;">بازگشت به فروشگاه</a>
+    </div>
+  </section>`;
+  document.getElementById('retryPayBtn').onclick = ()=> goToZarinpalPayment(orderNo);
+}
+function renderPaymentResult(app, hash){
+  const qs = hash.split('?')[1] || '';
+  const params = new URLSearchParams(qs);
+  const status = params.get('status');
+  const orderNo = params.get('order');
+  if(status==='success'){
+    app.innerHTML = `
+    <section class="wrap">
+      <div class="success-box">
+        <div class="ic">✓</div>
+        <h2 style="color:var(--leather-dark);">پرداخت با موفقیت انجام شد</h2>
+        ${orderNo?`<p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${esc(orderNo)}</p>`:''}
+        <a href="#/shop" class="btn btn-gold" style="background:var(--leather);color:#fff;margin-top:18px;">بازگشت به فروشگاه</a>
+      </div>
+    </section>`;
+    return;
+  }
+  if(status==='failed'){
+    app.innerHTML = `
+    <section class="wrap">
+      <div class="success-box">
+        <div class="ic" style="background:#fbe9e9;color:#a33;">✕</div>
+        <h2 style="color:#a33;">پرداخت انجام نشد</h2>
+        <p style="color:#4a3a2a;">پرداخت شما تکمیل نشد یا لغو شد. سفارش شما ثبت شده و می‌توانید دوباره تلاش کنید.</p>
+        ${orderNo?`<p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${esc(orderNo)}</p>`:''}
+        ${orderNo?`<button class="btn btn-gold" id="retryPayBtn" style="background:var(--leather);color:#fff;margin-top:14px;">تلاش دوباره برای پرداخت</button><br>`:''}
+        <a href="#/shop" class="btn btn-gold" style="background:var(--paper-dim);color:var(--ink);margin-top:10px;">بازگشت به فروشگاه</a>
+      </div>
+    </section>`;
+    if(orderNo){
+      document.getElementById('retryPayBtn').onclick = ()=> goToZarinpalPayment(orderNo);
+    }
+    return;
+  }
+  app.innerHTML = `<div class="wrap"><div class="empty" style="padding:80px 0;">خطایی در بررسی وضعیت پرداخت رخ داد. لطفاً با پشتیبانی تماس بگیرید.<br><a href="#/shop" class="btn btn-gold" style="margin-top:16px;background:var(--leather);color:#fff;">رفتن به فروشگاه</a></div></div>`;
 }
 function isAdminAuthed(){ return !!authToken() && localStorage.getItem('patough_is_staff')==='1'; }
 function adminLogout(hash){
@@ -1504,6 +1626,7 @@ function renderAdmin(hash){
   <div class="admin-shell">
     <div class="admin-side">
       <a href="#/admin/orders" class="${sub==='orders'?'active':''}">📦 سفارش‌ها</a>
+      <a href="#/admin/connection" class="${sub==='connection'?'active':''}">🔗 اتصال</a>
       <a href="#/admin/requests" class="${sub==='requests'?'active':''}">✎ درخواست‌ها</a>
       <a href="#/admin/books" class="${sub==='books'?'active':''}">📚 کتاب‌ها</a>
       <a href="#/admin/workshops" class="${sub==='workshops'?'active':''}">◆ کارگاه‌ها</a>
@@ -1519,6 +1642,7 @@ function renderAdmin(hash){
   </div>`;
   const main = document.getElementById('adminMain');
   if(sub==='orders') return subId ? renderAdminOrderDetail(main, subId) : renderAdminOrders(main);
+  if(sub==='connection') return renderAdminConnection(main);
   if(sub==='requests') return subId ? renderAdminRequestDetail(main, subId) : renderAdminRequests(main);
   if(sub==='books') return renderAdminBooks(main);
   if(sub==='workshops') return renderAdminWorkshops(main, subId);
@@ -1563,28 +1687,28 @@ async function renderAdminRequests(main){
     </tbody>
   </table>`;
   box.querySelectorAll('[data-open]').forEach(el=>{
-    el.onclick = ()=>{ location.hash = `#/admin/requests/${encodeURIComponent(el.dataset.open)}`; navigate(); };
+      el.onclick = ()=>{ location.hash = `#/admin/requests/${encodeURIComponent(el.dataset.open)}`; navigate(); };
   });
   box.querySelectorAll('[data-status]').forEach(sel=>{
-    sel.onchange = async ()=>{
-      const req = DATA.requests.find(r=>r.id===sel.dataset.status);
-      if(req){ req.status = sel.value; await saveRequest(req); showToast('وضعیت درخواست بروزرسانی شد'); }
-    };
+      sel.onchange = async ()=>{
+        const req = DATA.requests.find(r=>r.id===sel.dataset.status);
+        if(req){ req.status = sel.value; await saveRequest(req); showToast('وضعیت درخواست بروزرسانی شد'); }
+      };
   });
   box.querySelectorAll('[data-del]').forEach(btn=>{
-    btn.onclick = ()=>{
-      const id = btn.dataset.del;
-      openConfirmModal('آیا از حذف این پیام مطمئن هستید؟ این عملیات قابل بازگشت نیست.', async ()=>{
-        try{
-          DATA.requests = DATA.requests.filter(r=>r.id!==id);
-          await deleteRequestRemote(id);
-          showToast('درخواست حذف شد');
-          renderAdminRequests(main);
-        }catch(e){
-          showToast('خطا در حذف درخواست');
-        }
-      });
-    };
+      btn.onclick = ()=>{
+        const id = btn.dataset.del;
+        openConfirmModal('آیا از حذف این پیام مطمئن هستید؟ این عملیات قابل بازگشت نیست.', async ()=>{
+            try{
+              DATA.requests = DATA.requests.filter(r=>r.id!==id);
+              await deleteRequestRemote(id);
+              showToast('درخواست حذف شد');
+              renderAdminRequests(main);
+            }catch(e){
+              showToast('خطا در حذف درخواست');
+            }
+        });
+      };
   });
 }
 
@@ -1623,15 +1747,15 @@ async function renderAdminRequestDetail(main, reqId){
   </div>`;
   document.getElementById('delReqBtn').onclick = ()=>{
     openConfirmModal('آیا از حذف این پیام مطمئن هستید؟ این عملیات قابل بازگشت نیست.', async ()=>{
-      try{
-        await deleteRequestRemote(reqId);
-        DATA.requests = (DATA.requests||[]).filter(r=>r.id!==reqId);
-        showToast('درخواست حذف شد');
-        location.hash = '#/admin/requests';
-        navigate();
-      }catch(e){
-        showToast('خطا در حذف درخواست');
-      }
+        try{
+          await deleteRequestRemote(reqId);
+          DATA.requests = (DATA.requests||[]).filter(r=>r.id!==reqId);
+          showToast('درخواست حذف شد');
+          location.hash = '#/admin/requests';
+          navigate();
+        }catch(e){
+          showToast('خطا در حذف درخواست');
+        }
     });
   };
 }
@@ -1668,25 +1792,25 @@ async function renderAdminOrders(main){
     </tbody>
   </table>`;
   box.querySelectorAll('[data-status]').forEach(sel=>{
-    sel.onchange = async ()=>{
-      try{ await apiFetch(`/orders/${sel.dataset.status}/`, {method:'PATCH', body: JSON.stringify({status: sel.value})}); showToast('وضعیت سفارش بروزرسانی شد'); }
-      catch(e){ showToast('خطا در بروزرسانی وضعیت'); }
-    };
+      sel.onchange = async ()=>{
+        try{ await apiFetch(`/orders/${sel.dataset.status}/`, {method:'PATCH', body: JSON.stringify({status: sel.value})}); showToast('وضعیت سفارش بروزرسانی شد'); }
+        catch(e){ showToast('خطا در بروزرسانی وضعیت'); }
+      };
   });
   box.querySelectorAll('[data-del]').forEach(btn=>{
-    btn.onclick = ()=>{
-      const id = btn.dataset.del;
-      openConfirmModal('آیا از حذف این سفارش مطمئن هستید؟ این عملیات قابل بازگشت نیست.', async ()=>{
-        try{
-          await deleteOrderRemote(id);
-          DATA.orders = (DATA.orders||[]).filter(o=>o.id!==id);
-          showToast('سفارش حذف شد');
-          renderAdminOrders(main);
-        }catch(e){
-          showToast('خطا در حذف سفارش');
-        }
-      });
-    };
+      btn.onclick = ()=>{
+        const id = btn.dataset.del;
+        openConfirmModal('آیا از حذف این سفارش مطمئن هستید؟ این عملیات قابل بازگشت نیست.', async ()=>{
+            try{
+              await deleteOrderRemote(id);
+              DATA.orders = (DATA.orders||[]).filter(o=>o.id!==id);
+              showToast('سفارش حذف شد');
+              renderAdminOrders(main);
+            }catch(e){
+              showToast('خطا در حذف سفارش');
+            }
+        });
+      };
   });
 }
 
@@ -1737,9 +1861,9 @@ async function renderAdminUsers(main){
   // بک‌اند جنگو فعلاً API برای فهرست‌کردن کاربران ندارد؛ کاربران واقعی را از پنل ادمین جنگو ببین
   box.innerHTML = `
   <p style="font-size:13px;color:#8a7558;line-height:1.9;">
-    برای دیدن و مدیریت کامل کاربران ثبت‌نامی (و ساخت/حذف حساب ادمین)، از پنل ادمین واقعی جنگو استفاده کن:
+    برای دیدن و مدیریت کامل کاربران ثبت‌نامی (و ساخت/حذف حساب ادمین)، از پنل مدیریت کامل استفاده کن:
   </p>
-  <p><a href="${API_BASE.replace('/api','')}/admin/auth/user/" target="_blank" rel="noopener" class="btn btn-gold" style="background:var(--leather);color:#fff;">باز کردن فهرست کاربران در جنگو</a></p>`;
+  <p><a href="${API_BASE.replace('/api','')}/panel-8f2q7k1z/auth/user/" target="_blank" rel="noopener" class="btn btn-gold" style="background:var(--leather);color:#fff;">باز کردن فهرست کاربران</a></p>`;
 }
 
 function renderAdminBooks(main, editId){
@@ -1809,25 +1933,25 @@ function renderAdminBooks(main, editId){
   </table>`;
   document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/books'); };
   main.querySelectorAll('[data-stock]').forEach(btn=>{
-    btn.onclick = async ()=>{
-      const id = btn.dataset.stock;
-      const book = DATA.books.find(x=>x.id===id);
-      if(!book) return;
-      const input = prompt(`تعداد موجود جدید برای «${book.title}» را وارد کن:`, book.stock);
-      if(input===null) return;
-      const newStock = Number(input);
-      if(!Number.isFinite(newStock) || newStock<0 || !Number.isInteger(newStock)){ showToast('لطفاً یک عدد صحیح و مثبت وارد کن'); return; }
-      const prev = book.stock;
-      book.stock = newStock;
-      try{
-        await saveBook(book);
-        showToast('موجودی بروزرسانی شد');
-        renderAdminBooks(main);
-      }catch(e){
-        book.stock = prev;
-        showToast('خطا در بروزرسانی موجودی');
-      }
-    };
+      btn.onclick = async ()=>{
+        const id = btn.dataset.stock;
+        const book = DATA.books.find(x=>x.id===id);
+        if(!book) return;
+        const input = prompt(`تعداد موجود جدید برای «${book.title}» را وارد کن:`, book.stock);
+        if(input===null) return;
+        const newStock = Number(input);
+        if(!Number.isFinite(newStock) || newStock<0 || !Number.isInteger(newStock)){ showToast('لطفاً یک عدد صحیح و مثبت وارد کن'); return; }
+        const prev = book.stock;
+        book.stock = newStock;
+        try{
+          await saveBook(book);
+          showToast('موجودی بروزرسانی شد');
+          renderAdminBooks(main);
+        }catch(e){
+          book.stock = prev;
+          showToast('خطا در بروزرسانی موجودی');
+        }
+      };
   });
   document.getElementById('saveBookBtn').onclick = async ()=>{
     const title=document.getElementById('f-title').value.trim();
@@ -1862,7 +1986,7 @@ function renderAdminBooks(main, editId){
     }
   };
   if(editing) document.getElementById('cancelEditBtn').onclick = ()=> renderAdminBooks(main);
-
+  
   // multi-image gallery: first image = primary image shown to users
   let pendingImages = editing ? (editing.images && editing.images.length ? [...editing.images] : (editing.cover ? [editing.cover] : [])) : [];
   const imagesInput = document.getElementById('f-images');
@@ -1876,39 +2000,39 @@ function renderAdminBooks(main, editId){
       </div>
     `).join('') : '<div style="font-size:12px;color:#8a7558;">هنوز عکسی اضافه نشده است. بدون عکس، ایموجی جلد نمایش داده می‌شود.</div>';
     imageStrip.querySelectorAll('[data-remove]').forEach(btn=>{
-      btn.onclick = ()=>{ pendingImages.splice(Number(btn.dataset.remove),1); renderImageStrip(); };
+        btn.onclick = ()=>{ pendingImages.splice(Number(btn.dataset.remove),1); renderImageStrip(); };
     });
     imageStrip.querySelectorAll('[data-main]').forEach(btn=>{
-      btn.onclick = ()=>{
-        const idx = Number(btn.dataset.main);
-        const [img] = pendingImages.splice(idx,1);
-        pendingImages.unshift(img);
-        renderImageStrip();
-      };
+        btn.onclick = ()=>{
+          const idx = Number(btn.dataset.main);
+          const [img] = pendingImages.splice(idx,1);
+          pendingImages.unshift(img);
+          renderImageStrip();
+        };
     });
   }
   renderImageStrip();
   imagesInput.addEventListener('change', async ()=>{
-    const files = Array.from(imagesInput.files);
-    for(const file of files){
-      if(file.size > 2*1024*1024){ showToast('هر عکس باید کمتر از ۲ مگابایت باشد'); continue; }
-      const dataUrl = await new Promise((resolve,reject)=>{
-        const reader = new FileReader();
-        reader.onload = ()=> resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-      pendingImages.push(dataUrl);
-    }
-    renderImageStrip();
-    imagesInput.value = '';
+      const files = Array.from(imagesInput.files);
+      for(const file of files){
+        if(file.size > 2*1024*1024){ showToast('هر عکس باید کمتر از ۲ مگابایت باشد'); continue; }
+        const dataUrl = await new Promise((resolve,reject)=>{
+            const reader = new FileReader();
+            reader.onload = ()=> resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+        pendingImages.push(dataUrl);
+      }
+      renderImageStrip();
+      imagesInput.value = '';
   });
   main.querySelectorAll('[data-edit]').forEach(b=> b.onclick = ()=> renderAdminBooks(main, b.dataset.edit));
   main.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    DATA.books = DATA.books.filter(x=>x.id!==id);
-    await deleteBookRemote(id);
-    showToast('کتاب حذف شد'); renderAdminBooks(main);
+      const id = b.dataset.del;
+      DATA.books = DATA.books.filter(x=>x.id!==id);
+      await deleteBookRemote(id);
+      showToast('کتاب حذف شد'); renderAdminBooks(main);
   });
 }
 
@@ -1978,25 +2102,25 @@ function renderAdminWorkshops(main, editId){
   </table>`;
   document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/workshops'); };
   main.querySelectorAll('[data-stock]').forEach(btn=>{
-    btn.onclick = async ()=>{
-      const id = btn.dataset.stock;
-      const book = DATA.books.find(x=>x.id===id);
-      if(!book) return;
-      const input = prompt(`ظرفیت جدید برای «${book.title}» را وارد کن:`, book.stock);
-      if(input===null) return;
-      const newStock = Number(input);
-      if(!Number.isFinite(newStock) || newStock<0 || !Number.isInteger(newStock)){ showToast('لطفاً یک عدد صحیح و مثبت وارد کن'); return; }
-      const prev = book.stock;
-      book.stock = newStock;
-      try{
-        await saveBook(book);
-        showToast('ظرفیت بروزرسانی شد');
-        renderAdminWorkshops(main);
-      }catch(e){
-        book.stock = prev;
-        showToast('خطا در بروزرسانی ظرفیت');
-      }
-    };
+      btn.onclick = async ()=>{
+        const id = btn.dataset.stock;
+        const book = DATA.books.find(x=>x.id===id);
+        if(!book) return;
+        const input = prompt(`ظرفیت جدید برای «${book.title}» را وارد کن:`, book.stock);
+        if(input===null) return;
+        const newStock = Number(input);
+        if(!Number.isFinite(newStock) || newStock<0 || !Number.isInteger(newStock)){ showToast('لطفاً یک عدد صحیح و مثبت وارد کن'); return; }
+        const prev = book.stock;
+        book.stock = newStock;
+        try{
+          await saveBook(book);
+          showToast('ظرفیت بروزرسانی شد');
+          renderAdminWorkshops(main);
+        }catch(e){
+          book.stock = prev;
+          showToast('خطا در بروزرسانی ظرفیت');
+        }
+      };
   });
   document.getElementById('saveWorkshopBtn').onclick = async ()=>{
     const title=document.getElementById('w-title').value.trim();
@@ -2030,7 +2154,7 @@ function renderAdminWorkshops(main, editId){
     }
   };
   if(editing) document.getElementById('cancelEditWorkshopBtn').onclick = ()=> renderAdminWorkshops(main);
-
+  
   // multi-image gallery: first image = primary image shown to users
   let pendingImages = editing ? (editing.images && editing.images.length ? [...editing.images] : (editing.cover ? [editing.cover] : [])) : [];
   const imagesInput = document.getElementById('w-images');
@@ -2044,39 +2168,39 @@ function renderAdminWorkshops(main, editId){
       </div>
     `).join('') : '<div style="font-size:12px;color:#8a7558;">هنوز عکسی اضافه نشده است. بدون عکس، ایموجی نمایش داده می‌شود.</div>';
     imageStrip.querySelectorAll('[data-remove]').forEach(btn=>{
-      btn.onclick = ()=>{ pendingImages.splice(Number(btn.dataset.remove),1); renderImageStrip(); };
+        btn.onclick = ()=>{ pendingImages.splice(Number(btn.dataset.remove),1); renderImageStrip(); };
     });
     imageStrip.querySelectorAll('[data-main]').forEach(btn=>{
-      btn.onclick = ()=>{
-        const idx = Number(btn.dataset.main);
-        const [img] = pendingImages.splice(idx,1);
-        pendingImages.unshift(img);
-        renderImageStrip();
-      };
+        btn.onclick = ()=>{
+          const idx = Number(btn.dataset.main);
+          const [img] = pendingImages.splice(idx,1);
+          pendingImages.unshift(img);
+          renderImageStrip();
+        };
     });
   }
   renderImageStrip();
   imagesInput.addEventListener('change', async ()=>{
-    const files = Array.from(imagesInput.files);
-    for(const file of files){
-      if(file.size > 2*1024*1024){ showToast('هر عکس باید کمتر از ۲ مگابایت باشد'); continue; }
-      const dataUrl = await new Promise((resolve,reject)=>{
-        const reader = new FileReader();
-        reader.onload = ()=> resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-      pendingImages.push(dataUrl);
-    }
-    renderImageStrip();
-    imagesInput.value = '';
+      const files = Array.from(imagesInput.files);
+      for(const file of files){
+        if(file.size > 2*1024*1024){ showToast('هر عکس باید کمتر از ۲ مگابایت باشد'); continue; }
+        const dataUrl = await new Promise((resolve,reject)=>{
+            const reader = new FileReader();
+            reader.onload = ()=> resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+        pendingImages.push(dataUrl);
+      }
+      renderImageStrip();
+      imagesInput.value = '';
   });
   main.querySelectorAll('[data-edit]').forEach(b=> b.onclick = ()=> renderAdminWorkshops(main, b.dataset.edit));
   main.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    DATA.books = DATA.books.filter(x=>x.id!==id);
-    await deleteBookRemote(id);
-    showToast('کارگاه حذف شد'); renderAdminWorkshops(main);
+      const id = b.dataset.del;
+      DATA.books = DATA.books.filter(x=>x.id!==id);
+      await deleteBookRemote(id);
+      showToast('کارگاه حذف شد'); renderAdminWorkshops(main);
   });
 }
 
@@ -2169,10 +2293,10 @@ function renderAdminPdfs(content, editId){
   if(editing) document.getElementById('cancelPdfBtn').onclick = ()=> renderAdminPdfs(content);
   content.querySelectorAll('[data-edit]').forEach(b=> b.onclick = ()=> renderAdminPdfs(content, b.dataset.edit));
   content.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    DATA.pdfs = DATA.pdfs.filter(x=>x.id!==id);
-    await deletePDFRemote(id);
-    showToast('فایل حذف شد'); renderAdminPdfs(content);
+      const id = b.dataset.del;
+      DATA.pdfs = DATA.pdfs.filter(x=>x.id!==id);
+      await deletePDFRemote(id);
+      showToast('فایل حذف شد'); renderAdminPdfs(content);
   });
 }
 
@@ -2238,10 +2362,10 @@ function renderAdminPodcasts(main, content, editId){
   content.querySelectorAll('[data-episodes]').forEach(b=> b.onclick = ()=> renderAdminLibrary(main, 'podcast-detail', b.dataset.episodes));
   content.querySelectorAll('[data-edit]').forEach(b=> b.onclick = ()=> renderAdminPodcasts(main, content, b.dataset.edit));
   content.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    DATA.podcasts = DATA.podcasts.filter(x=>x.id!==id);
-    await deletePodcastRemote(id);
-    showToast('پادکست حذف شد'); renderAdminPodcasts(main, content);
+      const id = b.dataset.del;
+      DATA.podcasts = DATA.podcasts.filter(x=>x.id!==id);
+      await deletePodcastRemote(id);
+      showToast('پادکست حذف شد'); renderAdminPodcasts(main, content);
   });
 }
 
@@ -2295,10 +2419,10 @@ function renderAdminPodcastDetail(main, content, podcastId){
     }
   };
   content.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    podcast.episodes = (podcast.episodes||[]).filter(x=>x.id!==id);
-    await deleteEpisodeRemote(id);
-    showToast('قسمت حذف شد'); renderAdminPodcastDetail(main, content, podcastId);
+      const id = b.dataset.del;
+      podcast.episodes = (podcast.episodes||[]).filter(x=>x.id!==id);
+      await deleteEpisodeRemote(id);
+      showToast('قسمت حذف شد'); renderAdminPodcastDetail(main, content, podcastId);
   });
 }
 
@@ -2354,114 +2478,316 @@ function renderAdminAuthors(main, editId){
   if(editing) document.getElementById('cancelEditBtn').onclick = ()=> renderAdminAuthors(main);
   main.querySelectorAll('[data-edit]').forEach(b=> b.onclick = ()=> renderAdminAuthors(main, b.dataset.edit));
   main.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    if(!confirm('آیا مطمئن هستید؟')) return;
-    DATA.authors = DATA.authors.filter(x=>x.id!==id);
-    await deleteAuthorRemote(id);
-    showToast('نویسنده حذف شد'); renderAdminAuthors(main);
+      const id = b.dataset.del;
+      if(!confirm('آیا مطمئن هستید؟')) return;
+      DATA.authors = DATA.authors.filter(x=>x.id!==id);
+      await deleteAuthorRemote(id);
+      showToast('نویسنده حذف شد'); renderAdminAuthors(main);
   });
 }
 
-/* ---------- ADMIN: باکس‌های تبلیغاتی چپ/راست ---------- */
+/* ---------- ADMIN: تبلیغات ---------- */
 const AD_PAGE_LABELS = { home:'صفحه اصلی', shop:'فروشگاه', authors:'نویسندگان', contact:'تماس با ما', checkout:'ثبت نهایی پرداخت' };
-const AD_POSITION_LABELS = { left:'چپ', right:'راست' };
+const AD_PAGE_EMOJI = { home:'🏠', shop:'🛒', authors:'✍️', contact:'📞', checkout:'💳' };
+// دکمه‌های آماده‌ی موقعیت — با کلیک روی هرکدام، تبلیغ سریع به همان‌جا می‌رود
+// (بدون نیاز به کشیدن با ماوس). مختصات‌ها هم‌راستا با PRESET_POSITIONS سمت بک‌اند است.
+const AD_POSITION_PRESETS = [
+  {key:'top-left', label:'⬉ بالا · چپ', x:1, y:8},
+  {key:'top-right', label:'⬈ بالا · راست', x:88, y:8},
+  {key:'middle-left', label:'⬅ وسط · چپ', x:1, y:42},
+  {key:'middle-right', label:'➡ وسط · راست', x:88, y:42},
+  {key:'bottom-left', label:'⬋ پایین · چپ', x:1, y:75},
+  {key:'bottom-right', label:'⬊ پایین · راست', x:88, y:75},
+];
+/* پیش‌نمایشِ بخشی از صفحه که موقعیت/اندازه‌ی تبلیغ داخلش با ماوس کشیده و
+   بزرگ/کوچک می‌شود. AD_PREVIEW_W/H اندازه‌ی همین جعبه‌ی پیش‌نمایش (پیکسل واقعی
+   روی صفحه) است؛ AD_REF_VIEWPORT_* یعنی «این پیش‌نمایش نماینده‌ی یک صفحه‌ی
+   واقعی به این عرض/ارتفاع است» — از رویشان مقیاس (scale) برای تبدیل
+   pos_x/pos_y (درصد) و width/height (پیکسل واقعیِ ذخیره‌شده) به/از پیکسل‌های
+   همین جعبه‌ی کوچک به دست می‌آید. */
+const AD_PREVIEW_W = 320;
+const AD_REF_VIEWPORT_W = 1400;
+const AD_REF_VIEWPORT_H = 800;
+const AD_PREVIEW_H = Math.round(AD_PREVIEW_W * AD_REF_VIEWPORT_H / AD_REF_VIEWPORT_W);
+const AD_PREVIEW_SCALE = AD_PREVIEW_W / AD_REF_VIEWPORT_W;
+function adClamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
+
+// تبلیغ‌های تازه‌ای که ادمین دکمه‌ی «+ افزودن تبلیغ جدید» را زده ولی هنوز
+// «ذخیره» نکرده — فقط سمت مرورگر نگه‌داری می‌شوند تا وقتی ذخیره شوند.
+let adDrafts = {};
+
 function renderAdminAds(main){
   main.innerHTML = `
-  <div class="topbar"><h2 style="margin:0;color:var(--leather);">مدیریت تبلیغات (باکس‌های چپ/راست)</h2>
+  <div class="topbar"><h2 style="margin:0;color:var(--leather);">مدیریت تبلیغات</h2>
     <button class="logout-btn" id="logoutBtn">خروج</button></div>
-  <p style="font-size:13px;color:#8a7558;margin:-6px 0 20px;line-height:1.9;">
-    این باکس‌ها در کنار صفحه اصلی، فروشگاه، نویسندگان، تماس با ما و ثبت نهایی پرداخت قرار می‌گیرند و برای بازدیدکننده‌ها نامرئی هستند مگر این‌که اینجا برایشان عکس یا فیلم بی‌صدا تنظیم کنید.
+  <p style="font-size:13px;color:#8a7558;margin:-6px 0 20px;line-height:2;">
+    برای هر صفحه هر تعداد تبلیغ که بخواهید می‌توانید اضافه کنید. تبلیغ برای بازدیدکننده‌ها نامرئی است مگر این‌که برایش عکس یا فیلم بی‌صدا انتخاب کنید.
+    برای هر تبلیغ: یک عکس/فیلم انتخاب کنید، اگر خواستید با کلیک روی آن به یک سایت برود لینکش را وارد کنید، محل نمایشش را با یکی از دکمه‌های آماده انتخاب کنید (یا خودتان با ماوس بکشید)، و در آخر «ذخیره» را بزنید.
   </p>
-  <div id="adSlotsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;"></div>`;
+  <div id="adPagesWrap"></div>`;
   document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/ads'); };
-  const grid = document.getElementById('adSlotsGrid');
+  const wrap = document.getElementById('adPagesWrap');
 
   Object.keys(AD_PAGE_LABELS).forEach(page=>{
-    ['left','right'].forEach(position=>{
-      const card = document.createElement('div');
-      card.className = 'admin-form';
-      const existing = DATA.ads.find(a=>a.page===page && a.position===position);
-      const previewHtml = existing && existing.media
-        ? (existing.media_type==='video'
-            ? `<video src="${existing.media}" muted loop autoplay playsinline style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;"></video>`
-            : `<img src="${existing.media}" style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;">`)
-        : `<div style="font-size:12px;color:#8a7558;padding:14px;text-align:center;background:var(--paper-dim);border-radius:10px;">چیزی تنظیم نشده — نامرئی است</div>`;
-      card.innerHTML = `
-        <h3 style="margin-top:0;">${AD_PAGE_LABELS[page]} — ${AD_POSITION_LABELS[position]}</h3>
-        <div class="ad-preview" style="margin-bottom:12px;">${previewHtml}</div>
-        <div class="field">
-          <label>نوع رسانه</label>
-          <select class="ad-media-type">
-            <option value="image" ${(!existing||existing.media_type==='image')?'selected':''}>عکس</option>
-            <option value="video" ${existing&&existing.media_type==='video'?'selected':''}>فیلم بی‌صدا</option>
-          </select>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:8px 0 10px;">
-          <label style="cursor:pointer;background:var(--leather);color:#fff;padding:8px 18px;border-radius:10px;font-size:13px;">
-            📁 انتخاب فایل
-            <input type="file" class="ad-file" accept="image/*,video/*" style="display:none;">
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;">
-            <input type="checkbox" class="ad-active" ${!existing || existing.active!==false ? 'checked' : ''}> فعال
-          </label>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button class="save-btn ad-save-btn" style="flex:1;">ذخیره</button>
-          ${existing?`<button class="del-btn ad-remove-btn" style="border-radius:10px;padding:10px 16px;">حذف</button>`:''}
-        </div>
+      const section = document.createElement('div');
+      section.style.marginBottom = '36px';
+      section.innerHTML = `
+        <h3 style="border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:14px;">${AD_PAGE_EMOJI[page]||''} ${AD_PAGE_LABELS[page]}</h3>
+        <div class="ad-page-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:14px;"></div>
+        <button type="button" class="save-btn ad-add-btn">＋ افزودن تبلیغ جدید در «${AD_PAGE_LABELS[page]}»</button>
       `;
-      grid.appendChild(card);
+      wrap.appendChild(section);
+      const grid = section.querySelector('.ad-page-grid');
 
-      let pendingMedia = existing ? existing.media : '';
-      const fileInput = card.querySelector('.ad-file');
-      fileInput.addEventListener('change', async ()=>{
-        const file = fileInput.files[0];
-        if(!file) return;
-        const isVideo = file.type.startsWith('video/');
-        const maxSize = isVideo ? 15*1024*1024 : 3*1024*1024;
-        if(file.size > maxSize){ showToast(`حجم فایل باید کمتر از ${isVideo?'۱۵':'۳'} مگابایت باشد`); fileInput.value=''; return; }
-        const dataUrl = await new Promise((resolve,reject)=>{
+      function renderPageGrid(){
+        grid.innerHTML = '';
+        const items = DATA.ads.filter(a=>a.page===page);
+        const drafts = adDrafts[page] || [];
+        if(items.length===0 && drafts.length===0){
+          grid.innerHTML = `<div style="font-size:12.5px;color:#8a7558;padding:14px;background:var(--paper-dim);border-radius:10px;">هنوز تبلیغی برای این صفحه اضافه نشده. روی «افزودن تبلیغ جدید» بزنید تا شروع کنید.</div>`;
+        }else{
+          items.forEach(ad=> buildAdCard(grid, page, ad, false, main));
+          drafts.forEach(draft=> buildAdCard(grid, page, draft, true, main));
+        }
+      }
+      renderPageGrid();
+
+      section.querySelector('.ad-add-btn').onclick = ()=>{
+        if(!adDrafts[page]) adDrafts[page] = [];
+        adDrafts[page].push({
+          page, position:'custom', media:'', media_type:'image', active:true, link_url:'',
+          pos_x:1, pos_y:42, width:150, height:300, _draftKey: uid(),
+        });
+        renderPageGrid();
+      };
+  });
+}
+
+function buildAdCard(grid, page, adObj, isDraft, main){
+  const card = document.createElement('div');
+  card.className = 'admin-form';
+  const previewHtml = adObj.media
+  ? (adObj.media_type==='video'
+    ? `<video src="${adObj.media}" muted loop autoplay playsinline style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;"></video>`
+    : `<img src="${adObj.media}" style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;">`)
+  : `<div style="font-size:12px;color:#8a7558;padding:14px;text-align:center;background:var(--paper-dim);border-radius:10px;">هنوز عکس یا فیلمی انتخاب نشده — نامرئی است</div>`;
+  card.innerHTML = `
+    <h3 style="margin-top:0;">${isDraft ? '🆕 تبلیغ جدید' : 'تبلیغ'}</h3>
+    <div class="ad-preview" style="margin-bottom:12px;">${previewHtml}</div>
+    <div class="field">
+      <label>۱) نوع رسانه و فایل</label>
+      <select class="ad-media-type" style="margin-bottom:8px;">
+        <option value="image" ${adObj.media_type!=='video'?'selected':''}>عکس</option>
+        <option value="video" ${adObj.media_type==='video'?'selected':''}>فیلم بی‌صدا</option>
+      </select>
+      <div style="display:flex;align-items:center;gap:10px;margin:2px 0 10px;">
+        <label style="cursor:pointer;background:var(--leather);color:#fff;padding:8px 18px;border-radius:10px;font-size:13px;">
+          📁 انتخاب فایل
+          <input type="file" class="ad-file" accept="image/*,video/*" style="display:none;">
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;">
+          <input type="checkbox" class="ad-active" ${adObj.active!==false ? 'checked' : ''}> فعال
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <label>۲) لینک مقصد (اختیاری — با کلیک روی تبلیغ باز می‌شود)</label>
+      <input type="url" class="ad-link" placeholder="https://example.com" value="${adObj.link_url?esc(adObj.link_url):''}">
+    </div>
+    <div style="margin:14px 0 6px;">
+      <label style="font-size:12.5px;color:#8a7558;display:block;margin-bottom:8px;">۳) محل نمایش روی صفحه — یکی از دکمه‌ها را بزنید:</label>
+      <div class="ad-presets" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;">
+        ${AD_POSITION_PRESETS.map(p=>`<button type="button" class="ad-preset-btn" data-key="${p.key}" style="font-size:11.5px;padding:8px 4px;border-radius:8px;border:1px solid var(--line);background:${adObj.position===p.key?'var(--leather)':'var(--paper-dim)'};color:${adObj.position===p.key?'#fff':'inherit'};cursor:pointer;">${p.label}</button>`).join('')}
+      </div>
+      <div style="font-size:11px;color:#8a7558;margin-bottom:6px;">یا خودِ باکسِ سبزرنگ زیر را با ماوس (یا انگشت) بکشید، و از گوشه‌ی پایین‌راستش بزرگ/کوچکش کنید:</div>
+      <div class="ad-pos-canvas" style="position:relative;width:${AD_PREVIEW_W}px;max-width:100%;height:${AD_PREVIEW_H}px;background:repeating-linear-gradient(45deg,var(--paper-dim),var(--paper-dim) 10px,var(--cream) 10px,var(--cream) 20px);border:1px dashed var(--line);border-radius:8px;overflow:hidden;touch-action:none;">
+        <div class="ad-pos-box" style="position:absolute;background:rgba(19,101,58,.28);border:2px solid var(--leather);border-radius:6px;cursor:move;box-sizing:border-box;">
+          <span class="ad-pos-emoji" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;pointer-events:none;">${adObj.media_type==='video'?'🎬':'🖼️'}</span>
+          <div class="ad-pos-resize" style="position:absolute;bottom:-2px;left:-2px;width:16px;height:16px;background:var(--leather);border-radius:0 4px 0 4px;cursor:nwse-resize;"></div>
+        </div>
+      </div>
+      <div style="font-size:11.5px;color:#8a7558;margin-top:6px;">اندازه: <b class="ad-pos-w-label"></b>×<b class="ad-pos-h-label"></b> پیکسل</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="save-btn ad-save-btn" style="flex:1;">۴) ذخیره</button>
+      <button class="del-btn ad-remove-btn" style="border-radius:10px;padding:10px 16px;">${isDraft?'انصراف':'حذف'}</button>
+    </div>
+  `;
+  grid.appendChild(card);
+
+  let pendingMedia = adObj.media || '';
+  let currentPreset = adObj.position || 'custom';
+  const fileInput = card.querySelector('.ad-file');
+  fileInput.addEventListener('change', async ()=>{
+      const file = fileInput.files[0];
+      if(!file) return;
+      const isVideo = file.type.startsWith('video/');
+      const maxSize = isVideo ? 15*1024*1024 : 3*1024*1024;
+      if(file.size > maxSize){ showToast(`حجم فایل باید کمتر از ${isVideo?'۱۵':'۳'} مگابایت باشد`); fileInput.value=''; return; }
+      const dataUrl = await new Promise((resolve,reject)=>{
           const reader = new FileReader();
           reader.onload = ()=> resolve(reader.result);
           reader.onerror = reject;
           reader.readAsDataURL(file);
-        });
-        pendingMedia = dataUrl;
-        card.querySelector('.ad-media-type').value = isVideo ? 'video' : 'image';
-        showToast('فایل انتخاب شد؛ برای ثبت روی «ذخیره» بزنید');
       });
-
-      card.querySelector('.ad-save-btn').onclick = async ()=>{
-        if(!pendingMedia){ showToast('لطفاً یک عکس یا ویدیو انتخاب کنید'); return; }
-        const media_type = card.querySelector('.ad-media-type').value;
-        const active = card.querySelector('.ad-active').checked;
-        const adObj = existing || { page, position };
-        Object.assign(adObj, { media: pendingMedia, media_type, active });
-        try{
-          await saveAd(adObj);
-          if(!existing) DATA.ads.push(adObj);
-          showToast('تبلیغ ذخیره شد');
-          renderAdminAds(main);
-        }catch(e){
-          showToast('خطا در ذخیره تبلیغ: ' + (e.message||'نامشخص'));
-        }
-      };
-      const removeBtn = card.querySelector('.ad-remove-btn');
-      if(removeBtn){
-        removeBtn.onclick = async ()=>{
-          if(!confirm('این تبلیغ حذف شود؟')) return;
-          try{
-            await deleteAdRemote(existing.id);
-            DATA.ads = DATA.ads.filter(a=>a.id!==existing.id);
-            showToast('حذف شد');
-            renderAdminAds(main);
-          }catch(e){
-            showToast('خطا در حذف تبلیغ');
-          }
-        };
-      }
-    });
+      pendingMedia = dataUrl;
+      card.querySelector('.ad-media-type').value = isVideo ? 'video' : 'image';
+      card.querySelector('.ad-pos-emoji').textContent = isVideo ? '🎬' : '🖼️';
+      showToast('فایل انتخاب شد؛ برای ثبت روی «ذخیره» بزنید');
   });
+
+  /* ---------- درگ/ریسایز موقعیت و اندازه ---------- */
+  const posState = {
+    x: adObj.pos_x!=null ? adObj.pos_x : 1,
+    y: adObj.pos_y!=null ? adObj.pos_y : 42,
+    w: adObj.width ? adObj.width : 150,
+    h: adObj.height ? adObj.height : 300,
+  };
+  const posBox = card.querySelector('.ad-pos-box');
+  const wLabel = card.querySelector('.ad-pos-w-label');
+  const hLabel = card.querySelector('.ad-pos-h-label');
+  function drawPosBox(){
+    const leftPx = posState.x/100*AD_PREVIEW_W;
+    const topPx = posState.y/100*AD_PREVIEW_H;
+    const wPx = posState.w*AD_PREVIEW_SCALE;
+    const hPx = posState.h*AD_PREVIEW_SCALE;
+    posBox.style.left = leftPx+'px';
+    posBox.style.top = topPx+'px';
+    posBox.style.width = wPx+'px';
+    posBox.style.height = hPx+'px';
+    wLabel.textContent = Math.round(posState.w);
+    hLabel.textContent = Math.round(posState.h);
+  }
+  drawPosBox();
+
+  function markPresetActive(key){
+    card.querySelectorAll('.ad-preset-btn').forEach(b=>{
+      const on = b.dataset.key===key;
+      b.style.background = on ? 'var(--leather)' : 'var(--paper-dim)';
+      b.style.color = on ? '#fff' : 'inherit';
+    });
+  }
+
+  card.querySelectorAll('.ad-preset-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      const preset = AD_POSITION_PRESETS.find(p=>p.key===btn.dataset.key);
+      if(!preset) return;
+      currentPreset = preset.key;
+      posState.x = preset.x;
+      posState.y = preset.y;
+      drawPosBox();
+      markPresetActive(preset.key);
+    };
+  });
+
+  function clientXY(e){
+    if(e.touches && e.touches.length) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
+    return {x:e.clientX, y:e.clientY};
+  }
+
+  posBox.addEventListener('mousedown', startDrag);
+  posBox.addEventListener('touchstart', startDrag, {passive:false});
+  function startDrag(e){
+    if(e.target.classList.contains('ad-pos-resize')) return; // آن دستگیر خودش را دارد
+    e.preventDefault();
+    const start = clientXY(e);
+    const startLeft = posState.x/100*AD_PREVIEW_W;
+    const startTop = posState.y/100*AD_PREVIEW_H;
+    function onMove(ev){
+      ev.preventDefault();
+      const cur = clientXY(ev);
+      const dx = cur.x-start.x, dy = cur.y-start.y;
+      const wPx = posState.w*AD_PREVIEW_SCALE, hPx = posState.h*AD_PREVIEW_SCALE;
+      const newLeft = adClamp(startLeft+dx, 0, AD_PREVIEW_W-wPx);
+      const newTop = adClamp(startTop+dy, 0, AD_PREVIEW_H-hPx);
+      posState.x = newLeft/AD_PREVIEW_W*100;
+      posState.y = newTop/AD_PREVIEW_H*100;
+      currentPreset = 'custom';
+      markPresetActive('custom');
+      drawPosBox();
+    }
+    function onEnd(){
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onEnd);
+  }
+
+  const resizeHandle = card.querySelector('.ad-pos-resize');
+  resizeHandle.addEventListener('mousedown', startResize);
+  resizeHandle.addEventListener('touchstart', startResize, {passive:false});
+  function startResize(e){
+    e.preventDefault(); e.stopPropagation();
+    const start = clientXY(e);
+    const startW = posState.w, startH = posState.h;
+    const leftPx = posState.x/100*AD_PREVIEW_W, topPx = posState.y/100*AD_PREVIEW_H;
+    const maxWReal = (AD_PREVIEW_W-leftPx)/AD_PREVIEW_SCALE;
+    const maxHReal = (AD_PREVIEW_H-topPx)/AD_PREVIEW_SCALE;
+    function onMove(ev){
+      ev.preventDefault();
+      const cur = clientXY(ev);
+      const dxReal = (cur.x-start.x)/AD_PREVIEW_SCALE;
+      const dyReal = (cur.y-start.y)/AD_PREVIEW_SCALE;
+      posState.w = adClamp(startW+dxReal, 60, Math.min(500, maxWReal));
+      posState.h = adClamp(startH+dyReal, 60, Math.min(900, maxHReal));
+      drawPosBox();
+    }
+    function onEnd(){
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onEnd);
+  }
+
+  card.querySelector('.ad-save-btn').onclick = async ()=>{
+    if(!pendingMedia){ showToast('لطفاً یک عکس یا ویدیو انتخاب کنید'); return; }
+    const media_type = card.querySelector('.ad-media-type').value;
+    const active = card.querySelector('.ad-active').checked;
+    const link_url = card.querySelector('.ad-link').value.trim();
+    Object.assign(adObj, {
+      media: pendingMedia, media_type, active, link_url, position: currentPreset,
+      pos_x: posState.x, pos_y: posState.y,
+      width: Math.round(posState.w), height: Math.round(posState.h),
+    });
+    try{
+      await saveAd(adObj);
+      if(isDraft){
+        DATA.ads.push(adObj);
+        adDrafts[page] = (adDrafts[page]||[]).filter(d=>d!==adObj);
+      }
+      showToast('تبلیغ ذخیره شد');
+      renderAdminAds(main);
+    }catch(e){
+      showToast('خطا در ذخیره تبلیغ: ' + (e.message||'نامشخص'));
+    }
+  };
+
+  card.querySelector('.ad-remove-btn').onclick = async ()=>{
+    if(isDraft){
+      adDrafts[page] = (adDrafts[page]||[]).filter(d=>d!==adObj);
+      renderAdminAds(main);
+      return;
+    }
+    if(!confirm('این تبلیغ حذف شود؟')) return;
+    try{
+      await deleteAdRemote(adObj.id);
+      DATA.ads = DATA.ads.filter(a=>a.id!==adObj.id);
+      showToast('حذف شد');
+      renderAdminAds(main);
+    }catch(e){
+      showToast('خطا در حذف تبلیغ');
+    }
+  };
 }
 
 /* ---------- RICH TEXT EDITOR (وبلاگ) ---------- */
@@ -2501,32 +2827,32 @@ function initRichEditor(id){
   editor.focus();
   document.execCommand('styleWithCSS', false, true);
   const exec = (cmd, val)=>{ document.execCommand(cmd, false, val||null); editor.focus(); };
-
+  
   toolbar.querySelectorAll('[data-cmd]').forEach(btn=>{
-    const cmd = btn.dataset.cmd;
-    if(btn.tagName==='SELECT'){
-      btn.onchange = ()=>{ exec('formatBlock', btn.value); };
-      return;
-    }
-    if(btn.tagName==='INPUT'){ // رنگ دلخواه
-      btn.oninput = ()=>{ exec('foreColor', btn.value); };
-      return;
-    }
-    btn.onclick = ()=>{
-      if(cmd==='createLink'){
-        const url = prompt('آدرس لینک را وارد کن:', 'https://');
-        if(url) exec('createLink', url);
+      const cmd = btn.dataset.cmd;
+      if(btn.tagName==='SELECT'){
+        btn.onchange = ()=>{ exec('formatBlock', btn.value); };
         return;
       }
-      if(cmd==='insertImageFile'){
-        fileInput.click();
+      if(btn.tagName==='INPUT'){ // رنگ دلخواه
+        btn.oninput = ()=>{ exec('foreColor', btn.value); };
         return;
       }
-      exec(cmd);
-    };
+      btn.onclick = ()=>{
+        if(cmd==='createLink'){
+          const url = prompt('آدرس لینک را وارد کن:', 'https://');
+          if(url) exec('createLink', url);
+          return;
+        }
+        if(cmd==='insertImageFile'){
+          fileInput.click();
+          return;
+        }
+        exec(cmd);
+      };
   });
   toolbar.querySelectorAll('.rte-swatch').forEach(sw=>{
-    sw.onclick = ()=> exec('foreColor', sw.dataset.color);
+      sw.onclick = ()=> exec('foreColor', sw.dataset.color);
   });
   if(fileInput){
     fileInput.onchange = ()=>{
@@ -2653,14 +2979,14 @@ function renderAdminBlog(main, editId){
   };
   main.querySelectorAll('[data-edit]').forEach(b=> b.onclick = ()=> renderAdminBlog(main, b.dataset.edit));
   main.querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
-    const id = b.dataset.del;
-    try{
-      await deletePostRemote(id);
-      DATA.posts = DATA.posts.filter(x=>x.id!==id);
-      showToast('مطلب حذف شد'); renderAdminBlog(main);
-    }catch(e){
-      showToast('خطا در حذف مطلب: ' + (e.message||'نامشخص'));
-    }
+      const id = b.dataset.del;
+      try{
+        await deletePostRemote(id);
+        DATA.posts = DATA.posts.filter(x=>x.id!==id);
+        showToast('مطلب حذف شد'); renderAdminBlog(main);
+      }catch(e){
+        showToast('خطا در حذف مطلب: ' + (e.message||'نامشخص'));
+      }
   });
 }
 
@@ -2684,7 +3010,7 @@ function renderAdminAssistant(main){
   const send = ()=> sendAssistantMessage(input, sendBtn);
   sendBtn.onclick = send;
   input.addEventListener('keydown', (e)=>{
-    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+      if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
   });
   input.focus();
 }
@@ -2692,8 +3018,8 @@ function renderAssistantMessages(){
   const box = document.getElementById('assistantMessages');
   if(!box) return;
   box.innerHTML = assistantHistory.length===0
-    ? '<div class="assistant-empty">سلام! هر سوالی درباره مدیریت سایت، وبلاگ‌نویسی یا سئو داری بپرس 👋</div>'
-    : assistantHistory.map(m=>`<div class="assistant-msg ${m.role==='user'?'user':'bot'}">${esc(m.content)}</div>`).join('');
+  ? '<div class="assistant-empty">سلام! هر سوالی درباره مدیریت سایت، وبلاگ‌نویسی یا سئو داری بپرس 👋</div>'
+  : assistantHistory.map(m=>`<div class="assistant-msg ${m.role==='user'?'user':'bot'}">${esc(m.content)}</div>`).join('');
   box.scrollTop = box.scrollHeight;
 }
 async function sendAssistantMessage(input, sendBtn){
@@ -2711,8 +3037,8 @@ async function sendAssistantMessage(input, sendBtn){
   box.scrollTop = box.scrollHeight;
   try{
     const data = await apiFetch('/ai/chat/', {method:'POST', body: JSON.stringify({
-      message:text,
-      history: assistantHistory.slice(0,-1)
+            message:text,
+            history: assistantHistory.slice(0,-1)
     })});
     assistantHistory.push({role:'assistant', content:data.reply||''});
   }catch(e){
@@ -2722,6 +3048,57 @@ async function sendAssistantMessage(input, sendBtn){
   renderAssistantMessages();
 }
 
+/* ---------- ADMIN: اتصال (درگاه پرداخت زرین‌پال) ---------- */
+async function renderAdminConnection(main){
+  main.innerHTML = `
+  <div class="topbar"><h2 style="margin:0;color:var(--leather);">اتصال</h2>
+    <button class="logout-btn" id="logoutBtn">خروج</button></div>
+  <div class="admin-form">
+    <h3 style="margin-top:0;">اتصال درگاه پرداخت زرین‌پال</h3>
+    <p style="font-size:13px;color:#8a7558;line-height:1.9;">
+      کد پذیرنده (Merchant ID) که زرین‌پال هنگام فعال‌سازی درگاه به شما داده
+      را اینجا وارد کن. بعد از ذخیره، دکمه‌ی «پرداخت و ثبت نهایی» در صفحه‌ی
+      تسویه‌حساب، مشتری را با دقیقاً همان مبلغ سفارشش وارد صفحه‌ی واقعی
+      پرداخت زرین‌پال می‌کند.
+    </p>
+    <div class="field"><label>کد پذیرنده (Merchant ID)</label>
+      <input type="text" id="gwMerchant" placeholder="مثلاً xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" dir="ltr" style="text-align:left;">
+    </div>
+    <p style="font-size:12.5px;color:#8a7558;line-height:2;">
+      مبلغ سفارش (به تومان روی سایت) قبل از ارسال به زرین‌پال خودکار ضربدر ۱۰
+      (ریال) می‌شود؛ نیازی به تنظیم دستی واحد پول نیست. آدرس بازگشت هم خودکار
+      به همین سرور تنظیم می‌شود، نیازی به وارد کردن آن در پنل زرین‌پال نیست
+      مگر این‌که خودِ زرین‌پال از شما آدرس بازگشت بخواهد که در این صورت همین
+      آدرس را بده:
+      <code dir="ltr" style="display:block;margin-top:4px;">${location.origin}/api/payments/zarinpal/callback/</code>
+    </p>
+    <button class="save-btn" id="saveGwBtn">ذخیره و نهایی‌سازی</button>
+    <p id="gwSavedNote" style="font-size:12px;color:#4a8a4a;margin-top:10px;display:none;">آخرین ذخیره: <span id="gwSavedAt"></span></p>
+  </div>`;
+  document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/connection'); };
+  try{
+    const current = await apiFetch('/settings/gateway/');
+    document.getElementById('gwMerchant').value = current.merchant_id || '';
+    if(current.is_configured){
+      document.getElementById('gwSavedNote').style.display = 'block';
+      document.getElementById('gwSavedAt').textContent = new Date(current.updated_at).toLocaleString('fa-IR');
+    }
+  }catch(e){
+    showToast(e.message || 'خطا در دریافت تنظیمات درگاه');
+  }
+  document.getElementById('saveGwBtn').onclick = async ()=>{
+    const merchantId = document.getElementById('gwMerchant').value.trim();
+    try{
+      const saved = await apiFetch('/settings/gateway/', {method:'PUT', body: JSON.stringify({merchant_id: merchantId})});
+      showToast('تنظیمات درگاه ذخیره شد');
+      document.getElementById('gwSavedNote').style.display = 'block';
+      document.getElementById('gwSavedAt').textContent = new Date(saved.updated_at).toLocaleString('fa-IR');
+    }catch(e){
+      showToast(e.message || 'خطا در ذخیره‌ی تنظیمات درگاه');
+    }
+  };
+}
+
 function renderAdminSettings(main){
   main.innerHTML = `
   <div class="topbar"><h2 style="margin:0;color:var(--leather);">تنظیمات</h2>
@@ -2729,12 +3106,12 @@ function renderAdminSettings(main){
   <div class="admin-form">
     <h3 style="margin-top:0;">تغییر رمز عبور پنل مدیریت</h3>
     <p style="font-size:13px;color:#8a7558;line-height:1.9;">
-      رمز عبور حساب ادمین الان روی سرور جنگو و به‌صورت واقعی مدیریت می‌شود، نه در مرورگر.
+      رمز عبور حساب ادمین روی سرور و به‌صورت واقعی مدیریت می‌شود، نه در مرورگر.
       برای تغییرش یکی از این دو راه را استفاده کن:
     </p>
     <ul style="font-size:13px;color:#4a3a2a;line-height:2;padding-inline-start:20px;">
       <li>در ترمینال سرور: <code>python manage.py changepassword &lt;نام‌کاربری&gt;</code></li>
-      <li>یا از پنل ادمین واقعی جنگو به آدرس <a href="${API_BASE.replace('/api','')}/admin/" target="_blank" rel="noopener">/admin/</a> وارد شو و از آنجا رمز را تغییر بده.</li>
+      <li>یا از پنل مدیریت کامل به آدرس <a href="${API_BASE.replace('/api','')}/panel-8f2q7k1z/" target="_blank" rel="noopener">/panel-8f2q7k1z/</a> وارد شو و از آنجا رمز را تغییر بده.</li>
     </ul>
   </div>`;
   document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/settings'); };
@@ -2772,9 +3149,17 @@ function openModal(html, opts){
   const ov = document.createElement('div');
   ov.className = 'modal-overlay' + (opts&&opts.center?' center':'');
   ov.id = 'modalOverlay';
-  ov.innerHTML = `<div class="modal-panel">${html}</div>`;
+  ov.innerHTML = `<div class="modal-panel"><div class="modal-spotlight" aria-hidden="true"></div>${html}</div>`;
   ov.addEventListener('click', (e)=>{ if(e.target===ov) closeModal(); });
   document.body.appendChild(ov);
+  const panel = ov.querySelector('.modal-panel');
+  if(panel){
+    panel.addEventListener('mousemove', (e)=>{
+      const r = panel.getBoundingClientRect();
+      panel.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
+      panel.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
+    });
+  }
 }
 function openConfirmModal(message, onConfirm){
   openModal(`
@@ -2865,11 +3250,11 @@ async function submitAuth(tab){
   const name = nameInput ? nameInput.value.trim() : '';
   if(!phone || !pass){ showToast('لطفاً همه فیلدها را پر کنید'); return; }
   if(tab==='signup' && !name){ showToast('لطفاً نام و نام خانوادگی را وارد کنید'); return; }
-
+  
   try{
     const data = tab==='signup'
-      ? await apiFetch('/auth/signup/', {method:'POST', body: JSON.stringify({name, phone, password: pass})})
-      : await apiFetch('/auth/login/', {method:'POST', body: JSON.stringify({phone, password: pass})});
+    ? await apiFetch('/auth/signup/', {method:'POST', body: JSON.stringify({name, phone, password: pass})})
+    : await apiFetch('/auth/login/', {method:'POST', body: JSON.stringify({phone, password: pass})});
     localStorage.setItem('patough_token', data.token);
     localStorage.setItem('patough_is_staff', data.is_staff ? '1' : '');
     currentUser = data.name;
@@ -2901,7 +3286,7 @@ function renderSearchSuggest(query){
   const panel = document.createElement('div');
   panel.className = 'search-suggest';
   panel.id = 'searchSuggest';
-
+  
   if(searchMode==='author'){
     const q = normalizeFa(query);
     const names = allAuthorNames().filter(n=>normalizeFa(n).includes(q)).slice(0,5);
@@ -2909,9 +3294,9 @@ function renderSearchSuggest(query){
       panel.innerHTML = `<div class="ss-empty">نویسنده‌ای یافت نشد</div>`;
     } else {
       panel.innerHTML = names.map(name=>{
-        const color = spineColors[Math.abs(hashStr(name))%spineColors.length];
-        const count = DATA.books.filter(b=>b.author===name).length;
-        return `<div class="ss-item" data-author="${esc(name)}">
+          const color = spineColors[Math.abs(hashStr(name))%spineColors.length];
+          const count = DATA.books.filter(b=>b.author===name).length;
+          return `<div class="ss-item" data-author="${esc(name)}">
           <div class="ss-cover" style="background:${color};border-radius:50%;">✎</div>
           <div class="ss-info"><b>${esc(name)}</b><span>${count.toLocaleString('fa-IR')} کتاب</span></div>
         </div>`;
@@ -2919,11 +3304,11 @@ function renderSearchSuggest(query){
     }
     box.appendChild(panel);
     panel.querySelectorAll('.ss-item').forEach(item=>{
-      item.onclick = ()=>{
-        panel.remove();
-        location.hash = '#/author/' + encodeURIComponent(item.dataset.author);
-        navigate();
-      };
+        item.onclick = ()=>{
+          panel.remove();
+          location.hash = '#/author/' + encodeURIComponent(item.dataset.author);
+          navigate();
+        };
     });
     const allAuthorsBtn = panel.querySelector('.ss-all');
     if(allAuthorsBtn) allAuthorsBtn.onclick = ()=>{
@@ -2933,14 +3318,14 @@ function renderSearchSuggest(query){
     };
     return;
   }
-
+  
   const matches = DATA.books.filter(b=> matchesQuery(b, query)).slice(0,5);
   if(matches.length===0){
     panel.innerHTML = `<div class="ss-empty">نتیجه‌ای یافت نشد</div>`;
   } else {
     panel.innerHTML = matches.map(b=>{
-      const color = spineColors[Math.abs(hashStr(b.id))%spineColors.length];
-      return `<div class="ss-item" data-id="${b.id}">
+        const color = spineColors[Math.abs(hashStr(b.id))%spineColors.length];
+        return `<div class="ss-item" data-id="${b.id}">
         <div class="ss-cover" style="background:${color}">${b.emoji||'📚'}</div>
         <div class="ss-info"><b>${esc(b.title)}</b><span>${esc(b.author)}</span></div>
       </div>`;
@@ -2948,14 +3333,14 @@ function renderSearchSuggest(query){
   }
   box.appendChild(panel);
   panel.querySelectorAll('.ss-item').forEach(item=>{
-    item.onclick = ()=>{
-      const book = DATA.books.find(b=>b.id===item.dataset.id);
-      searchQuery = book.title;
-      document.getElementById('searchInput').value = book.title;
-      panel.remove();
-      location.hash = '#/shop';
-      navigate();
-    };
+      item.onclick = ()=>{
+        const book = DATA.books.find(b=>b.id===item.dataset.id);
+        searchQuery = book.title;
+        document.getElementById('searchInput').value = book.title;
+        panel.remove();
+        location.hash = '#/shop';
+        navigate();
+      };
   });
   const allBtn = panel.querySelector('.ss-all');
   if(allBtn) allBtn.onclick = ()=>{
@@ -2974,16 +3359,16 @@ function setupSearchCatMenu(){
     menu.style.display = (menu.style.display==='none' || !menu.style.display) ? 'block' : 'none';
   };
   menu.querySelectorAll('.search-cat-item').forEach(item=>{
-    item.onclick = (e)=>{
-      e.stopPropagation();
-      searchMode = item.dataset.mode;
-      btn.textContent = (searchMode==='author' ? 'نویسنده' : 'کتاب') + ' ⌄';
-      menu.querySelectorAll('.search-cat-item').forEach(x=>x.classList.remove('active'));
-      item.classList.add('active');
-      menu.style.display = 'none';
-      const input = document.getElementById('searchInput');
-      if(input && input.value.trim()) renderSearchSuggest(input.value);
-    };
+      item.onclick = (e)=>{
+        e.stopPropagation();
+        searchMode = item.dataset.mode;
+        btn.textContent = (searchMode==='author' ? 'نویسنده' : 'کتاب') + ' ⌄';
+        menu.querySelectorAll('.search-cat-item').forEach(x=>x.classList.remove('active'));
+        item.classList.add('active');
+        menu.style.display = 'none';
+        const input = document.getElementById('searchInput');
+        if(input && input.value.trim()) renderSearchSuggest(input.value);
+      };
   });
   document.addEventListener('click', ()=>{ menu.style.display = 'none'; });
 }
@@ -3000,28 +3385,28 @@ function setupSearch(){
   setupSearchCatMenu();
   input.addEventListener('input', ()=> renderSearchSuggest(input.value));
   input.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter'){
-      const val = input.value;
-      const old = document.getElementById('searchSuggest');
-      if(old) old.remove();
-      box.classList.remove('mobile-open');
-      if(searchMode==='author'){
-        const q = normalizeFa(val);
-        const match = allAuthorNames().find(n=>normalizeFa(n).includes(q));
-        if(match){ location.hash = '#/author/' + encodeURIComponent(match); navigate(); }
-        else showToast('نویسنده‌ای با این نام پیدا نشد');
-        return;
+      if(e.key === 'Enter'){
+        const val = input.value;
+        const old = document.getElementById('searchSuggest');
+        if(old) old.remove();
+        box.classList.remove('mobile-open');
+        if(searchMode==='author'){
+          const q = normalizeFa(val);
+          const match = allAuthorNames().find(n=>normalizeFa(n).includes(q));
+          if(match){ location.hash = '#/author/' + encodeURIComponent(match); navigate(); }
+          else showToast('نویسنده‌ای با این نام پیدا نشد');
+          return;
+        }
+        searchQuery = val;
+        location.hash = '#/shop';
+        navigate();
       }
-      searchQuery = val;
-      location.hash = '#/shop';
-      navigate();
-    }
   });
   document.addEventListener('click', (e)=>{
-    if(box && !box.contains(e.target) && e.target !== mobileBtn){
-      const old = document.getElementById('searchSuggest');
-      if(old) old.remove();
-    }
+      if(box && !box.contains(e.target) && e.target !== mobileBtn){
+        const old = document.getElementById('searchSuggest');
+        if(old) old.remove();
+      }
   });
 }
 
@@ -3039,12 +3424,13 @@ async function restoreSession(){
   }
 }
 (async function init(){
-  await restoreSession();
-  await loadData();
-  navigate();
-  document.getElementById('cartBtn').onclick = openCart;
-  setupSearch();
+    await restoreSession();
+    await loadData();
+    navigate();
+    document.getElementById('cartBtn').onclick = openCart;
+    setupSearch();
 })();
 </script>
+
 </body>
 </html>

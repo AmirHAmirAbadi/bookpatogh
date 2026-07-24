@@ -23,9 +23,6 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/static/seo_pages/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Markazi+Text:wght@500;700&display=swap" rel="stylesheet">
-
-<meta name="enamad" content="30618910" />
-
 <style>
 :root{
   --ink:#163320;
@@ -94,13 +91,24 @@ nav a.active{color:var(--leather);font-weight:700;}
 .ic-circle{width:22px;height:22px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
 .icon-btn{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);flex-shrink:0;position:relative;}
 .cart-count{position:absolute;top:-4px;left:-4px;background:var(--leather);color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 3px;}
-.modal-overlay{position:fixed;inset:0;background:rgba(20,40,30,.45);z-index:300;display:flex;justify-content:flex-end;}
+.modal-overlay{position:fixed;inset:0;background:rgba(20,40,30,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:300;display:flex;justify-content:flex-end;animation:overlayIn .3s ease both;}
 .modal-overlay.center{justify-content:center;align-items:center;}
-.modal-panel{background:var(--cream);width:360px;max-width:92vw;height:100%;padding:24px;overflow-y:auto;box-shadow:-8px 0 20px rgba(0,0,0,.08);}
-.modal-overlay.center .modal-panel{height:auto;border-radius:18px;max-height:90vh;}
+@keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
+.modal-panel{background:var(--cream);width:360px;max-width:92vw;height:100%;padding:24px;overflow-y:auto;box-shadow:-8px 0 20px rgba(0,0,0,.08);position:relative;isolation:isolate;animation:modalSlideIn .4s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes modalSlideIn{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+.modal-overlay.center .modal-panel{height:auto;border-radius:18px;max-height:90vh;animation:modalPopIn .38s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes modalPopIn{from{opacity:0;transform:scale(.94) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-panel::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(120deg,var(--amber-light),var(--amber),var(--amber-dark),var(--amber-light));background-size:250% 250%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:cardGlow 5s linear infinite;opacity:.9;z-index:2;}
+.modal-panel::after{content:'';position:absolute;inset:-56px;z-index:-1;border-radius:inherit;background:radial-gradient(circle at 50% 18%,rgba(255,225,160,.6),rgba(243,200,118,.32) 38%,transparent 68%),radial-gradient(circle at 50% 85%,rgba(168,114,26,.28),transparent 62%);filter:blur(28px);animation:haloPulse 3.6s ease-in-out infinite,haloRotate 10s linear infinite;pointer-events:none;}
+@keyframes haloRotate{0%{transform:rotate(0deg) scale(1);}50%{transform:rotate(180deg) scale(1.06);}100%{transform:rotate(360deg) scale(1);}}
+@keyframes haloPulse{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:.95;transform:scale(1.15);}}
+.modal-spotlight{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;opacity:0;transition:opacity .35s ease;background:radial-gradient(circle 240px at var(--mx,50%) var(--my,15%),rgba(255,230,170,.4),transparent 72%);mix-blend-mode:soft-light;}
+.modal-panel:hover .modal-spotlight{opacity:1;}
+.modal-panel > *{position:relative;z-index:1;}
 .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .modal-head h3{margin:0;color:var(--leather-dark);}
-.modal-close{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);font-size:16px;}
+.modal-close{width:32px;height:32px;border-radius:50%;background:var(--paper-dim);font-size:16px;transition:background .2s,box-shadow .2s,transform .2s;}
+.modal-close:hover{background:var(--amber-light);box-shadow:0 0 0 4px rgba(243,200,118,.35);transform:rotate(90deg);}
 .cart-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
 .cart-item .ci-cover{width:46px;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0;}
 .cart-item .ci-info{flex:1;}
@@ -148,6 +156,16 @@ footer p,footer a{font-size:14px;opacity:.75;line-height:2;}
 .eitaa-link{display:flex;align-items:center;justify-content:center;padding:10px 20px;border-radius:24px;background:linear-gradient(135deg,var(--leather),var(--leather-dark));color:#fff;font-size:13px;font-weight:700;flex-shrink:0;transition:.2s;box-shadow:0 4px 12px rgba(19,101,58,.25);}
 .eitaa-link:hover{background:var(--leather-dark);}
 
+/* WARM GLOW — soft, static patch of warm light (like sunlight/candlelight on
+   a page), used sparingly inside a few sections. No motion at all, so it
+   costs nothing on scroll/battery and needs no prefers-reduced-motion
+   handling (there is nothing to reduce). Replaces the old always-on,
+   cursor-chasing "golden halo" system that used to run a requestAnimationFrame
+   loop and 14 drifting/pulsing orbs on every single page of the site. */
+.warm-glow{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(243,200,118,.32) 0%,rgba(215,154,44,.14) 45%,transparent 75%);filter:blur(26px);z-index:0;}
+.halo-field{position:relative;}
+.halo-field > .grid,.halo-field > .book-grid{position:relative;z-index:1;}
+
 /* HERO */
 .hero-card{background:radial-gradient(circle at 88% -10%,rgba(215,154,44,.16),transparent 55%),radial-gradient(circle at -10% 110%,rgba(31,138,76,.12),transparent 50%),var(--paper-dim);border-radius:24px;padding:46px 40px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden;}
 .hero-text{flex:1;min-width:260px;position:relative;z-index:1;}
@@ -155,7 +173,7 @@ footer p,footer a{font-size:14px;opacity:.75;line-height:2;}
 .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);}
 .hero-card h1{font-size:40px;line-height:1.32;margin:0 0 14px;color:var(--leather-dark);letter-spacing:-.3px;}
 .hero-card p{font-size:15px;color:#3a5a48;max-width:440px;margin-bottom:22px;line-height:1.9;}
-.spines{display:flex;gap:6px;height:120px;flex:1;min-width:200px;align-items:flex-end;justify-content:center;filter:drop-shadow(0 10px 14px rgba(19,101,58,.22));}
+.spines{display:flex;gap:6px;height:120px;flex:1;min-width:200px;align-items:flex-end;justify-content:center;filter:drop-shadow(0 10px 14px rgba(19,101,58,.22));position:relative;z-index:1;}
 .spine{width:24px;border-radius:6px 6px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:10px;font-size:13px;transition:transform .25s;}
 .spine:hover{transform:translateY(-6px);}
 .trust-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:36px;}
@@ -352,13 +370,13 @@ th{color:#8a7558;font-weight:600;font-size:13px;}
 
 .mobile-search-btn{display:none;}
 
-/* SIDE AD SLOTS — نامرئی و بدون فضا مگر وقتی ادمین از پنل مدیریت برایش عکس/ویدیو تنظیم کند */
-.side-ad-slot{position:fixed;top:50%;transform:translateY(-50%);width:150px;max-height:70vh;z-index:40;display:none;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(20,60,40,.18);}
+/* SIDE AD SLOTS — نامرئی و بدون فضا مگر وقتی ادمین از پنل مدیریت برایش عکس/ویدیو تنظیم کند.
+   left/top/width/height به‌صورت inline (از pos_x/pos_y/width/height هر تبلیغ) تنظیم می‌شوند
+   تا ادمین بتواند هرکدام را جدا از پنل مدیریت بکشد/بزرگ‌کوچک کند. */
+.side-ad-slot{position:fixed;max-height:90vh;z-index:40;display:none;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(20,60,40,.18);}
 .side-ad-slot.has-media{display:block;}
 .side-ad-slot img,.side-ad-slot video{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px;}
 .side-ad-slot-link{display:block;width:100%;height:100%;}
-.side-ad-left{left:14px;}
-.side-ad-right{right:14px;}
 @media(max-width:1360px){
   .side-ad-slot{display:none !important;}
 }
@@ -404,7 +422,7 @@ th{color:#8a7558;font-weight:600;font-size:13px;}
         پاتوق بوک
         <span>کتاب‌فروشی</span>
       </div>
-      <div class="lg-icon"><img src="/static/seo_pages/logo-icon.png" alt="پاتوق بوک" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+      <div class="lg-icon">📖</div>
     </div>
     <div class="search-box" id="searchBox">
       <span style="color:#8a7558;">⌕</span>
@@ -437,8 +455,7 @@ th{color:#8a7558;font-weight:600;font-size:13px;}
   </nav>
 </header>
 
-<div class="side-ad-slot side-ad-left" id="adSlotLeft"></div>
-<div class="side-ad-slot side-ad-right" id="adSlotRight"></div>
+<div id="adSlotsContainer"></div>
 
 <main id="app"></main>
 
@@ -584,6 +601,7 @@ async function saveAd(ad){
   const payload = {
     page: ad.page, position: ad.position, media_type: ad.media_type,
     media: ad.media||'', link_url: ad.link_url||'', active: ad.active!==false,
+    pos_x: ad.pos_x, pos_y: ad.pos_y, width: ad.width, height: ad.height,
   };
   const isNew = !ad.id;
   const saved = isNew
@@ -696,26 +714,33 @@ function showToast(msg){
 }
 function uid(){ return 'id' + Math.random().toString(36).slice(2,9); }
 
-/* ---------- SIDE AD SLOTS (چپ/راست) ----------
-   نامرئی هستند مگر این‌که از پنل مدیریت برایشان عکس یا فیلم بی‌صدا تنظیم شده باشد. */
+/* ---------- SIDE AD SLOTS ----------
+   نامرئی هستند مگر این‌که از پنل مدیریت برایشان عکس یا فیلم بی‌صدا تنظیم شده باشد.
+   هر صفحه می‌تواند هر تعداد تبلیغ داشته باشد؛ برای هر کدام یک باکس جداگانه
+   با موقعیت/اندازه‌ی خودش ساخته می‌شود. */
 const AD_PAGES = { '/':'home', '/shop':'shop', '/authors':'authors', '/contact':'contact', '/checkout':'checkout' };
 function renderAdSlots(pageKey){
-  ['left','right'].forEach(pos=>{
-      const slot = document.getElementById(pos==='left' ? 'adSlotLeft' : 'adSlotRight');
-      if(!slot) return;
-      const ad = pageKey ? (DATA.ads||[]).find(a=>a.page===pageKey && a.position===pos && a.active!==false && a.media) : null;
-      if(!ad){
-        slot.classList.remove('has-media');
-        slot.innerHTML = '';
-        return;
-      }
+  const container = document.getElementById('adSlotsContainer');
+  if(!container) return;
+  container.innerHTML = '';
+  if(!pageKey) return;
+  const ads = (DATA.ads||[]).filter(a=>a.page===pageKey && a.active!==false && a.media);
+  ads.forEach(ad=>{
+      const slot = document.createElement('div');
+      slot.className = 'side-ad-slot has-media';
       const mediaTag = ad.media_type==='video'
-      ? `<video src="${ad.media}" autoplay muted loop playsinline></video>`
-      : `<img src="${ad.media}" alt="">`;
+      ? `<video src="${esc(ad.media)}" autoplay muted loop playsinline></video>`
+      : `<img src="${esc(ad.media)}" alt="">`;
       slot.innerHTML = ad.link_url
       ? `<a class="side-ad-slot-link" href="${esc(ad.link_url)}" target="_blank" rel="noopener">${mediaTag}</a>`
       : mediaTag;
-      slot.classList.add('has-media');
+      // موقعیت و اندازه را از خودِ تبلیغ می‌خوانیم (از پنل مدیریت انتخاب/تنظیم
+      // شده)؛ pos_x/pos_y درصدِ عرض/ارتفاع صفحه‌اند، width/height پیکسل.
+      slot.style.left = (ad.pos_x!=null ? ad.pos_x : 1) + '%';
+      slot.style.top = (ad.pos_y!=null ? ad.pos_y : 42) + '%';
+      slot.style.width = (ad.width || 150) + 'px';
+      slot.style.height = (ad.height || 300) + 'px';
+      container.appendChild(slot);
   });
 }
 
@@ -747,6 +772,7 @@ function navigate(){
   if(hash==='/contact') return renderContact(app);
   if(hash==='/requests') return renderRequests(app);
   if(hash==='/checkout') return renderCheckout(app);
+  if(hash.startsWith('/payment-result')) return renderPaymentResult(app, hash);
   app.innerHTML = '<div class="wrap"><p style="padding:60px 0;">صفحه پیدا نشد.</p></div>';
 }
 window.addEventListener('hashchange', navigate);
@@ -818,6 +844,9 @@ function renderHome(app){
   app.innerHTML = `
   <section class="wrap" style="padding-top:30px;padding-bottom:0;">
     <div class="hero-card">
+      <div class="warm-glow" style="width:180px;height:180px;top:-40px;left:10%;"></div>
+      <div class="warm-glow" style="width:120px;height:120px;bottom:-30px;right:18%;"></div>
+      <div class="warm-glow" style="width:90px;height:90px;top:30%;left:42%;"></div>
       <div class="hero-text">
         <div class="eyebrow">فروشگاه پاتوق بوک</div>
         <h1>هر کتاب، آغاز یک سفر تازه</h1>
@@ -828,8 +857,10 @@ function renderHome(app){
       <div class="spines">${spines}</div>
     </div>
   </section>
-  <section class="wrap">
-    <div class="section-head"><h2>پیشنهاد ویژه</h2><a href="#/shop">مشاهده همه</a></div>
+  <section class="wrap halo-field">
+    <div class="warm-glow" style="width:150px;height:150px;top:-20px;right:6%;"></div>
+    <div class="warm-glow" style="width:110px;height:110px;bottom:10px;left:8%;"></div>
+    <div class="section-head" style="position:relative;z-index:1;"><h2>پیشنهاد ویژه</h2><a href="#/shop">مشاهده همه</a></div>
     <div class="grid">${featured.length?featured.map(bookCard).join(''):'<div class="empty">فعلاً پیشنهاد ویژه‌ای ثبت نشده است.</div>'}</div>
   </section>
   <section class="wrap" style="padding-top:0;padding-bottom:0;">
@@ -862,10 +893,13 @@ function renderShop(app){
     list = list.filter(b=> matchesQuery(b, searchQuery));
   }
   app.innerHTML = `
-  <section class="wrap" style="padding-top:40px;">
-    <div class="section-head"><h2>فروشگاه کتاب</h2></div>
-    ${searchQuery.trim()?`<div class="search-active">نتایج جستجو برای «${esc(searchQuery)}» <span onclick="clearSearch()">حذف فیلتر ✕</span></div>`:''}
-    <div class="filters">${cats.map(c=>`<button class="${c===activeCategory?'active':''}" data-cat="${esc(c)}">${c==='تخفیف خورده‌ها'?'🔥 ':''}${esc(c)}</button>`).join('')}</div>
+  <section class="wrap halo-field" style="padding-top:40px;">
+    <div class="warm-glow" style="width:160px;height:160px;top:-10px;left:4%;"></div>
+    <div class="warm-glow" style="width:130px;height:130px;top:40%;right:2%;"></div>
+    <div class="warm-glow" style="width:100px;height:100px;bottom:-10px;left:38%;"></div>
+    <div class="section-head" style="position:relative;z-index:1;"><h2>فروشگاه کتاب</h2></div>
+    ${searchQuery.trim()?`<div class="search-active" style="position:relative;z-index:1;">نتایج جستجو برای «${esc(searchQuery)}» <span onclick="clearSearch()">حذف فیلتر ✕</span></div>`:''}
+    <div class="filters" style="position:relative;z-index:1;">${cats.map(c=>`<button class="${c===activeCategory?'active':''}" data-cat="${esc(c)}">${c==='تخفیف خورده‌ها'?'🔥 ':''}${esc(c)}</button>`).join('')}</div>
     <div class="grid" id="shopGrid">${list.length?list.map(bookCard).join(''):'<div class="empty">کتابی با این مشخصات یافت نشد.</div>'}</div>
   </section>`;
   app.querySelectorAll('.filters button').forEach(btn=>{
@@ -1154,7 +1188,16 @@ function sanitizeHtml(html){
               const allowedAttrs = keepFor[child.tagName] || [];
               if(name.startsWith('on') || !allowedAttrs.includes(name)){
                 child.removeAttribute(attr.name);
-              } else if(name==='href' && /^\s*javascript:/i.test(attr.value)){
+              } else if(name==='href' && !/^(https?:|mailto:|tel:|#|\/)/i.test(attr.value.trim())){
+                // SECURITY: قبلاً فقط پیشوند javascript: مسدود می‌شد؛ اسکیم‌های
+                // دیگری مثل data: یا vbscript: هم می‌توانستند از این فیلتر رد
+                // شوند. حالا فقط لیست سفید (http/https/mailto/tel/لینک داخلی)
+                // مجاز است و هر چیز دیگری (از جمله href خالی) حذف می‌شود.
+                child.removeAttribute(attr.name);
+              } else if(name==='src' && child.tagName==='IMG' && !/^(https?:|data:image\/)/i.test(attr.value.trim())){
+                // SECURITY: src تصویر هم باید یا آدرس واقعی باشد یا data URI
+                // که صراحتاً از نوع image/* است — نه data:text/html یا هر
+                // اسکیم دیگری.
                 child.removeAttribute(attr.name);
               } else if(name==='style'){
                 // فقط رنگ و ضخامت فونت از استایل درون‌خطی مجاز است
@@ -1162,6 +1205,12 @@ function sanitizeHtml(html){
                 child.setAttribute('style', safe);
               }
           });
+          if(child.tagName==='A' && child.getAttribute('target')==='_blank'){
+            // امنیت: لینکی که در تب جدید باز می‌شود باید noopener/noreferrer
+            // داشته باشد وگرنه صفحه‌ی مقصد به window.opener همین سایت دسترسی
+            // دارد (reverse tabnabbing).
+            child.setAttribute('rel', 'noopener noreferrer');
+          }
           walk(child);
         } else if(child.nodeType===8){
           child.remove();
@@ -1423,11 +1472,24 @@ async function saveOrder(order){
   const saved = await apiFetch('/orders/', {method:'POST', body: JSON.stringify(payload)});
   return saved;
 }
+async function goToZarinpalPayment(orderId){
+  // مرحله‌ی «PaymentRequest» را از سرور خودمان می‌گیرد (که مبلغ را از روی
+  // سفارشِ واقعی و امن سرور می‌سازد، نه از چیزی که مرورگر بفرستد)، بعد
+  // مرورگر را به صفحه‌ی پرداخت زرین‌پال هدایت می‌کند.
+  try{
+    const res = await apiFetch(`/orders/${encodeURIComponent(orderId)}/start-payment/`, {method:'POST'});
+    window.location.href = res.start_pay_url;
+    return true;
+  }catch(e){
+    showToast(e.message || 'خطا در اتصال به درگاه پرداخت');
+    return false;
+  }
+}
 async function renderCheckoutSuccess(app, total, customer){
   const gw = gateways.find(g=>g.id===selectedGateway);
-  let orderNo;
+  let saved;
   try{
-    const saved = await saveOrder({
+    saved = await saveOrder({
         customer_name: customer.name,
         phone: customer.phone,
         postal_code: customer.postal,
@@ -1436,11 +1498,11 @@ async function renderCheckoutSuccess(app, total, customer){
         total: total,
         gateway: gw.id,
     });
-    orderNo = saved.id; // شماره سفارش واقعی که سرور ساخته (مثل PB482913)
   }catch(e){
     showToast(e.message || 'خطا در ثبت سفارش، لطفاً دوباره تلاش کنید');
     return;
   }
+  const orderNo = saved.id; // شماره سفارش واقعی که سرور ساخته (مثل PB482913)
   // آیا در این سفارش محصول کارگاهی هم بوده؟ (باید قبل از خالی‌کردن سبد بررسی شود)
   const hasWorkshopItem = CART.some(item=>{
       const book = DATA.books.find(b=>b.id===item.id);
@@ -1459,14 +1521,64 @@ async function renderCheckoutSuccess(app, total, customer){
   app.innerHTML = `
   <section class="wrap">
     <div class="success-box">
-      <div class="ic">✓</div>
-      <h2 style="color:var(--leather-dark);">پرداخت با موفقیت انجام شد</h2>
-      <p style="color:#4a3a2a;">سفارش شما از طریق درگاه ${gw.label} به مبلغ ${fmt(total)} تومان ثبت شد.</p>
+      <div class="ic">⏳</div>
+      <h2 style="color:var(--leather-dark);">در حال انتقال به درگاه پرداخت زرین‌پال...</h2>
       <p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${orderNo}</p>
       ${hasWorkshopItem?`<p style="background:var(--paper-dim);color:var(--leather-dark);font-weight:600;border-radius:12px;padding:14px 18px;margin:18px auto 0;max-width:460px;">همکاران ما تا چند ساعت آینده با شما تماس می‌گیرند.</p>`:''}
-      <a href="#/shop" class="btn btn-gold" style="background:var(--leather);color:#fff;margin-top:18px;">بازگشت به فروشگاه</a>
     </div>
   </section>`;
+  const ok = await goToZarinpalPayment(orderNo);
+  if(ok) return; // مرورگر همین الان در حال رفتن به صفحه‌ی زرین‌پال است
+  // اگر اتصال به درگاه با خطا مواجه شد (مثلاً هنوز از «اتصال» تنظیم نشده)،
+  // سفارش قبلاً ثبت شده؛ فقط راه دوباره‌تلاش‌کردن را نشان بده.
+  app.innerHTML = `
+  <section class="wrap">
+    <div class="success-box">
+      <div class="ic">✓</div>
+      <h2 style="color:var(--leather-dark);">سفارش شما ثبت شد</h2>
+      <p style="color:#4a3a2a;">سفارش شما به مبلغ ${fmt(total)} تومان ثبت شد، اما اتصال به درگاه پرداخت با خطا مواجه شد.</p>
+      <p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${orderNo}</p>
+      <button class="btn btn-gold" id="retryPayBtn" style="background:var(--leather);color:#fff;margin-top:14px;">تلاش دوباره برای پرداخت</button><br>
+      <a href="#/shop" class="btn btn-gold" style="background:var(--paper-dim);color:var(--ink);margin-top:10px;">بازگشت به فروشگاه</a>
+    </div>
+  </section>`;
+  document.getElementById('retryPayBtn').onclick = ()=> goToZarinpalPayment(orderNo);
+}
+function renderPaymentResult(app, hash){
+  const qs = hash.split('?')[1] || '';
+  const params = new URLSearchParams(qs);
+  const status = params.get('status');
+  const orderNo = params.get('order');
+  if(status==='success'){
+    app.innerHTML = `
+    <section class="wrap">
+      <div class="success-box">
+        <div class="ic">✓</div>
+        <h2 style="color:var(--leather-dark);">پرداخت با موفقیت انجام شد</h2>
+        ${orderNo?`<p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${esc(orderNo)}</p>`:''}
+        <a href="#/shop" class="btn btn-gold" style="background:var(--leather);color:#fff;margin-top:18px;">بازگشت به فروشگاه</a>
+      </div>
+    </section>`;
+    return;
+  }
+  if(status==='failed'){
+    app.innerHTML = `
+    <section class="wrap">
+      <div class="success-box">
+        <div class="ic" style="background:#fbe9e9;color:#a33;">✕</div>
+        <h2 style="color:#a33;">پرداخت انجام نشد</h2>
+        <p style="color:#4a3a2a;">پرداخت شما تکمیل نشد یا لغو شد. سفارش شما ثبت شده و می‌توانید دوباره تلاش کنید.</p>
+        ${orderNo?`<p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${esc(orderNo)}</p>`:''}
+        ${orderNo?`<button class="btn btn-gold" id="retryPayBtn" style="background:var(--leather);color:#fff;margin-top:14px;">تلاش دوباره برای پرداخت</button><br>`:''}
+        <a href="#/shop" class="btn btn-gold" style="background:var(--paper-dim);color:var(--ink);margin-top:10px;">بازگشت به فروشگاه</a>
+      </div>
+    </section>`;
+    if(orderNo){
+      document.getElementById('retryPayBtn').onclick = ()=> goToZarinpalPayment(orderNo);
+    }
+    return;
+  }
+  app.innerHTML = `<div class="wrap"><div class="empty" style="padding:80px 0;">خطایی در بررسی وضعیت پرداخت رخ داد. لطفاً با پشتیبانی تماس بگیرید.<br><a href="#/shop" class="btn btn-gold" style="margin-top:16px;background:var(--leather);color:#fff;">رفتن به فروشگاه</a></div></div>`;
 }
 function isAdminAuthed(){ return !!authToken() && localStorage.getItem('patough_is_staff')==='1'; }
 function adminLogout(hash){
@@ -1514,6 +1626,7 @@ function renderAdmin(hash){
   <div class="admin-shell">
     <div class="admin-side">
       <a href="#/admin/orders" class="${sub==='orders'?'active':''}">📦 سفارش‌ها</a>
+      <a href="#/admin/connection" class="${sub==='connection'?'active':''}">🔗 اتصال</a>
       <a href="#/admin/requests" class="${sub==='requests'?'active':''}">✎ درخواست‌ها</a>
       <a href="#/admin/books" class="${sub==='books'?'active':''}">📚 کتاب‌ها</a>
       <a href="#/admin/workshops" class="${sub==='workshops'?'active':''}">◆ کارگاه‌ها</a>
@@ -1529,6 +1642,7 @@ function renderAdmin(hash){
   </div>`;
   const main = document.getElementById('adminMain');
   if(sub==='orders') return subId ? renderAdminOrderDetail(main, subId) : renderAdminOrders(main);
+  if(sub==='connection') return renderAdminConnection(main);
   if(sub==='requests') return subId ? renderAdminRequestDetail(main, subId) : renderAdminRequests(main);
   if(sub==='books') return renderAdminBooks(main);
   if(sub==='workshops') return renderAdminWorkshops(main, subId);
@@ -1747,9 +1861,9 @@ async function renderAdminUsers(main){
   // بک‌اند جنگو فعلاً API برای فهرست‌کردن کاربران ندارد؛ کاربران واقعی را از پنل ادمین جنگو ببین
   box.innerHTML = `
   <p style="font-size:13px;color:#8a7558;line-height:1.9;">
-    برای دیدن و مدیریت کامل کاربران ثبت‌نامی (و ساخت/حذف حساب ادمین)، از پنل ادمین واقعی جنگو استفاده کن:
+    برای دیدن و مدیریت کامل کاربران ثبت‌نامی (و ساخت/حذف حساب ادمین)، از پنل مدیریت کامل استفاده کن:
   </p>
-  <p><a href="${API_BASE.replace('/api','')}/admin/auth/user/" target="_blank" rel="noopener" class="btn btn-gold" style="background:var(--leather);color:#fff;">باز کردن فهرست کاربران در جنگو</a></p>`;
+  <p><a href="${API_BASE.replace('/api','')}/panel-8f2q7k1z/auth/user/" target="_blank" rel="noopener" class="btn btn-gold" style="background:var(--leather);color:#fff;">باز کردن فهرست کاربران</a></p>`;
 }
 
 function renderAdminBooks(main, editId){
@@ -2372,106 +2486,308 @@ function renderAdminAuthors(main, editId){
   });
 }
 
-/* ---------- ADMIN: باکس‌های تبلیغاتی چپ/راست ---------- */
+/* ---------- ADMIN: تبلیغات ---------- */
 const AD_PAGE_LABELS = { home:'صفحه اصلی', shop:'فروشگاه', authors:'نویسندگان', contact:'تماس با ما', checkout:'ثبت نهایی پرداخت' };
-const AD_POSITION_LABELS = { left:'چپ', right:'راست' };
+const AD_PAGE_EMOJI = { home:'🏠', shop:'🛒', authors:'✍️', contact:'📞', checkout:'💳' };
+// دکمه‌های آماده‌ی موقعیت — با کلیک روی هرکدام، تبلیغ سریع به همان‌جا می‌رود
+// (بدون نیاز به کشیدن با ماوس). مختصات‌ها هم‌راستا با PRESET_POSITIONS سمت بک‌اند است.
+const AD_POSITION_PRESETS = [
+  {key:'top-left', label:'⬉ بالا · چپ', x:1, y:8},
+  {key:'top-right', label:'⬈ بالا · راست', x:88, y:8},
+  {key:'middle-left', label:'⬅ وسط · چپ', x:1, y:42},
+  {key:'middle-right', label:'➡ وسط · راست', x:88, y:42},
+  {key:'bottom-left', label:'⬋ پایین · چپ', x:1, y:75},
+  {key:'bottom-right', label:'⬊ پایین · راست', x:88, y:75},
+];
+/* پیش‌نمایشِ بخشی از صفحه که موقعیت/اندازه‌ی تبلیغ داخلش با ماوس کشیده و
+   بزرگ/کوچک می‌شود. AD_PREVIEW_W/H اندازه‌ی همین جعبه‌ی پیش‌نمایش (پیکسل واقعی
+   روی صفحه) است؛ AD_REF_VIEWPORT_* یعنی «این پیش‌نمایش نماینده‌ی یک صفحه‌ی
+   واقعی به این عرض/ارتفاع است» — از رویشان مقیاس (scale) برای تبدیل
+   pos_x/pos_y (درصد) و width/height (پیکسل واقعیِ ذخیره‌شده) به/از پیکسل‌های
+   همین جعبه‌ی کوچک به دست می‌آید. */
+const AD_PREVIEW_W = 320;
+const AD_REF_VIEWPORT_W = 1400;
+const AD_REF_VIEWPORT_H = 800;
+const AD_PREVIEW_H = Math.round(AD_PREVIEW_W * AD_REF_VIEWPORT_H / AD_REF_VIEWPORT_W);
+const AD_PREVIEW_SCALE = AD_PREVIEW_W / AD_REF_VIEWPORT_W;
+function adClamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
+
+// تبلیغ‌های تازه‌ای که ادمین دکمه‌ی «+ افزودن تبلیغ جدید» را زده ولی هنوز
+// «ذخیره» نکرده — فقط سمت مرورگر نگه‌داری می‌شوند تا وقتی ذخیره شوند.
+let adDrafts = {};
+
 function renderAdminAds(main){
   main.innerHTML = `
-  <div class="topbar"><h2 style="margin:0;color:var(--leather);">مدیریت تبلیغات (باکس‌های چپ/راست)</h2>
+  <div class="topbar"><h2 style="margin:0;color:var(--leather);">مدیریت تبلیغات</h2>
     <button class="logout-btn" id="logoutBtn">خروج</button></div>
-  <p style="font-size:13px;color:#8a7558;margin:-6px 0 20px;line-height:1.9;">
-    این باکس‌ها در کنار صفحه اصلی، فروشگاه، نویسندگان، تماس با ما و ثبت نهایی پرداخت قرار می‌گیرند و برای بازدیدکننده‌ها نامرئی هستند مگر این‌که اینجا برایشان عکس یا فیلم بی‌صدا تنظیم کنید.
+  <p style="font-size:13px;color:#8a7558;margin:-6px 0 20px;line-height:2;">
+    برای هر صفحه هر تعداد تبلیغ که بخواهید می‌توانید اضافه کنید. تبلیغ برای بازدیدکننده‌ها نامرئی است مگر این‌که برایش عکس یا فیلم بی‌صدا انتخاب کنید.
+    برای هر تبلیغ: یک عکس/فیلم انتخاب کنید، اگر خواستید با کلیک روی آن به یک سایت برود لینکش را وارد کنید، محل نمایشش را با یکی از دکمه‌های آماده انتخاب کنید (یا خودتان با ماوس بکشید)، و در آخر «ذخیره» را بزنید.
   </p>
-  <div id="adSlotsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;"></div>`;
+  <div id="adPagesWrap"></div>`;
   document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/ads'); };
-  const grid = document.getElementById('adSlotsGrid');
-  
+  const wrap = document.getElementById('adPagesWrap');
+
   Object.keys(AD_PAGE_LABELS).forEach(page=>{
-      ['left','right'].forEach(position=>{
-          const card = document.createElement('div');
-          card.className = 'admin-form';
-          const existing = DATA.ads.find(a=>a.page===page && a.position===position);
-          const previewHtml = existing && existing.media
-          ? (existing.media_type==='video'
-            ? `<video src="${existing.media}" muted loop autoplay playsinline style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;"></video>`
-            : `<img src="${existing.media}" style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;">`)
-          : `<div style="font-size:12px;color:#8a7558;padding:14px;text-align:center;background:var(--paper-dim);border-radius:10px;">چیزی تنظیم نشده — نامرئی است</div>`;
-          card.innerHTML = `
-        <h3 style="margin-top:0;">${AD_PAGE_LABELS[page]} — ${AD_POSITION_LABELS[position]}</h3>
-        <div class="ad-preview" style="margin-bottom:12px;">${previewHtml}</div>
-        <div class="field">
-          <label>نوع رسانه</label>
-          <select class="ad-media-type">
-            <option value="image" ${(!existing||existing.media_type==='image')?'selected':''}>عکس</option>
-            <option value="video" ${existing&&existing.media_type==='video'?'selected':''}>فیلم بی‌صدا</option>
-          </select>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:8px 0 10px;">
-          <label style="cursor:pointer;background:var(--leather);color:#fff;padding:8px 18px;border-radius:10px;font-size:13px;">
-            📁 انتخاب فایل
-            <input type="file" class="ad-file" accept="image/*,video/*" style="display:none;">
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;">
-            <input type="checkbox" class="ad-active" ${!existing || existing.active!==false ? 'checked' : ''}> فعال
-          </label>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button class="save-btn ad-save-btn" style="flex:1;">ذخیره</button>
-          ${existing?`<button class="del-btn ad-remove-btn" style="border-radius:10px;padding:10px 16px;">حذف</button>`:''}
-        </div>
+      const section = document.createElement('div');
+      section.style.marginBottom = '36px';
+      section.innerHTML = `
+        <h3 style="border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:14px;">${AD_PAGE_EMOJI[page]||''} ${AD_PAGE_LABELS[page]}</h3>
+        <div class="ad-page-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:14px;"></div>
+        <button type="button" class="save-btn ad-add-btn">＋ افزودن تبلیغ جدید در «${AD_PAGE_LABELS[page]}»</button>
       `;
-          grid.appendChild(card);
-          
-          let pendingMedia = existing ? existing.media : '';
-          const fileInput = card.querySelector('.ad-file');
-          fileInput.addEventListener('change', async ()=>{
-              const file = fileInput.files[0];
-              if(!file) return;
-              const isVideo = file.type.startsWith('video/');
-              const maxSize = isVideo ? 15*1024*1024 : 3*1024*1024;
-              if(file.size > maxSize){ showToast(`حجم فایل باید کمتر از ${isVideo?'۱۵':'۳'} مگابایت باشد`); fileInput.value=''; return; }
-              const dataUrl = await new Promise((resolve,reject)=>{
-                  const reader = new FileReader();
-                  reader.onload = ()=> resolve(reader.result);
-                  reader.onerror = reject;
-                  reader.readAsDataURL(file);
-              });
-              pendingMedia = dataUrl;
-              card.querySelector('.ad-media-type').value = isVideo ? 'video' : 'image';
-              showToast('فایل انتخاب شد؛ برای ثبت روی «ذخیره» بزنید');
-          });
-          
-          card.querySelector('.ad-save-btn').onclick = async ()=>{
-            if(!pendingMedia){ showToast('لطفاً یک عکس یا ویدیو انتخاب کنید'); return; }
-            const media_type = card.querySelector('.ad-media-type').value;
-            const active = card.querySelector('.ad-active').checked;
-            const adObj = existing || { page, position };
-            Object.assign(adObj, { media: pendingMedia, media_type, active });
-            try{
-              await saveAd(adObj);
-              if(!existing) DATA.ads.push(adObj);
-              showToast('تبلیغ ذخیره شد');
-              renderAdminAds(main);
-            }catch(e){
-              showToast('خطا در ذخیره تبلیغ: ' + (e.message||'نامشخص'));
-            }
-          };
-          const removeBtn = card.querySelector('.ad-remove-btn');
-          if(removeBtn){
-            removeBtn.onclick = async ()=>{
-              if(!confirm('این تبلیغ حذف شود؟')) return;
-              try{
-                await deleteAdRemote(existing.id);
-                DATA.ads = DATA.ads.filter(a=>a.id!==existing.id);
-                showToast('حذف شد');
-                renderAdminAds(main);
-              }catch(e){
-                showToast('خطا در حذف تبلیغ');
-              }
-            };
-          }
-      });
+      wrap.appendChild(section);
+      const grid = section.querySelector('.ad-page-grid');
+
+      function renderPageGrid(){
+        grid.innerHTML = '';
+        const items = DATA.ads.filter(a=>a.page===page);
+        const drafts = adDrafts[page] || [];
+        if(items.length===0 && drafts.length===0){
+          grid.innerHTML = `<div style="font-size:12.5px;color:#8a7558;padding:14px;background:var(--paper-dim);border-radius:10px;">هنوز تبلیغی برای این صفحه اضافه نشده. روی «افزودن تبلیغ جدید» بزنید تا شروع کنید.</div>`;
+        }else{
+          items.forEach(ad=> buildAdCard(grid, page, ad, false, main));
+          drafts.forEach(draft=> buildAdCard(grid, page, draft, true, main));
+        }
+      }
+      renderPageGrid();
+
+      section.querySelector('.ad-add-btn').onclick = ()=>{
+        if(!adDrafts[page]) adDrafts[page] = [];
+        adDrafts[page].push({
+          page, position:'custom', media:'', media_type:'image', active:true, link_url:'',
+          pos_x:1, pos_y:42, width:150, height:300, _draftKey: uid(),
+        });
+        renderPageGrid();
+      };
   });
+}
+
+function buildAdCard(grid, page, adObj, isDraft, main){
+  const card = document.createElement('div');
+  card.className = 'admin-form';
+  const previewHtml = adObj.media
+  ? (adObj.media_type==='video'
+    ? `<video src="${adObj.media}" muted loop autoplay playsinline style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;"></video>`
+    : `<img src="${adObj.media}" style="width:100%;max-height:160px;border-radius:10px;object-fit:cover;">`)
+  : `<div style="font-size:12px;color:#8a7558;padding:14px;text-align:center;background:var(--paper-dim);border-radius:10px;">هنوز عکس یا فیلمی انتخاب نشده — نامرئی است</div>`;
+  card.innerHTML = `
+    <h3 style="margin-top:0;">${isDraft ? '🆕 تبلیغ جدید' : 'تبلیغ'}</h3>
+    <div class="ad-preview" style="margin-bottom:12px;">${previewHtml}</div>
+    <div class="field">
+      <label>۱) نوع رسانه و فایل</label>
+      <select class="ad-media-type" style="margin-bottom:8px;">
+        <option value="image" ${adObj.media_type!=='video'?'selected':''}>عکس</option>
+        <option value="video" ${adObj.media_type==='video'?'selected':''}>فیلم بی‌صدا</option>
+      </select>
+      <div style="display:flex;align-items:center;gap:10px;margin:2px 0 10px;">
+        <label style="cursor:pointer;background:var(--leather);color:#fff;padding:8px 18px;border-radius:10px;font-size:13px;">
+          📁 انتخاب فایل
+          <input type="file" class="ad-file" accept="image/*,video/*" style="display:none;">
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;">
+          <input type="checkbox" class="ad-active" ${adObj.active!==false ? 'checked' : ''}> فعال
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <label>۲) لینک مقصد (اختیاری — با کلیک روی تبلیغ باز می‌شود)</label>
+      <input type="url" class="ad-link" placeholder="https://example.com" value="${adObj.link_url?esc(adObj.link_url):''}">
+    </div>
+    <div style="margin:14px 0 6px;">
+      <label style="font-size:12.5px;color:#8a7558;display:block;margin-bottom:8px;">۳) محل نمایش روی صفحه — یکی از دکمه‌ها را بزنید:</label>
+      <div class="ad-presets" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;">
+        ${AD_POSITION_PRESETS.map(p=>`<button type="button" class="ad-preset-btn" data-key="${p.key}" style="font-size:11.5px;padding:8px 4px;border-radius:8px;border:1px solid var(--line);background:${adObj.position===p.key?'var(--leather)':'var(--paper-dim)'};color:${adObj.position===p.key?'#fff':'inherit'};cursor:pointer;">${p.label}</button>`).join('')}
+      </div>
+      <div style="font-size:11px;color:#8a7558;margin-bottom:6px;">یا خودِ باکسِ سبزرنگ زیر را با ماوس (یا انگشت) بکشید، و از گوشه‌ی پایین‌راستش بزرگ/کوچکش کنید:</div>
+      <div class="ad-pos-canvas" style="position:relative;width:${AD_PREVIEW_W}px;max-width:100%;height:${AD_PREVIEW_H}px;background:repeating-linear-gradient(45deg,var(--paper-dim),var(--paper-dim) 10px,var(--cream) 10px,var(--cream) 20px);border:1px dashed var(--line);border-radius:8px;overflow:hidden;touch-action:none;">
+        <div class="ad-pos-box" style="position:absolute;background:rgba(19,101,58,.28);border:2px solid var(--leather);border-radius:6px;cursor:move;box-sizing:border-box;">
+          <span class="ad-pos-emoji" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;pointer-events:none;">${adObj.media_type==='video'?'🎬':'🖼️'}</span>
+          <div class="ad-pos-resize" style="position:absolute;bottom:-2px;left:-2px;width:16px;height:16px;background:var(--leather);border-radius:0 4px 0 4px;cursor:nwse-resize;"></div>
+        </div>
+      </div>
+      <div style="font-size:11.5px;color:#8a7558;margin-top:6px;">اندازه: <b class="ad-pos-w-label"></b>×<b class="ad-pos-h-label"></b> پیکسل</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="save-btn ad-save-btn" style="flex:1;">۴) ذخیره</button>
+      <button class="del-btn ad-remove-btn" style="border-radius:10px;padding:10px 16px;">${isDraft?'انصراف':'حذف'}</button>
+    </div>
+  `;
+  grid.appendChild(card);
+
+  let pendingMedia = adObj.media || '';
+  let currentPreset = adObj.position || 'custom';
+  const fileInput = card.querySelector('.ad-file');
+  fileInput.addEventListener('change', async ()=>{
+      const file = fileInput.files[0];
+      if(!file) return;
+      const isVideo = file.type.startsWith('video/');
+      const maxSize = isVideo ? 15*1024*1024 : 3*1024*1024;
+      if(file.size > maxSize){ showToast(`حجم فایل باید کمتر از ${isVideo?'۱۵':'۳'} مگابایت باشد`); fileInput.value=''; return; }
+      const dataUrl = await new Promise((resolve,reject)=>{
+          const reader = new FileReader();
+          reader.onload = ()=> resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+      });
+      pendingMedia = dataUrl;
+      card.querySelector('.ad-media-type').value = isVideo ? 'video' : 'image';
+      card.querySelector('.ad-pos-emoji').textContent = isVideo ? '🎬' : '🖼️';
+      showToast('فایل انتخاب شد؛ برای ثبت روی «ذخیره» بزنید');
+  });
+
+  /* ---------- درگ/ریسایز موقعیت و اندازه ---------- */
+  const posState = {
+    x: adObj.pos_x!=null ? adObj.pos_x : 1,
+    y: adObj.pos_y!=null ? adObj.pos_y : 42,
+    w: adObj.width ? adObj.width : 150,
+    h: adObj.height ? adObj.height : 300,
+  };
+  const posBox = card.querySelector('.ad-pos-box');
+  const wLabel = card.querySelector('.ad-pos-w-label');
+  const hLabel = card.querySelector('.ad-pos-h-label');
+  function drawPosBox(){
+    const leftPx = posState.x/100*AD_PREVIEW_W;
+    const topPx = posState.y/100*AD_PREVIEW_H;
+    const wPx = posState.w*AD_PREVIEW_SCALE;
+    const hPx = posState.h*AD_PREVIEW_SCALE;
+    posBox.style.left = leftPx+'px';
+    posBox.style.top = topPx+'px';
+    posBox.style.width = wPx+'px';
+    posBox.style.height = hPx+'px';
+    wLabel.textContent = Math.round(posState.w);
+    hLabel.textContent = Math.round(posState.h);
+  }
+  drawPosBox();
+
+  function markPresetActive(key){
+    card.querySelectorAll('.ad-preset-btn').forEach(b=>{
+      const on = b.dataset.key===key;
+      b.style.background = on ? 'var(--leather)' : 'var(--paper-dim)';
+      b.style.color = on ? '#fff' : 'inherit';
+    });
+  }
+
+  card.querySelectorAll('.ad-preset-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      const preset = AD_POSITION_PRESETS.find(p=>p.key===btn.dataset.key);
+      if(!preset) return;
+      currentPreset = preset.key;
+      posState.x = preset.x;
+      posState.y = preset.y;
+      drawPosBox();
+      markPresetActive(preset.key);
+    };
+  });
+
+  function clientXY(e){
+    if(e.touches && e.touches.length) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
+    return {x:e.clientX, y:e.clientY};
+  }
+
+  posBox.addEventListener('mousedown', startDrag);
+  posBox.addEventListener('touchstart', startDrag, {passive:false});
+  function startDrag(e){
+    if(e.target.classList.contains('ad-pos-resize')) return; // آن دستگیر خودش را دارد
+    e.preventDefault();
+    const start = clientXY(e);
+    const startLeft = posState.x/100*AD_PREVIEW_W;
+    const startTop = posState.y/100*AD_PREVIEW_H;
+    function onMove(ev){
+      ev.preventDefault();
+      const cur = clientXY(ev);
+      const dx = cur.x-start.x, dy = cur.y-start.y;
+      const wPx = posState.w*AD_PREVIEW_SCALE, hPx = posState.h*AD_PREVIEW_SCALE;
+      const newLeft = adClamp(startLeft+dx, 0, AD_PREVIEW_W-wPx);
+      const newTop = adClamp(startTop+dy, 0, AD_PREVIEW_H-hPx);
+      posState.x = newLeft/AD_PREVIEW_W*100;
+      posState.y = newTop/AD_PREVIEW_H*100;
+      currentPreset = 'custom';
+      markPresetActive('custom');
+      drawPosBox();
+    }
+    function onEnd(){
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onEnd);
+  }
+
+  const resizeHandle = card.querySelector('.ad-pos-resize');
+  resizeHandle.addEventListener('mousedown', startResize);
+  resizeHandle.addEventListener('touchstart', startResize, {passive:false});
+  function startResize(e){
+    e.preventDefault(); e.stopPropagation();
+    const start = clientXY(e);
+    const startW = posState.w, startH = posState.h;
+    const leftPx = posState.x/100*AD_PREVIEW_W, topPx = posState.y/100*AD_PREVIEW_H;
+    const maxWReal = (AD_PREVIEW_W-leftPx)/AD_PREVIEW_SCALE;
+    const maxHReal = (AD_PREVIEW_H-topPx)/AD_PREVIEW_SCALE;
+    function onMove(ev){
+      ev.preventDefault();
+      const cur = clientXY(ev);
+      const dxReal = (cur.x-start.x)/AD_PREVIEW_SCALE;
+      const dyReal = (cur.y-start.y)/AD_PREVIEW_SCALE;
+      posState.w = adClamp(startW+dxReal, 60, Math.min(500, maxWReal));
+      posState.h = adClamp(startH+dyReal, 60, Math.min(900, maxHReal));
+      drawPosBox();
+    }
+    function onEnd(){
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onEnd);
+  }
+
+  card.querySelector('.ad-save-btn').onclick = async ()=>{
+    if(!pendingMedia){ showToast('لطفاً یک عکس یا ویدیو انتخاب کنید'); return; }
+    const media_type = card.querySelector('.ad-media-type').value;
+    const active = card.querySelector('.ad-active').checked;
+    const link_url = card.querySelector('.ad-link').value.trim();
+    Object.assign(adObj, {
+      media: pendingMedia, media_type, active, link_url, position: currentPreset,
+      pos_x: posState.x, pos_y: posState.y,
+      width: Math.round(posState.w), height: Math.round(posState.h),
+    });
+    try{
+      await saveAd(adObj);
+      if(isDraft){
+        DATA.ads.push(adObj);
+        adDrafts[page] = (adDrafts[page]||[]).filter(d=>d!==adObj);
+      }
+      showToast('تبلیغ ذخیره شد');
+      renderAdminAds(main);
+    }catch(e){
+      showToast('خطا در ذخیره تبلیغ: ' + (e.message||'نامشخص'));
+    }
+  };
+
+  card.querySelector('.ad-remove-btn').onclick = async ()=>{
+    if(isDraft){
+      adDrafts[page] = (adDrafts[page]||[]).filter(d=>d!==adObj);
+      renderAdminAds(main);
+      return;
+    }
+    if(!confirm('این تبلیغ حذف شود؟')) return;
+    try{
+      await deleteAdRemote(adObj.id);
+      DATA.ads = DATA.ads.filter(a=>a.id!==adObj.id);
+      showToast('حذف شد');
+      renderAdminAds(main);
+    }catch(e){
+      showToast('خطا در حذف تبلیغ');
+    }
+  };
 }
 
 /* ---------- RICH TEXT EDITOR (وبلاگ) ---------- */
@@ -2732,6 +3048,57 @@ async function sendAssistantMessage(input, sendBtn){
   renderAssistantMessages();
 }
 
+/* ---------- ADMIN: اتصال (درگاه پرداخت زرین‌پال) ---------- */
+async function renderAdminConnection(main){
+  main.innerHTML = `
+  <div class="topbar"><h2 style="margin:0;color:var(--leather);">اتصال</h2>
+    <button class="logout-btn" id="logoutBtn">خروج</button></div>
+  <div class="admin-form">
+    <h3 style="margin-top:0;">اتصال درگاه پرداخت زرین‌پال</h3>
+    <p style="font-size:13px;color:#8a7558;line-height:1.9;">
+      کد پذیرنده (Merchant ID) که زرین‌پال هنگام فعال‌سازی درگاه به شما داده
+      را اینجا وارد کن. بعد از ذخیره، دکمه‌ی «پرداخت و ثبت نهایی» در صفحه‌ی
+      تسویه‌حساب، مشتری را با دقیقاً همان مبلغ سفارشش وارد صفحه‌ی واقعی
+      پرداخت زرین‌پال می‌کند.
+    </p>
+    <div class="field"><label>کد پذیرنده (Merchant ID)</label>
+      <input type="text" id="gwMerchant" placeholder="مثلاً xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" dir="ltr" style="text-align:left;">
+    </div>
+    <p style="font-size:12.5px;color:#8a7558;line-height:2;">
+      مبلغ سفارش (به تومان روی سایت) قبل از ارسال به زرین‌پال خودکار ضربدر ۱۰
+      (ریال) می‌شود؛ نیازی به تنظیم دستی واحد پول نیست. آدرس بازگشت هم خودکار
+      به همین سرور تنظیم می‌شود، نیازی به وارد کردن آن در پنل زرین‌پال نیست
+      مگر این‌که خودِ زرین‌پال از شما آدرس بازگشت بخواهد که در این صورت همین
+      آدرس را بده:
+      <code dir="ltr" style="display:block;margin-top:4px;">${location.origin}/api/payments/zarinpal/callback/</code>
+    </p>
+    <button class="save-btn" id="saveGwBtn">ذخیره و نهایی‌سازی</button>
+    <p id="gwSavedNote" style="font-size:12px;color:#4a8a4a;margin-top:10px;display:none;">آخرین ذخیره: <span id="gwSavedAt"></span></p>
+  </div>`;
+  document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/connection'); };
+  try{
+    const current = await apiFetch('/settings/gateway/');
+    document.getElementById('gwMerchant').value = current.merchant_id || '';
+    if(current.is_configured){
+      document.getElementById('gwSavedNote').style.display = 'block';
+      document.getElementById('gwSavedAt').textContent = new Date(current.updated_at).toLocaleString('fa-IR');
+    }
+  }catch(e){
+    showToast(e.message || 'خطا در دریافت تنظیمات درگاه');
+  }
+  document.getElementById('saveGwBtn').onclick = async ()=>{
+    const merchantId = document.getElementById('gwMerchant').value.trim();
+    try{
+      const saved = await apiFetch('/settings/gateway/', {method:'PUT', body: JSON.stringify({merchant_id: merchantId})});
+      showToast('تنظیمات درگاه ذخیره شد');
+      document.getElementById('gwSavedNote').style.display = 'block';
+      document.getElementById('gwSavedAt').textContent = new Date(saved.updated_at).toLocaleString('fa-IR');
+    }catch(e){
+      showToast(e.message || 'خطا در ذخیره‌ی تنظیمات درگاه');
+    }
+  };
+}
+
 function renderAdminSettings(main){
   main.innerHTML = `
   <div class="topbar"><h2 style="margin:0;color:var(--leather);">تنظیمات</h2>
@@ -2739,12 +3106,12 @@ function renderAdminSettings(main){
   <div class="admin-form">
     <h3 style="margin-top:0;">تغییر رمز عبور پنل مدیریت</h3>
     <p style="font-size:13px;color:#8a7558;line-height:1.9;">
-      رمز عبور حساب ادمین الان روی سرور جنگو و به‌صورت واقعی مدیریت می‌شود، نه در مرورگر.
+      رمز عبور حساب ادمین روی سرور و به‌صورت واقعی مدیریت می‌شود، نه در مرورگر.
       برای تغییرش یکی از این دو راه را استفاده کن:
     </p>
     <ul style="font-size:13px;color:#4a3a2a;line-height:2;padding-inline-start:20px;">
       <li>در ترمینال سرور: <code>python manage.py changepassword &lt;نام‌کاربری&gt;</code></li>
-      <li>یا از پنل ادمین واقعی جنگو به آدرس <a href="${API_BASE.replace('/api','')}/admin/" target="_blank" rel="noopener">/admin/</a> وارد شو و از آنجا رمز را تغییر بده.</li>
+      <li>یا از پنل مدیریت کامل به آدرس <a href="${API_BASE.replace('/api','')}/panel-8f2q7k1z/" target="_blank" rel="noopener">/panel-8f2q7k1z/</a> وارد شو و از آنجا رمز را تغییر بده.</li>
     </ul>
   </div>`;
   document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/settings'); };
@@ -2782,9 +3149,17 @@ function openModal(html, opts){
   const ov = document.createElement('div');
   ov.className = 'modal-overlay' + (opts&&opts.center?' center':'');
   ov.id = 'modalOverlay';
-  ov.innerHTML = `<div class="modal-panel">${html}</div>`;
+  ov.innerHTML = `<div class="modal-panel"><div class="modal-spotlight" aria-hidden="true"></div>${html}</div>`;
   ov.addEventListener('click', (e)=>{ if(e.target===ov) closeModal(); });
   document.body.appendChild(ov);
+  const panel = ov.querySelector('.modal-panel');
+  if(panel){
+    panel.addEventListener('mousemove', (e)=>{
+      const r = panel.getBoundingClientRect();
+      panel.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
+      panel.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
+    });
+  }
 }
 function openConfirmModal(message, onConfirm){
   openModal(`
@@ -3056,5 +3431,6 @@ async function restoreSession(){
     setupSearch();
 })();
 </script>
+
 </body>
 </html>

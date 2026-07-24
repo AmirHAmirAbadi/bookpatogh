@@ -9,7 +9,7 @@
 <div class="category-filter">
   <a href="{% url 'seo_pages:shop' %}" class="{% if not active_category %}active{% endif %}">همه</a>
   {% for c in categories %}
-  <a href="?category={{ c|urlencode }}" class="{% if c == active_category %}active{% endif %}">{{ c }}</a>
+  <a href="{% url 'seo_pages:shop_category' c.slug %}" class="{% if c.active %}active{% endif %}">{{ c.name }}</a>
   {% endfor %}
 </div>
 

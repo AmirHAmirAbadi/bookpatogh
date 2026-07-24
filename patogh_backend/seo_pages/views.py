@@ -8,10 +8,11 @@
 اصلی (SPA) در آدرس /app/ انجام می‌شود. هر صفحه‌ی سئو یک دکمه‌ی «مشاهده در
 فروشگاه» دارد که با هش مناسب مستقیم به همان کتاب/نویسنده در SPA می‌رود.
 """
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.html import strip_tags
+from django.utils.text import slugify
 from urllib.parse import quote
 
 from catalog.models import Author, Book
@@ -65,24 +66,53 @@ def home(request):
     return render(request, 'seo_pages/home.html', ctx)
 
 
+def _category_slug_map():
+    """نگاشت نامک (slug) هر دسته‌بندی به متن واقعی‌اش، برای ساخت آدرس‌های
+    مجزا و قابل ایندکس به‌جای پارامتر ?category= که قبلاً هیچ‌وقت به‌طور
+    مستقل ایندکس نمی‌شد (چون canonical همیشه به /shop/ ساده اشاره می‌کرد)."""
+    cats = Book.objects.exclude(category='').values_list('category', flat=True).distinct()
+    return {slugify(c, allow_unicode=True): c for c in cats}
+
+
+def _category_nav(slug_map, active_slug=''):
+    return [
+        {'slug': slug, 'name': name, 'active': slug == active_slug}
+        for slug, name in sorted(slug_map.items(), key=lambda kv: kv[1])
+    ]
+
+
 def shop(request):
-    category = request.GET.get('category', '').strip()
     books = Book.objects.select_related('author').filter(workshop=False)
-    if category:
-        books = books.filter(category=category)
-    categories = (
-        Book.objects.exclude(category='').values_list('category', flat=True).distinct().order_by('category')
-    )
     ctx = {
         'books': books,
-        'categories': categories,
-        'active_category': category,
-        'meta_title': (f'خرید کتاب {category}' if category else 'فروشگاه کتاب') + f' | {SITE_NAME}',
+        'categories': _category_nav(_category_slug_map()),
+        'active_category': '',
+        'meta_title': f'فروشگاه کتاب | {SITE_NAME}',
         'meta_description': _truncate(
-            (f'فهرست کتاب‌های دسته‌ی {category} برای خرید آنلاین ' if category else 'فهرست همه‌ی کتاب‌های موجود برای خرید آنلاین ')
-            + SITE_DESCRIPTION_SUFFIX
+            'فهرست همه‌ی کتاب‌های موجود برای خرید آنلاین ' + SITE_DESCRIPTION_SUFFIX
         ),
         'canonical_path': reverse('seo_pages:shop'),
+    }
+    return render(request, 'seo_pages/shop.html', ctx)
+
+
+def shop_category(request, category_slug):
+    """صفحه‌ی مجزا و قابل ایندکس برای هر دسته‌بندی، مثلاً /shop/category/رمان/
+    تا عبارت‌هایی مثل «خرید کتاب رمان» بتوانند مستقل رتبه بگیرند."""
+    slug_map = _category_slug_map()
+    category = slug_map.get(category_slug)
+    if not category:
+        raise Http404('دسته‌بندی پیدا نشد')
+    books = Book.objects.select_related('author').filter(workshop=False, category=category)
+    ctx = {
+        'books': books,
+        'categories': _category_nav(slug_map, category_slug),
+        'active_category': category,
+        'meta_title': f'خرید کتاب {category} | {SITE_NAME}',
+        'meta_description': _truncate(
+            f'فهرست کتاب‌های دسته‌ی {category} برای خرید آنلاین ' + SITE_DESCRIPTION_SUFFIX
+        ),
+        'canonical_path': reverse('seo_pages:shop_category', args=[category_slug]),
     }
     return render(request, 'seo_pages/shop.html', ctx)
 
@@ -178,6 +208,10 @@ STORE_ADDRESS = 'نور، خیابان نیما، نبش نیلوفر ۴۳'
 STORE_PHONE_DISPLAY = '۰۹۱۲۰۷۶۰۱۱۶'
 STORE_PHONE_E164 = '+989120760116'
 STORE_EMAIL = 'info@patoghebook.ir'
+# کد پستی واقعی شعبه‌ی نور رو همین‌جا بین کوتیشن‌ها بنویس (مثلاً '4634617894')
+# تا هم در JSON-LD (schema.org PostalAddress) و هم در صفحات درباره‌ما/تماس نمایش
+# داده شود؛ تا وقتی خالی است این خط به‌طور خودکار نادیده گرفته می‌شود.
+STORE_POSTAL_CODE = ''
 # شنبه تا پنجشنبه ۹ تا ۲۱، جمعه تعطیل
 STORE_HOURS_DISPLAY = 'شنبه تا پنج‌شنبه، ساعت ۹ تا ۲۱ — جمعه‌ها تعطیل'
 _MAPS_QUERY = quote('نور خیابان نیما نبش نیلوفر ۴۳')
@@ -226,7 +260,6 @@ def contact(request):
 def robots_txt(request):
     lines = [
         'User-agent: *',
-        'Disallow: /admin/',
         'Disallow: /api/',
         'Disallow: /app/',
         '',
@@ -247,6 +280,11 @@ def sitemap_xml(request):
         (reverse('seo_pages:about'), None, '0.5', 'monthly'),
         (reverse('seo_pages:contact'), None, '0.5', 'monthly'),
     ]
+    for category_slug in _category_slug_map():
+        entries.append((
+            reverse('seo_pages:shop_category', args=[category_slug]),
+            None, '0.7', 'daily',
+        ))
     for book in Book.objects.all():
         entries.append((
             reverse('seo_pages:book_detail', args=[book.slug]),

@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include, re_path
 
+from . import admin_branding  # noqa: F401  # سربرگ/لیبل‌های فارسیِ پنل ادمین را تنظیم می‌کند
+
 FRONTEND_INDEX = Path(__file__).resolve().parent.parent / 'frontend' / 'index.html'
 
 
@@ -21,7 +23,7 @@ def serve_frontend_app(request, *args, **kwargs):
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(settings.ADMIN_URL_PATH, admin.site.urls),
     path('api/', include('catalog.urls')),
     path('api/', include('blog.urls')),
     path('api/', include('inquiries.urls')),

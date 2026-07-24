@@ -19,6 +19,7 @@
       "streetAddress": "{{ address }}",
       "addressLocality": "نور",
       "addressRegion": "مازندران",
+      {% if store_postal_code %}"postalCode": "{{ store_postal_code }}",{% endif %}
       "addressCountry": "IR"
     }
   }
@@ -32,7 +33,7 @@
   از راه‌های زیر با ما در تماس باشید:
 </p>
 <div class="info-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 26px;">
-  <div class="info-card"><b>آدرس</b>{{ address }}</div>
+  <div class="info-card"><b>آدرس</b>{{ address }}{% if store_postal_code %} — کد پستی {{ store_postal_code }}{% endif %}</div>
   <div class="info-card"><b>تلفن</b><a href="tel:{{ phone_e164 }}">{{ phone_display }}</a></div>
   <div class="info-card"><b>ایمیل</b><a href="mailto:{{ email }}">{{ email }}</a></div>
   <div class="info-card"><b>ساعات کاری</b>{{ hours }}</div>

@@ -4,7 +4,7 @@ from django.db.models import F
 from rest_framework import serializers
 
 from catalog.models import Book
-from .models import Order, OrderItem
+from .models import GatewaySettings, Order, OrderItem
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -47,6 +47,19 @@ class OrderItemSerializer(serializers.ModelSerializer):
         return attrs
 
 
+class GatewaySettingsSerializer(serializers.ModelSerializer):
+    is_configured = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = GatewaySettings
+        fields = ['merchant_id', 'is_configured', 'updated_at']
+        read_only_fields = ['updated_at', 'is_configured']
+
+    def validate_merchant_id(self, value):
+        value = value.strip()
+        return value
+
+
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
 
@@ -55,11 +68,18 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'customer_name', 'phone', 'postal_code', 'address',
             'gateway', 'total', 'status', 'items', 'created_at',
+            'payment_status', 'ref_num',
         ]
         # SECURITY: `total` is server-computed from the real item prices,
         # never trusted from the client — otherwise a customer could submit
         # any `total` they like regardless of what's actually in the cart.
-        read_only_fields = ['id', 'total', 'status', 'created_at']
+        # `payment_status`/`ref_num` are only ever written by the Zarinpal
+        # callback view after a real server-to-server verification with the
+        # bank (see views.ZarinpalCallbackView) — never by the client.
+        read_only_fields = [
+            'id', 'total', 'status', 'created_at',
+            'payment_status', 'ref_num',
+        ]
 
     @transaction.atomic
     def create(self, validated_data):
@@ -88,4 +108,5 @@ class OrderSerializer(serializers.ModelSerializer):
             # موجودی انبار را متناسب با تعداد خریداری‌شده کم کن (و منفی نشود)
             Book.objects.filter(id=book.id).update(stock=F('stock') - item['qty'])
             Book.objects.filter(id=book.id, stock__lt=0).update(stock=0)
+
         return order

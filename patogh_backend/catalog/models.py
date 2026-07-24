@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.text import slugify
 
@@ -32,7 +33,9 @@ class Book(models.Model):
     title = models.CharField('عنوان', max_length=300)
     author = models.ForeignKey(Author, verbose_name='نویسنده', related_name='books', on_delete=models.CASCADE)
     price = models.PositiveIntegerField('قیمت (تومان)', default=0)
-    discount = models.PositiveSmallIntegerField('تخفیف (٪)', default=0)
+    discount = models.PositiveSmallIntegerField(
+        'تخفیف (٪)', default=0, validators=[MaxValueValidator(100)],
+    )
     category = models.CharField('دسته‌بندی', max_length=120, default='عمومی')
     category2 = models.BooleanField('کتاب دسته ۲', default=False)
     workshop = models.BooleanField('محصول کارگاه', default=False)
