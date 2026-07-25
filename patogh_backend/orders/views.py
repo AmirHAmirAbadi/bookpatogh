@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
+from catalog.models import Book
 from .models import GatewaySettings, Order
 from .zarinpal_gateway import START_PAY_URL, ZarinpalError, request_payment, verify_payment
 from .serializers import GatewaySettingsSerializer, OrderSerializer
@@ -30,6 +32,32 @@ class OrderViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     throttle_scope = None  # فقط اکشن start_payment زیر آن را (به 'payment') override می‌کند
 
+    def get_queryset(self):
+        qs = Order.objects.prefetch_related('items').all()
+        # لیست اصلیِ «سفارش‌ها» در پنل ادمین فقط سفارش‌های واقعاً پرداخت‌شده
+        # را نشان می‌دهد. سفارش‌هایی که پرداختشان ناموفق مانده یا کاربر اصلاً
+        # به درگاه وصل نشده، اینجا دیده نمی‌شوند — آن‌ها در سربرگ جداگانه‌ی
+        # «رد شده‌ها» (اکشن rejected زیر) نشان داده می‌شوند.
+        if self.action == 'list':
+            return qs.filter(payment_status='paid')
+        if self.action == 'rejected':
+            return qs.exclude(payment_status='paid')
+        # retrieve / start_payment / partial_update / destroy: باید بتوانند
+        # سفارش را با هر وضعیتی پیدا کنند (مثلاً یک سفارش pending برای تلاش
+        # دوباره‌ی پرداخت).
+        return qs
+
+    @action(detail=False, methods=['get'])
+    def rejected(self, request):
+        """سربرگ «رد شده‌ها»: سفارش‌هایی که پرداختشان ناموفق بوده یا هرگز
+        تکمیل نشده (کاربر به درگاه وصل نشد یا وسط راه رهایش کرد)."""
+        qs = self.get_queryset().order_by('-created_at')
+        page = self.paginate_queryset(qs)
+        serializer = self.get_serializer(page if page is not None else qs, many=True)
+        if page is not None:
+            return self.get_paginated_response(serializer.data)
+        return Response(serializer.data)
+
     @action(
         detail=True, methods=['post'], url_path='start-payment',
         permission_classes=[permissions.AllowAny],  # مشتری مهمان هم باید بتواند سفارش خودش را پرداخت کند
@@ -45,6 +73,8 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         gw = GatewaySettings.load()
         if not gw.is_configured:
+            order.payment_status = 'failed'
+            order.save(update_fields=['payment_status'])
             return Response(
                 {'detail': 'درگاه پرداخت هنوز از پنل مدیریت (بخش «اتصال») متصل نشده است.'},
                 status=400,
@@ -64,6 +94,8 @@ class OrderViewSet(viewsets.ModelViewSet):
                 callback_url=callback_url,
             )
         except ZarinpalError as exc:
+            order.payment_status = 'failed'
+            order.save(update_fields=['payment_status'])
             return Response({'detail': str(exc)}, status=502)
 
         order.authority = authority
@@ -151,6 +183,14 @@ class ZarinpalCallbackView(APIView):
             if verify_result.get('ref_id') is not None:
                 order.ref_num = str(verify_result['ref_id'])
             order.save(update_fields=['payment_status', 'ref_num'])
+
+            if order.payment_status == 'paid':
+                # فقط همین‌جا، بعد از تاییدِ واقعیِ زرین‌پال، موجودی کتاب‌ها
+                # کم می‌شود — نه هنگام ثبت اولیه‌ی سفارش.
+                for item in order.items.all():
+                    if item.book_id:
+                        Book.objects.filter(id=item.book_id).update(stock=F('stock') - item.qty)
+                        Book.objects.filter(id=item.book_id, stock__lt=0).update(stock=0)
 
         result_status = 'success' if order.payment_status == 'paid' else 'failed'
         return HttpResponseRedirect(f'/app/#/payment-result?order={order.id}&status={result_status}')

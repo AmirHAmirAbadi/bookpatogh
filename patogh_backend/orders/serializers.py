@@ -105,8 +105,10 @@ class OrderSerializer(serializers.ModelSerializer):
             item.pop('book_id', None)
             book = item.pop('_book')
             OrderItem.objects.create(order=order, book=book, **item)
-            # موجودی انبار را متناسب با تعداد خریداری‌شده کم کن (و منفی نشود)
-            Book.objects.filter(id=book.id).update(stock=F('stock') - item['qty'])
-            Book.objects.filter(id=book.id, stock__lt=0).update(stock=0)
+            # توجه: موجودی انبار اینجا کم نمی‌شود. تا وقتی پرداخت واقعاً توسط
+            # زرین‌پال تایید نشده (نگاه کن به orders.views.ZarinpalCallbackView)
+            # این فقط یک سفارشِ «در انتظار پرداخت» است، نه یک خرید قطعی؛ اگر
+            # همین‌جا موجودی کم می‌شد، سفارش‌های ناموفق/رهاشده برای همیشه
+            # موجودی کتاب را کم نگه می‌داشتند.
 
         return order

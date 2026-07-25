@@ -25,18 +25,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Markazi+Text:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#163320;
-  --paper:#f4faf6;
-  --paper-dim:#e7f5ec;
-  --leather:#1f8a4c;
-  --leather-dark:#13653a;
-  --gold:#34a85f;
-  --gold-light:#7fd19c;
-  --cream:#ffffff;
-  --line:#d8ecdf;
-  --amber:#d79a2c;
-  --amber-dark:#a8721a;
-  --amber-light:#f3c876;
+  --ink:#3a2a1c;
+  --paper:#faf5ec;
+  --paper-dim:#f1e4cf;
+  --leather:#7a3e1d;
+  --leather-dark:#4f2712;
+  --gold:#c08a2e;
+  --gold-light:#e3c07a;
+  --cream:#fffdf8;
+  --line:#e6d6bc;
+  --amber:#c9962c;
+  --amber-dark:#96701f;
+  --amber-light:#edcf8f;
+  --success:#2e7d32;
 }
 *{box-sizing:border-box;}
 body{margin:0;font-family:'Vazirmatn',sans-serif;background:var(--paper);color:var(--ink);}
@@ -1508,14 +1509,9 @@ async function renderCheckoutSuccess(app, total, customer){
       const book = DATA.books.find(b=>b.id===item.id);
       return book && book.workshop;
   });
-  // موجودی کتاب‌های خریداری‌شده را همین‌جا (بدون نیاز به رفرش صفحه) کم کن
-  // تا اگر موجودی تمام شده باشد، بلافاصله «ناموجود» نمایش داده شود.
-  CART.forEach(item=>{
-      const book = DATA.books.find(b=>b.id===item.id);
-      if(book && book.stock !== undefined){
-        book.stock = Math.max(0, book.stock - item.qty);
-      }
-  });
+  // توجه: موجودی کتاب‌ها اینجا کم نمی‌شود. تا وقتی پرداخت واقعاً توسط
+  // زرین‌پال تایید نشود این فقط یک تلاش برای خرید است، نه یک خرید قطعی؛
+  // موجودی واقعی فقط روی سرور و بعد از تایید پرداخت کم می‌شود.
   CART = [];
   updateCartBadge();
   app.innerHTML = `
@@ -1529,15 +1525,15 @@ async function renderCheckoutSuccess(app, total, customer){
   </section>`;
   const ok = await goToZarinpalPayment(orderNo);
   if(ok) return; // مرورگر همین الان در حال رفتن به صفحه‌ی زرین‌پال است
-  // اگر اتصال به درگاه با خطا مواجه شد (مثلاً هنوز از «اتصال» تنظیم نشده)،
-  // سفارش قبلاً ثبت شده؛ فقط راه دوباره‌تلاش‌کردن را نشان بده.
+  // اتصال به درگاه پرداخت برقرار نشد؛ خرید انجام نشده و به‌عنوان یک خرید
+  // نهایی ثبت نمی‌شود (فقط در بخش «رد شده‌ها»ی پنل مدیریت قابل مشاهده است).
   app.innerHTML = `
   <section class="wrap">
     <div class="success-box">
-      <div class="ic">✓</div>
-      <h2 style="color:var(--leather-dark);">سفارش شما ثبت شد</h2>
-      <p style="color:#4a3a2a;">سفارش شما به مبلغ ${fmt(total)} تومان ثبت شد، اما اتصال به درگاه پرداخت با خطا مواجه شد.</p>
-      <p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${orderNo}</p>
+      <div class="ic" style="background:#fbe9e9;color:#a33;">✕</div>
+      <h2 style="color:#a33;">خرید انجام نشد</h2>
+      <p style="color:#4a3a2a;">اتصال به درگاه پرداخت برقرار نشد، به همین دلیل خرید شما تکمیل نشد و ثبت نهایی نگردید. موجودی کتاب‌ها هم دست‌نخورده باقی مانده است.</p>
+      <p style="color:#8a7558;font-size:14px;">شماره پیگیری تلاش برای خرید: ${orderNo}</p>
       <button class="btn btn-gold" id="retryPayBtn" style="background:var(--leather);color:#fff;margin-top:14px;">تلاش دوباره برای پرداخت</button><br>
       <a href="#/shop" class="btn btn-gold" style="background:var(--paper-dim);color:var(--ink);margin-top:10px;">بازگشت به فروشگاه</a>
     </div>
@@ -1553,7 +1549,7 @@ function renderPaymentResult(app, hash){
     app.innerHTML = `
     <section class="wrap">
       <div class="success-box">
-        <div class="ic">✓</div>
+        <div class="ic" style="background:#e8f4ea;color:var(--success);">✓</div>
         <h2 style="color:var(--leather-dark);">پرداخت با موفقیت انجام شد</h2>
         ${orderNo?`<p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${esc(orderNo)}</p>`:''}
         <a href="#/shop" class="btn btn-gold" style="background:var(--leather);color:#fff;margin-top:18px;">بازگشت به فروشگاه</a>
@@ -1567,7 +1563,7 @@ function renderPaymentResult(app, hash){
       <div class="success-box">
         <div class="ic" style="background:#fbe9e9;color:#a33;">✕</div>
         <h2 style="color:#a33;">پرداخت انجام نشد</h2>
-        <p style="color:#4a3a2a;">پرداخت شما تکمیل نشد یا لغو شد. سفارش شما ثبت شده و می‌توانید دوباره تلاش کنید.</p>
+        <p style="color:#4a3a2a;">پرداخت شما تکمیل نشد یا لغو شد. خرید شما ثبت نهایی نشده و موجودی کتاب‌ها کم نشده است؛ می‌توانید دوباره تلاش کنید.</p>
         ${orderNo?`<p style="color:#8a7558;font-size:14px;">شماره پیگیری سفارش: ${esc(orderNo)}</p>`:''}
         ${orderNo?`<button class="btn btn-gold" id="retryPayBtn" style="background:var(--leather);color:#fff;margin-top:14px;">تلاش دوباره برای پرداخت</button><br>`:''}
         <a href="#/shop" class="btn btn-gold" style="background:var(--paper-dim);color:var(--ink);margin-top:10px;">بازگشت به فروشگاه</a>
@@ -1626,6 +1622,7 @@ function renderAdmin(hash){
   <div class="admin-shell">
     <div class="admin-side">
       <a href="#/admin/orders" class="${sub==='orders'?'active':''}">📦 سفارش‌ها</a>
+      <a href="#/admin/rejected" class="${sub==='rejected'?'active':''}">🚫 رد شده‌ها</a>
       <a href="#/admin/connection" class="${sub==='connection'?'active':''}">🔗 اتصال</a>
       <a href="#/admin/requests" class="${sub==='requests'?'active':''}">✎ درخواست‌ها</a>
       <a href="#/admin/books" class="${sub==='books'?'active':''}">📚 کتاب‌ها</a>
@@ -1642,6 +1639,7 @@ function renderAdmin(hash){
   </div>`;
   const main = document.getElementById('adminMain');
   if(sub==='orders') return subId ? renderAdminOrderDetail(main, subId) : renderAdminOrders(main);
+  if(sub==='rejected') return subId ? renderAdminOrderDetail(main, subId, '/admin/rejected', 'رد شده‌ها') : renderAdminRejectedOrders(main);
   if(sub==='connection') return renderAdminConnection(main);
   if(sub==='requests') return subId ? renderAdminRequestDetail(main, subId) : renderAdminRequests(main);
   if(sub==='books') return renderAdminBooks(main);
@@ -1814,13 +1812,63 @@ async function renderAdminOrders(main){
   });
 }
 
-async function renderAdminOrderDetail(main, orderId){
+async function renderAdminRejectedOrders(main){
+  main.innerHTML = `
+  <div class="topbar"><h2 style="margin:0;color:var(--leather);">رد شده‌ها</h2>
+    <button class="logout-btn" id="logoutBtn">خروج</button></div>
+  <p style="color:#8a7558;font-size:13.5px;margin-top:-6px;">سفارش‌هایی که پرداختشان ناموفق بوده یا کاربر اصلاً به درگاه وصل نشده. این‌ها خرید نهایی محسوب نمی‌شوند و موجودی کتاب‌ها برایشان کم نشده است.</p>
+  <div id="rejectedBox"><p style="color:#8a7558;">در حال بارگذاری...</p></div>`;
+  document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/rejected'); };
+  const box = document.getElementById('rejectedBox');
+  let orders;
+  try{
+    const res = await apiFetch('/orders/rejected/');
+    orders = Array.isArray(res) ? res : (res.results || []);
+  }catch(e){
+    box.innerHTML = '<p style="color:#a33;">خطا در دریافت سفارش‌های رد شده از سرور.</p>';
+    return;
+  }
+  if(orders.length===0){ box.innerHTML = '<div class="empty">هیچ خرید رد شده‌ای وجود ندارد.</div>'; return; }
+  const statusLabel = ps => ps==='failed' ? 'پرداخت ناموفق' : (ps==='pending' ? 'به درگاه وصل نشد / رها شده' : (ps||'—'));
+  box.innerHTML = `<table>
+    <thead><tr><th>شماره سفارش</th><th>تاریخ و ساعت</th><th>مشتری</th><th>تلفن</th><th>مبلغ</th><th>وضعیت</th><th></th><th></th></tr></thead>
+    <tbody>
+      ${orders.map(o=>`<tr>
+        <td>${esc(o.id)}</td>
+        <td>${o.created_at ? new Date(o.created_at).toLocaleString('fa-IR') : '—'}</td>
+        <td>${esc(o.customer_name)}</td><td>${esc(o.phone)}</td>
+        <td>${fmt(o.total)} تومان</td>
+        <td style="color:#a33;">${esc(statusLabel(o.payment_status))}</td>
+        <td><a href="#/admin/rejected/${encodeURIComponent(o.id)}" class="btn btn-gold" style="font-size:12px;padding:6px 10px;">📚 مشاهده کتاب‌ها</a></td>
+        <td class="row-actions"><button class="del-btn" data-del="${o.id}">حذف</button></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+  box.querySelectorAll('[data-del]').forEach(btn=>{
+      btn.onclick = ()=>{
+        const id = btn.dataset.del;
+        openConfirmModal('آیا از حذف این رکورد مطمئن هستید؟ این عملیات قابل بازگشت نیست.', async ()=>{
+            try{
+              await deleteOrderRemote(id);
+              showToast('رکورد حذف شد');
+              renderAdminRejectedOrders(main);
+            }catch(e){
+              showToast('خطا در حذف رکورد');
+            }
+        });
+      };
+  });
+}
+
+async function renderAdminOrderDetail(main, orderId, backHash, backLabel){
+  backHash = backHash || '/admin/orders';
+  backLabel = backLabel || 'سفارش‌ها';
   main.innerHTML = `
   <div class="topbar"><h2 style="margin:0;color:var(--leather);">کتاب‌های سفارش ${esc(orderId)}</h2>
     <button class="logout-btn" id="logoutBtn">خروج</button></div>
-  <p><a href="#/admin/orders" class="btn btn-gold" style="font-size:13px;">→ بازگشت به لیست سفارش‌ها</a></p>
+  <p><a href="#${backHash}" class="btn btn-gold" style="font-size:13px;">→ بازگشت به لیست ${esc(backLabel)}</a></p>
   <div id="orderDetailBox"><p style="color:#8a7558;">در حال بارگذاری...</p></div>`;
-  document.getElementById('logoutBtn').onclick = ()=>{ adminLogout('/admin/orders/'+orderId); };
+  document.getElementById('logoutBtn').onclick = ()=>{ adminLogout(backHash+'/'+orderId); };
   const box = document.getElementById('orderDetailBox');
   let order;
   try{
@@ -1830,11 +1878,14 @@ async function renderAdminOrderDetail(main, orderId){
     if(!order){ box.innerHTML = '<p style="color:#a33;">خطا در دریافت اطلاعات سفارش.</p>'; return; }
   }
   const items = order.items || [];
+  const payLabel = order.payment_status==='paid' ? 'پرداخت‌شده ✓' : (order.payment_status==='failed' ? 'پرداخت ناموفق ✕' : 'در انتظار پرداخت');
+  const payColor = order.payment_status==='paid' ? '#2e7d32' : (order.payment_status==='failed' ? '#a33' : '#8a7558');
   box.innerHTML = `
   <div class="admin-form" style="margin-bottom:20px;">
     <p style="margin:4px 0;"><b>مشتری:</b> ${esc(order.customer_name)} — <b>تلفن:</b> ${esc(order.phone)}</p>
     <p style="margin:4px 0;"><b>آدرس:</b> ${esc(order.address||'—')} — <b>کد پستی:</b> ${esc(order.postal_code||'—')}</p>
     <p style="margin:4px 0;"><b>وضعیت:</b> ${esc(order.status)} — <b>مبلغ کل:</b> ${fmt(order.total)} تومان</p>
+    <p style="margin:4px 0;"><b>وضعیت پرداخت:</b> <span style="color:${payColor};font-weight:700;">${esc(payLabel)}</span>${order.ref_num?` — <b>کد پیگیری بانک:</b> ${esc(order.ref_num)}`:''}</p>
   </div>
   ${items.length===0 ? '<div class="empty">کتابی برای این سفارش ثبت نشده است.</div>' : `
   <table>
